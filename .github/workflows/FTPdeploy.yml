@@ -1,0 +1,23 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: 82.25.107.25
+        username: u550740391.nguage.in
+        password: Git@ftp-bcon123
+        port: 21
+        server-dir: /public_html/
+        local-dir: ./build/
+        local-dir: ./build/
