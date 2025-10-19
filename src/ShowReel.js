@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './ShowReel.css';
 
 function ShowReel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [player, setPlayer] = useState(null);
+  const iframeRef = useRef(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -12,7 +14,36 @@ function ShowReel() {
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = 'unset';
+    if (player) {
+      player.pause();
+    }
   };
+
+  useEffect(() => {
+    if (isModalOpen && window.Vimeo) {
+      const vimeoPlayer = new window.Vimeo.Player(iframeRef.current);
+      setPlayer(vimeoPlayer);
+
+      // Auto-close when video ends
+      vimeoPlayer.on('ended', () => {
+        closeModal();
+      });
+
+      return () => {
+        vimeoPlayer.off('ended');
+      };
+    }
+  }, [isModalOpen]);
+
+  // Load Vimeo Player API
+  useEffect(() => {
+    if (!window.Vimeo) {
+      const script = document.createElement('script');
+      script.src = 'https://player.vimeo.com/api/player.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   return (
     <>
@@ -54,7 +85,8 @@ function ShowReel() {
             </button>
             <div className="video-container">
               <iframe
-                src="https://player.vimeo.com/video/1128657641?autoplay=1&title=0&byline=0&portrait=0"
+                ref={iframeRef}
+                src="https://player.vimeo.com/video/1128657641?autoplay=1&title=0&byline=0&portrait=0&controls=0"
                 width="100%"
                 height="100%"
                 frameBorder="0"

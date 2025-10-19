@@ -18,7 +18,7 @@ function RotatingText({ words, interval = 3000 }) {
 
   return (
     <span 
-      className="highlight rotating-text" 
+      className="rotating-text-word" 
       style={{
         filter: isBlurred ? 'blur(10px)' : 'blur(0px)',
         opacity: isBlurred ? 0 : 1,
@@ -28,7 +28,9 @@ function RotatingText({ words, interval = 3000 }) {
         fontSize: 'inherit',
         lineHeight: 'inherit',
         fontWeight: '700',
-        textTransform: 'capitalize'
+        textTransform: 'lowercase',
+        letterSpacing: '3px',
+        color: '#00ff00'
       }}
     >
       {words[currentIndex]}
