@@ -24,7 +24,11 @@ function RotatingText({ words, interval = 3000 }) {
         opacity: isBlurred ? 0 : 1,
         transition: 'filter 0.5s ease-in-out, opacity 0.5s ease-in-out',
         display: 'inline-block',
-        minWidth: '250px'
+        minWidth: '300px',
+        fontSize: 'inherit',
+        lineHeight: 'inherit',
+        fontWeight: '700',
+        textTransform: 'capitalize'
       }}
     >
       {words[currentIndex]}
