@@ -5,6 +5,7 @@ import Loader from './Loader';
 import ScrollReveal from './ScrollReveal';
 import ServicesGrid from './ServicesGrid';
 import ShowReel from './ShowReel';
+import GradualBlur from './GradualBlur';
 
 function App() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];
@@ -28,7 +29,7 @@ function App() {
           />
         </div>
         <div className="content">
-        <p className="tagline">HUMAN <span style={{color: '#00ff00'}}>X</span> AI</p>
+          <p className="tagline">HUMAN <span style={{color: '#00ff00'}}>X</span> AI</p>
           <h1>
             Marketing <RotatingText words={rotatingWords} interval={2000} />
           </h1>
@@ -70,6 +71,19 @@ function App() {
           <ServicesGrid />
         </div>
       </section>
+
+      {/* ==================== FIXED FOOTER BLUR ==================== */}
+      {/* ✅ NEW: Added page-level blur that stays fixed at bottom while scrolling */}
+      <GradualBlur 
+        target="page"
+        position="bottom"
+        height="8rem"
+        strength={3}
+        divCount={8}
+        curve="bezier"
+        exponential={true}
+        opacity={1}
+      />
     </>
   );
 }
