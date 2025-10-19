@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Anybody', sans-serif;
+  background: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.content {
+  text-align: center;
+  color: white;
+  max-width: 1000px;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  letter-spacing: 16px;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.content h1 {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: #00ff00;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 1.2rem;
+  margin: 0 auto 1rem auto;
+  opacity: 0.9;
+  letter-spacing: 0.2em;
+  line-height: 1.8;
+  font-weight: 200;
+  padding: 0 15px;
+  max-width: 650px;
+  
+}
+
+.cta-button {
+  margin-top: 2rem;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  background: #00ff00;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Anybody', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .container {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 150px;
+  }
+
+  .content {
+    padding: 30px 15px;
+  }
+  
+  .tagline {
+    font-size: 0.7rem;
+    letter-spacing: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .content h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+
+  .cta-button {
+    padding: 12px 30px;
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .tagline {
+    font-size: 1rem;
+    letter-spacing: 10px;
+    
+  }
+  
+  .content h1 {
+    font-size: 4rem;
+    
+  }
+  
+  .description {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+
+  .cta-button {
+    margin-top: 2rem;
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    background: #00ff00;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: 'Anybody', sans-serif;
+    letter-spacing: 2px;
+    transition: all 1s ease;
+    animation: fadeInBounce 3s ease-out 2s backwards;
+  }
+  
+  @keyframes fadeInBounce {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+}
+
+
+/* ==================== SECTION 2 ==================== */
+.section-two {
+  min-height: 70vh;
+  background: #00000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 40px;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* Mobile responsive for section 2 */
+@media (max-width: 768px) {
+  .section-two {
+    min-height: 40vh;
+    background: #00000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 40px;
+  }
+
+  .section-container {
+    padding: 10px;
+  }
+}
+/* ==================== SECTION 3 ==================== */
+.section-three {
+  min-height: 100vh;
+  background: #00000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 10px;
+}
+
+.section-heading {
+  font-family: 'Anybody', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 60px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+  .section-heading {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+}

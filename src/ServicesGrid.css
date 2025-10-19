@@ -1,0 +1,91 @@
+.services-grid {
+    display: flex;
+    gap: 30px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;  /* ADD THIS LINE */
+  }
+  
+  .services-grid:active {
+    cursor: grabbing;
+    scroll-behavior: auto;  /* ADD THIS LINE - makes drag feel natural */
+  }
+  
+  .services-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .service-card-visual {
+    min-width: 320px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .service-card-visual:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .service-title {
+    font-family: 'Anybody', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  
+  .service-card-image {
+    width: 100%;
+    height: 220px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 30px 15px;
+      overflow: visible;
+    }
+  
+    .service-card-visual {
+      min-width: auto;
+      padding: 18px;
+    }
+  
+    .service-card-visual:nth-child(even) {
+      margin-top: 30px;
+      margin-bottom: -30px;
+    }
+  
+    .service-card-image {
+      height: 120px;
+    }
+  
+    .service-title {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+  }
