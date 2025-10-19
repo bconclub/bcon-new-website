@@ -4,6 +4,7 @@ import RotatingText from './RotatingText';
 import Loader from './Loader';
 import ScrollReveal from './ScrollReveal';
 import ServicesGrid from './ServicesGrid';
+import ShowReel from './ShowReel';
 
 function App() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];
@@ -42,6 +43,9 @@ function App() {
           </button>
         </div>
       </div>
+
+      {/* ==================== SHOWREEL SECTION ==================== */}
+      <ShowReel />
 
       {/* ==================== SECTION 2: SCROLL REVEAL ==================== */}
       <section className="section-two">
