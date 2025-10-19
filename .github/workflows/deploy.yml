@@ -19,3 +19,4 @@ jobs:
         password: Git@ftp-bcon123
         port: 21
         server-dir: /public_html/
+        local-dir: ./build/
