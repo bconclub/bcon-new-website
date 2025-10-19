@@ -11,13 +11,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    - name: Deploy via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+    - name: Sync files via FTP
+      uses: airvzxf/ftp-deployment-action@latest
       with:
         server: 82.25.107.25
         username: u550740391.nguage.in
-        password: Git@ftp-bcon123
-        port: 21
-        server-dir: /public_html/
-        local-dir: ./build/
-        dangerous-clean-slate: true
+        password: ${{ secrets.FTP_PASSWORD }}
+        local_dir: ./build/
+        remote_dir: /public_html/
+        delete: true
