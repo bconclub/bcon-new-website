@@ -16,7 +16,7 @@ jobs:
       with:
         server: 82.25.107.25
         username: u550740391.nguage.in
-        password: ${{ secrets.FTP_PASSWORD }}
+        password: Git@ftp-bcon123
         port: 21
         server-dir: /public_html/
         local-dir: ./build/
