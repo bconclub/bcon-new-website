@@ -1,11 +1,12 @@
 import './App.css';
-import LiquidEther from './LiquidEther';
-import RotatingText from './RotatingText';
-import Loader from './Loader';
-import ScrollReveal from './ScrollReveal';
-import ServicesGrid from './ServicesGrid';
-import ShowReel from './ShowReel';
-import GradualBlur from './GradualBlur';
+// ✅ UPDATED: All imports pointing to new folder structure
+import LiquidEther from './effects/LiquidEther/LiquidEther';
+import RotatingText from './sections/RotatingText/RotatingText';
+import Loader from './effects/Loader/Loader';
+import ScrollReveal from './sections/ScrollReveal/ScrollReveal';
+import ServicesGrid from './sections/ServicesGrid/ServicesGrid';
+import ShowReel from './sections/ShowReel/ShowReel';
+import GradualBlur from './effects/GradualBlur/GradualBlur';
 
 function App() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];

@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import showreelThumbnail from '../../assets/images/Showreel Thumbnail.png';
 import './ShowReel.css';
 
 function ShowReel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [player, setPlayer] = useState(null);
+  // ✅ NEW: State to track if video is ready to play
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const iframeRef = useRef(null);
 
   const openModal = () => {
@@ -14,6 +17,7 @@ function ShowReel() {
   const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = 'unset';
+    setVideoLoaded(false); // Reset video loaded state
     if (player) {
       player.pause();
     }
@@ -24,6 +28,11 @@ function ShowReel() {
       const vimeoPlayer = new window.Vimeo.Player(iframeRef.current);
       setPlayer(vimeoPlayer);
 
+      // ✅ NEW: Mark video as loaded when ready
+      vimeoPlayer.on('loaded', () => {
+        setVideoLoaded(true);
+      });
+
       // Auto-close when video ends
       vimeoPlayer.on('ended', () => {
         setIsModalOpen(false);
@@ -32,6 +41,7 @@ function ShowReel() {
 
       return () => {
         vimeoPlayer.off('ended');
+        vimeoPlayer.off('loaded');
       };
     }
   }, [isModalOpen]);
@@ -84,7 +94,22 @@ function ShowReel() {
                 <path d="M7 7L23 23M23 7L7 23" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </button>
-            <div className="video-container">
+            
+            {/* ✅ NEW: Thumbnail image that shows while video loads */}
+            {!videoLoaded && (
+              <div className="video-thumbnail">
+                <img 
+                src={showreelThumbnail} 
+                alt="Showreel Thumbnail" 
+                />
+                <div className="loading-spinner">
+                  <div className="spinner"></div>
+                </div>
+              </div>
+            )}
+            
+            {/* ✅ Video container - hidden until loaded */}
+            <div className="video-container" style={{ opacity: videoLoaded ? 1 : 0 }}>
               <iframe
                 ref={iframeRef}
                 src="https://player.vimeo.com/video/1128657641?autoplay=1&title=0&byline=0&portrait=0&controls=0"
