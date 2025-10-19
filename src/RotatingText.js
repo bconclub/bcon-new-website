@@ -28,9 +28,10 @@ function RotatingText({ words, interval = 3000 }) {
         fontSize: 'inherit',
         lineHeight: 'inherit',
         fontWeight: '700',
-        textTransform: 'lowercase',
+        textTransform: 'capitalise',
         letterSpacing: '3px',
         color: '#00ff00'
+        
       }}
     >
       {words[currentIndex]}

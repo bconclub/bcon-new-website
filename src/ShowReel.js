@@ -26,7 +26,8 @@ function ShowReel() {
 
       // Auto-close when video ends
       vimeoPlayer.on('ended', () => {
-        closeModal();
+        setIsModalOpen(false);
+        document.body.style.overflow = 'unset';
       });
 
       return () => {
