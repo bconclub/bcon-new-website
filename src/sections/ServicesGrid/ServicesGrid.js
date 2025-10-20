@@ -1,81 +1,100 @@
-import { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ServicesGrid.css';
 
-function ServicesGrid() {
-  const scrollRef = useRef(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
+gsap.registerPlugin(ScrollTrigger);
+
+const ServicesGrid = () => {
+  const gridRef = useRef(null);
+  const cardsRef = useRef([]);
 
   const services = [
     {
-      title: 'AI Marketing Strategy',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      id: 1,
+      title: 'AI Strategy Consulting',
+      description: 'Data-driven marketing strategies powered by AI insights'
     },
     {
+      id: 2,
       title: 'Performance Marketing',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      description: 'ROI-focused campaigns that drive measurable results'
     },
     {
+      id: 3,
       title: 'Brand Building',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      description: 'Create memorable brands that resonate with audiences'
     },
     {
+      id: 4,
       title: 'AI Content Creation',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      description: 'Scale your content production with AI-powered tools'
     },
     {
+      id: 5,
       title: 'Web & Next-Gen Apps',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      description: 'Modern web experiences and cutting-edge applications'
     },
     {
+      id: 6,
       title: 'Analytics & Intelligence',
-      gradient: 'linear-gradient(135deg, #000000 0%, #00ff00 100%)'
+      description: 'Turn data into actionable business insights'
     }
   ];
 
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    startX.current = e.pageX - scrollRef.current.offsetLeft;
-    scrollLeft.current = scrollRef.current.scrollLeft;
-  };
+  useEffect(() => {
+    // ✅ Set initial state: cards invisible and positioned above
+    gsap.set(cardsRef.current, {
+      opacity: 0,
+      y: -50,
+      scale: 0.9,
+      rotation: -2
+    });
 
-  const handleMouseMove = (e) => {
-    if (!isDragging.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    scrollRef.current.scrollLeft = scrollLeft.current - walk;
-  };
+    // ✅ Create scroll-triggered animation
+    cardsRef.current.forEach((card, index) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.7,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 50%', // Animation starts when section is 80% down the viewport
+          toggleActions: 'play none none none', // Only play once
+        },
+        delay: index * 0.1 // Stagger: each card delays by 0.1s
+      });
+    });
 
-  const handleMouseUp = () => {
-    isDragging.current = false;
-  };
-
-  const handleMouseLeave = () => {
-    isDragging.current = false;
-  };
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   return (
-    <div 
-      className="services-grid"
-      ref={scrollRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-    >
-      {services.map((service, index) => (
-        <div key={index} className="service-card-visual">
-          <h3 className="service-title">{service.title}</h3>
+    <div className="services-grid-container" ref={gridRef}>
+      <div className="services-grid">
+        {services.map((service, index) => (
           <div 
-            className="service-card-image" 
-            style={{ background: service.gradient }}
-          ></div>
-        </div>
-      ))}
+            key={service.id} 
+            className="service-card"
+            ref={(el) => (cardsRef.current[index] = el)}
+          >
+            <div className="service-content">
+              <h3 className="service-title">{service.title}</h3>
+              <div className="service-image">
+                {/* Placeholder gradient - replace with actual images */}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default ServicesGrid;

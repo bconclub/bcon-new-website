@@ -1,91 +1,133 @@
+.services-grid-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========== DESKTOP: 3 COLUMNS WITH STAGGERED LAYOUT ========== */
 .services-grid {
-    display: flex;
-    gap: 30px;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 40px 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    cursor: grab;
-    user-select: none;
-    scroll-behavior: smooth;  /* ADD THIS LINE */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 24px;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  transition: all 0.4s ease;
+  position: relative;
+  /* ✅ Animation is now handled by GSAP ScrollTrigger in JS */
+}
+
+/* ✅ STAGGERED EFFECT: Middle column (2nd, 5th) pushed DOWN */
+.service-card:nth-child(2),
+.service-card:nth-child(5) {
+  margin-top: 30px;
+  margin-bottom: -30px;
+}
+
+.service-card:hover {
+  border-color: #00ff00;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+}
+
+.service-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.service-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #000000 0%, #00ff00 100%);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ========== TABLET: 2 COLUMNS ========== */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
-  
-  .services-grid:active {
-    cursor: grabbing;
-    scroll-behavior: auto;  /* ADD THIS LINE - makes drag feel natural */
+
+  /* Reset desktop stagger, apply tablet stagger */
+  .service-card:nth-child(2),
+  .service-card:nth-child(5) {
+    margin-top: 0;
   }
-  
-  .services-grid::-webkit-scrollbar {
-    display: none;
+
+  /* Right column offset down on tablet */
+  .service-card:nth-child(even) {
+    margin-top: 30px;
+    margin-bottom: -30px;
   }
-  
-  .service-card-visual {
-    min-width: 320px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 25px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .service-card-visual:hover {
-    transform: translateY(-5px);
-    border-color: rgba(0, 255, 0, 0.4);
-    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.15);
-    background: rgba(255, 255, 255, 0.08);
-  }
-  
+
   .service-title {
-    font-family: 'Anybody', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 20px;
-    line-height: 1.3;
+    font-size: 1.2rem;
   }
-  
-  .service-card-image {
-    width: 100%;
-    height: 220px;
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
+}
+
+/* ========== MOBILE: 2 COLUMNS (KEEP EXACTLY AS IS) ========== */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
-  
-  @media (max-width: 768px) {
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      padding: 30px 15px;
-      overflow: visible;
-    }
-  
-    .service-card-visual {
-      min-width: auto;
-      padding: 18px;
-    }
-  
-    .service-card-visual:nth-child(even) {
-      margin-top: 30px;
-      margin-bottom: -30px;
-    }
-  
-    .service-card-image {
-      height: 120px;
-    }
-  
-    .service-title {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-    }
+
+  .service-card {
+    padding: 20px;
   }
+
+  /* ✅ MOBILE: Right column offset down (existing design) */
+  .service-card:nth-child(even) {
+    margin-top: 30px;
+    margin-bottom: -30px;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========== EXTRA SMALL MOBILE ========== */
+@media (max-width: 480px) {
+  .services-grid {
+    gap: 16px;
+  }
+
+  .service-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .service-card:nth-child(even) {
+    margin-top: 30px;
+    margin-bottom: -30px;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+  }
+
+  .service-image {
+    border-radius: 12px;
+  }
+}
