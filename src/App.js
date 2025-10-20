@@ -1,5 +1,5 @@
 import './App.css';
-// ✅ UPDATED: All imports pointing to new folder structure
+// ✅ Component imports - Updated paths
 import LiquidEther from './effects/LiquidEther/LiquidEther';
 import RotatingText from './sections/RotatingText/RotatingText';
 import Loader from './effects/Loader/Loader';
@@ -7,13 +7,41 @@ import ScrollReveal from './sections/ScrollReveal/ScrollReveal';
 import ServicesGrid from './sections/ServicesGrid/ServicesGrid';
 import ShowReel from './sections/ShowReel/ShowReel';
 import GradualBlur from './effects/GradualBlur/GradualBlur';
+import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu';
 
 function App() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];
+  
+  // ✅ Menu configuration
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '#home' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '#about' },
+    { label: 'Work', ariaLabel: 'View our work', link: '#work' },
+    { label: 'Hire Us', ariaLabel: 'Get in touch', link: 'https://wa.me/919353253817' }
+  ];
+
+  const socialItems = [
+    { label: 'Instagram', link: 'https://www.instagram.com/bconclub/' },
+    { label: 'LinkedIn', link: 'https://www.linkedin.com/company/bconclub' },
+    { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' }
+  ];
 
   return (
     <>
+      {/* ✅ StaggeredMenu Header - Fixed at top */}
+      <StaggeredMenu
+        position="right"
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials={true}
+        displayItemNumbering={false}
+        accentColor="#00ff00"
+      />
+
+      {/* ✅ Loader Animation */}
       <Loader />
+
+      {/* ✅ Hero Section */}
       <div className="container">
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
           <LiquidEther
@@ -74,7 +102,6 @@ function App() {
       </section>
 
       {/* ==================== FIXED FOOTER BLUR ==================== */}
-      {/* ✅ NEW: Added page-level blur that stays fixed at bottom while scrolling */}
       <GradualBlur 
         target="page"
         position="bottom"
