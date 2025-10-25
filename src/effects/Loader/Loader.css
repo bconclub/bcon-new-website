@@ -26,7 +26,7 @@
   }
   
   .loader-accent {
-    color: #00ff00;
+    color: #CCFF00;
     font-weight: 500;
   }
   
@@ -47,7 +47,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #00ff00;
+    background: #CCFF00;
     animation: loading 1s ease-in-out forwards;
     transform: translateX(-100%);
   }

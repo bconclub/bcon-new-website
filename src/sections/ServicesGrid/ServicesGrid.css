@@ -33,9 +33,9 @@
 }
 
 .service-card:hover {
-  border-color: #00ff00;
+  border-color: #CCFF00;
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 10px 30px #CCFF004d;
 }
 
 .service-content {
@@ -56,7 +56,7 @@
 .service-image {
   width: 100%;
   aspect-ratio: 1;
-  background: linear-gradient(135deg, #000000 0%, #00ff00 100%);
+  background: linear-gradient(135deg, #000000 0%, #CCFF00 100%);
   border-radius: 16px;
   overflow: hidden;
 }

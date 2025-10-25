@@ -45,7 +45,7 @@ function App() {
       <div className="container">
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
           <LiquidEther
-            colors={['#00ff00', '#00ff00', '#00ff00']}
+            colors={['#CCFF00', '#CCFF00', '#CCFF00']}
             mouseForce={20}
             cursorSize={100}
             resolution={0.3}
@@ -58,7 +58,7 @@ function App() {
           />
         </div>
         <div className="content">
-          <p className="tagline">HUMAN <span style={{color: '#00ff00'}}>X</span> AI</p>
+          <p className="tagline">HUMAN <span style={{color: '#CCFF00'}}>X</span> AI</p>
           <h1>
             Marketing <RotatingText words={rotatingWords} interval={2000} />
           </h1>

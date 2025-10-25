@@ -77,7 +77,7 @@ function ShowReel() {
               </svg>
               <div className="play-icon-center">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <path d="M15 10L28 20L15 30V10Z" fill="#00ff00"/>
+                  <path d="M15 10L28 20L15 30V10Z" fill="#CCFF00"/>
                 </svg>
               </div>
             </div>

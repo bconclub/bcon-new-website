@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "./static/css/main.fc5124b2.css",
-    "main.js": "./static/js/main.62360bc6.js",
+    "main.css": "./static/css/main.2b041832.css",
+    "main.js": "./static/js/main.34ae51e6.js",
     "static/js/453.2ca4b13f.chunk.js": "./static/js/453.2ca4b13f.chunk.js",
     "static/media/Showreel Thumbnail.png": "./static/media/Showreel Thumbnail.7f8ab1f0f54d6a5e9dfa.png",
     "static/media/BCON-Logo.webp": "./static/media/BCON-Logo.1edbd0db58c62f4cf43c.webp",
     "index.html": "./index.html",
-    "main.fc5124b2.css.map": "./static/css/main.fc5124b2.css.map",
-    "main.62360bc6.js.map": "./static/js/main.62360bc6.js.map",
+    "main.2b041832.css.map": "./static/css/main.2b041832.css.map",
+    "main.34ae51e6.js.map": "./static/js/main.34ae51e6.js.map",
     "453.2ca4b13f.chunk.js.map": "./static/js/453.2ca4b13f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc5124b2.css",
-    "static/js/main.62360bc6.js"
+    "static/css/main.2b041832.css",
+    "static/js/main.34ae51e6.js"
   ]
 }
