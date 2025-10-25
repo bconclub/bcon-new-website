@@ -35,7 +35,7 @@ function App() {
         socialItems={socialItems}
         displaySocials={true}
         displayItemNumbering={false}
-        accentColor="#00ff00"
+        accentColor="#CCFF00"
       />
 
       {/* ✅ Loader Animation */}

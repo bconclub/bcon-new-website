@@ -9,7 +9,7 @@ const StaggeredMenu = ({
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = false,
-  accentColor = '#00ff00',
+  accentColor = '#CCFF00',
   onMenuOpen,
   onMenuClose
 }) => {

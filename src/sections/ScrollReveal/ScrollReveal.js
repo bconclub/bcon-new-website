@@ -75,7 +75,7 @@ const ScrollReveal = ({
     // Green color wave effect
     gsap.fromTo(
       wordElements,
-      { color: '#00ff00' },
+      { color: '#CCFF00' },
       {
         ease: 'none',
         color: '#ffffff',
