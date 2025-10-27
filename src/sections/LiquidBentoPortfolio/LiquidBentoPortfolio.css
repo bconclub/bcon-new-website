@@ -1,9 +1,19 @@
 /* ==================== LIQUID BENTO PORTFOLIO ==================== */
 .liquid-bento-section {
-    min-height: 100vh;
+    min-height: 300vh;
     background: #00000000;
     padding: 80px 40px;
     position: relative;
+    overflow: hidden;
+  }
+  
+  /* Sticky container that holds the grid */
+  .bento-sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
   
@@ -29,12 +39,14 @@
     margin: 0;
   }
   
-  /* ✅ Masonry Grid - Pinterest style */
+  /* ✅ Masonry Grid - Pinterest style with flex-grow */
   .liquid-bento-grid {
     column-count: 4;
     column-gap: 20px;
     max-width: 1400px;
     margin: 0 auto;
+    flex: 1;
+    overflow-y: hidden;
   }
   
   .bento-item {
