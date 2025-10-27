@@ -5,6 +5,7 @@ import RotatingText from './sections/RotatingText/RotatingText';
 import Loader from './effects/Loader/Loader';
 import ScrollReveal from './sections/ScrollReveal/ScrollReveal';
 import ServicesGrid from './sections/ServicesGrid/ServicesGrid';
+import LiquidBentoPortfolio from './sections/LiquidBentoPortfolio/LiquidBentoPortfolio';
 import ShowReel from './sections/ShowReel/ShowReel';
 import GradualBlur from './effects/GradualBlur/GradualBlur';
 import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu';
@@ -101,6 +102,9 @@ function App() {
         </div>
       </section>
 
+      {/* ==================== SECTION 4: PORTFOLIO ==================== */}
+      <LiquidBentoPortfolio />
+
       {/* ==================== FIXED FOOTER BLUR ==================== */}
       <GradualBlur 
         target="page"
@@ -111,6 +115,7 @@ function App() {
         curve="bezier"
         exponential={true}
         opacity={1}
+        style={{ zIndex: 50 }} 
       />
     </>
   );
