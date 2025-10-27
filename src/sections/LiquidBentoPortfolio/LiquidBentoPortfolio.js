@@ -1,113 +1,56 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Sample portfolio data - Replace with your actual content
 const sampleItems = [
-  { id: 1, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'Brand Launch' },
-  { id: 2, type: 'video', src: '/portfolio/Global Pride Awards.mp4', ratio: '16:9', title: 'Event Launch' },
-  { id: 3, type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '4:5', title: 'Web Design' },
-  { id: 4, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', title: 'Product Ad' },
-  { id: 5, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
-  { id: 6, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', title: 'YouTube Content' },
-  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', title: 'Branding' },
-  { id: 8, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Reels' },
-  { id: 9, type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '4:5', title: 'Campaign' },
-  { id: 10, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', title: 'Social Media' },
-  { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Story Ad' },
-  { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Website' },
-  { id: 13, type: 'video', src: '/portfolio/WC Spend a Day.mp4', ratio: '16:9', title: 'Ad Campaign' },
-  { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Content' },
-  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', title: 'Brand Video' },
-  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', title: 'Story' }
+  { id: 1, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', align: 'center', title: 'Brand Launch' },
+  { id: 2, type: 'video', src: '/portfolio/Global Pride Awards.mp4', ratio: '16:9', align: 'top', title: 'Event Launch' },
+  { id: 3, type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '4:5', align: 'bottom', title: 'Web Design' },
+  { id: 4, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', align: 'center', title: 'Product Ad' },
+  { id: 5, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', align: 'top', title: 'Instagram Post' },
+  { id: 6, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', align: 'bottom', title: 'YouTube Content' },
+  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', align: 'top', title: 'Branding' },
+  { id: 8, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', align: 'center', title: 'Reels' },
+  { id: 9, type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '4:5', align: 'top', title: 'Campaign' },
+  { id: 10, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', align: 'bottom', title: 'Social Media' },
+  { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', align: 'center', title: 'Story Ad' },
+  { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', align: 'center', title: 'Website' },
+  { id: 13, type: 'video', src: '/portfolio/WC Spend a Day.mp4', ratio: '16:9', align: 'bottom', title: 'Ad Campaign' },
+  { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', align: 'top', title: 'Content' },
+  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', align: 'bottom', title: 'Brand Video' },
+  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', align: 'top', title: 'Story' }
 ];
 
 const LiquidBentoPortfolio = () => {
-  const containerRef = useRef(null);
-  const [portfolioItems, setPortfolioItems] = useState([]);
-  const itemsRef = useRef([]);
+  const sectionRef = useRef(null);
+  const stripRef = useRef(null);
+  const [portfolioItems] = useState([...sampleItems, ...sampleItems]);
 
   useEffect(() => {
-    setPortfolioItems(sampleItems);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!stripRef.current) return;
 
-  const shuffleItems = useCallback(() => {
-    const shuffled = [...portfolioItems];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    
-    gsap.to(itemsRef.current, {
-      opacity: 0,
-      scale: 0.9,
-      duration: 0.4,
-      stagger: 0.03,
-      onComplete: () => {
-        setPortfolioItems(shuffled);
-        gsap.fromTo(itemsRef.current,
-          { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 0.6, stagger: 0.03 }
-        );
+    const strip = stripRef.current;
+
+    gsap.to(strip, {
+      x: () => -(strip.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: () => `+=${strip.scrollWidth}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
       }
     });
-  }, [portfolioItems]);
-
-  useEffect(() => {
-    if (portfolioItems.length === 0) return;
-
-    itemsRef.current.forEach((item, index) => {
-      if (!item) return;
-
-      const directions = ['left', 'right', 'top', 'bottom'];
-      const direction = directions[Math.floor(Math.random() * directions.length)];
-      
-      let fromVars = { opacity: 0, scale: 0.8 };
-      
-      if (direction === 'left') fromVars.x = -100;
-      else if (direction === 'right') fromVars.x = 100;
-      else if (direction === 'top') fromVars.y = -100;
-      else if (direction === 'bottom') fromVars.y = 100;
-
-      gsap.fromTo(item, 
-        fromVars,
-        {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 90%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    });
-
-    let idleTimer;
-    const resetIdleTimer = () => {
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        shuffleItems();
-      }, 5000);
-    };
-
-    window.addEventListener('scroll', resetIdleTimer);
-    resetIdleTimer();
 
     return () => {
-      window.removeEventListener('scroll', resetIdleTimer);
-      clearTimeout(idleTimer);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [portfolioItems, shuffleItems]);
+  }, []);
 
   const getRatioClass = (ratio) => {
     if (ratio === '1:1') return 'ratio-square';
@@ -117,44 +60,48 @@ const LiquidBentoPortfolio = () => {
     return 'ratio-square';
   };
 
+  const getAlignClass = (align) => {
+    return `align-${align}`;
+  };
+
   return (
-    <section className="liquid-bento-section">
+    <section className="liquid-bento-section" ref={sectionRef}>
       <div className="bento-header">
         <h2 className="bento-heading">Our Work</h2>
         <p className="bento-subheading">Creative excellence across all platforms</p>
       </div>
 
-      <div className="liquid-bento-grid" ref={containerRef}>
-        {portfolioItems.map((item, index) => (
-          <div
-            key={item.id}
-            ref={(el) => (itemsRef.current[index] = el)}
-            className={`bento-item ${getRatioClass(item.ratio)}`}
-            onClick={() => window.open(`/project/${item.id}`, '_blank')}
-          >
-            <div className="bento-item-inner">
-              {item.type === 'video' ? (
-                <video
-                  src={item.src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="bento-media"
-                />
-              ) : (
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  className="bento-media"
-                />
-              )}
-              <div className="bento-overlay">
-                <h3 className="bento-title">{item.title}</h3>
+      <div className="bento-strip-wrapper">
+        <div className="bento-strip" ref={stripRef}>
+          {portfolioItems.map((item, index) => (
+            <div
+              key={`${item.id}-${index}`}
+              className={`bento-item ${getRatioClass(item.ratio)} ${getAlignClass(item.align)}`}
+            >
+              <div className="bento-item-inner">
+                {item.type === 'video' ? (
+                  <video
+                    src={item.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="bento-media"
+                  />
+                ) : (
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="bento-media"
+                  />
+                )}
+                <div className="bento-overlay">
+                  <h3 className="bento-title">{item.title}</h3>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
