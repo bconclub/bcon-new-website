@@ -94,6 +94,7 @@
 
   .service-card {
     padding: 20px;
+    flex: 1;
   }
 
   /* ✅ MOBILE: Right column offset down (existing design) */
@@ -116,11 +117,17 @@
   .service-card {
     padding: 16px;
     border-radius: 20px;
+    flex: 1;
   }
 
   .service-card:nth-child(even) {
     margin-top: 30px;
     margin-bottom: -30px;
+  }
+
+  .service-card:nth-child(odd) {
+    margin-top: 0px;
+    margin-bottom: 12px;
   }
 
   .service-title {

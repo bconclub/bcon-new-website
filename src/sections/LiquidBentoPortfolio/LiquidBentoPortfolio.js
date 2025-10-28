@@ -6,22 +6,22 @@ import './LiquidBentoPortfolio.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const sampleItems = [
-  { id: 1, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', align: 'center', title: 'Brand Launch' },
+  { id: 1, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', align: 'center', title: 'Event Ads' },
   { id: 2, type: 'video', src: '/portfolio/Global Pride Awards.mp4', ratio: '16:9', align: 'top', title: 'Event Launch' },
-  { id: 3, type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '4:5', align: 'bottom', title: 'Web Design' },
-  { id: 4, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', align: 'center', title: 'Product Ad' },
+  { id: 3, type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '4:5', align: 'bottom', title: 'Event Ads' },
+  { id: 4, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', align: 'center', title: 'Brand Video' },
   { id: 5, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', align: 'top', title: 'Instagram Post' },
   { id: 6, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', align: 'bottom', title: 'YouTube Content' },
-  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', align: 'top', title: 'Branding' },
-  { id: 8, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', align: 'center', title: 'Reels' },
-  { id: 9, type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '4:5', align: 'top', title: 'Campaign' },
+  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', align: 'top', title: 'Product Ads' },
+  { id: 8, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', align: 'center', title: 'Website Video' },
+  { id: 9, type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '4:5', align: 'top', title: 'Brand Launch' },
   { id: 10, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', align: 'bottom', title: 'Social Media' },
-  { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', align: 'center', title: 'Story Ad' },
-  { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', align: 'center', title: 'Website' },
-  { id: 13, type: 'video', src: '/portfolio/WC Spend a Day.mp4', ratio: '16:9', align: 'bottom', title: 'Ad Campaign' },
-  { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', align: 'top', title: 'Content' },
-  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', align: 'bottom', title: 'Brand Video' },
-  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', align: 'top', title: 'Story' }
+  { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', align: 'center', title: 'Brand Offer' },
+  { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', align: 'center', title: 'Social Reel' },
+  { id: 13, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', align: 'bottom', title: 'Brand Asset' },
+  { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', align: 'top', title: 'Launch Ads' },
+  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', align: 'bottom', title: 'Product Ads' },
+  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', align: 'top', title: 'Launch Ads' }
 ];
 
 const LiquidBentoPortfolio = () => {
@@ -39,8 +39,8 @@ const LiquidBentoPortfolio = () => {
       ease: 'none',
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top top',
-        end: () => `+=${strip.scrollWidth}`,
+        start: window.innerWidth > 768 ? 'top 5%' : 'top 20%',
+        end: () => `+=${strip.scrollWidth - window.innerWidth}`,
         scrub: 1,
         pin: true,
         anticipatePin: 1,

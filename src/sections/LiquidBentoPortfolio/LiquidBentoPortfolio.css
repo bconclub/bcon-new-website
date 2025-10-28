@@ -1,7 +1,7 @@
 /* ==================== LIQUID BENTO PORTFOLIO - FLOWING STRIP ==================== */
 .liquid-bento-section {
   min-height: 100vh;
-  background: #000000;
+  background: #00000000;
   padding: 60px 0;
   position: relative;
   overflow: hidden;
@@ -196,7 +196,7 @@
   }
 
   .bento-strip-wrapper {
-    height: 50vh;
+    height: 20vh;
     padding: 0 20px;
   }
 
@@ -240,7 +240,7 @@
 /* ========== SMALL MOBILE ========== */
 @media (max-width: 480px) {
   .bento-strip-wrapper {
-    height: 45vh;
+    height: 35vh;
   }
 
   .bento-strip {
