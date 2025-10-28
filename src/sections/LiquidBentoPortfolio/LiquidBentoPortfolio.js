@@ -18,7 +18,7 @@ const sampleItems = [
   { id: 10, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', align: 'bottom', title: 'Social Media' },
   { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', align: 'center', title: 'Brand Offer' },
   { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', align: 'center', title: 'Social Reel' },
-  { id: 13, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', align: 'bottom', title: 'Brand Asset' },
+  { id: 13, type: 'video', src: '/portfolio/Project K Final Timeline.mp4', ratio: '16:9', align: 'bottom', title: 'Brand Asset' },
   { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', align: 'top', title: 'Launch Ads' },
   { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', align: 'bottom', title: 'Product Ads' },
   { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', align: 'top', title: 'Launch Ads' }
