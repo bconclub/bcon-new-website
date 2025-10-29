@@ -220,7 +220,7 @@
   /* ========== MOBILE ========== */
   @media (max-width: 768px) {
     .contact-section {
-      padding: 80px 20px;
+      padding: 80px 30px;
     }
   
     .contact-container {

@@ -43,7 +43,6 @@ const ServicesGrid = () => {
   ];
 
   useEffect(() => {
-    // ✅ Set initial state: cards invisible and positioned above
     gsap.set(cardsRef.current, {
       opacity: 0,
       y: -50,
@@ -51,7 +50,6 @@ const ServicesGrid = () => {
       rotation: -2
     });
 
-    // ✅ Create scroll-triggered animation
     cardsRef.current.forEach((card, index) => {
       gsap.to(card, {
         opacity: 1,
@@ -62,16 +60,18 @@ const ServicesGrid = () => {
         ease: 'back.out(1.7)',
         scrollTrigger: {
           trigger: gridRef.current,
-          start: 'top 50%', // Animation starts when section is 80% down the viewport
-          toggleActions: 'play none none none', // Only play once
+          start: 'top 50%',
+          toggleActions: 'play none none none',
+          id: 'services'
         },
-        delay: index * 0.1 // Stagger: each card delays by 0.1s
+        delay: index * 0.1
       });
     });
 
-    // Cleanup
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars.id === 'services') trigger.kill();
+      });
     };
   }, []);
 
@@ -86,9 +86,7 @@ const ServicesGrid = () => {
           >
             <div className="service-content">
               <h3 className="service-title">{service.title}</h3>
-              <div className="service-image">
-                {/* Placeholder gradient - replace with actual images */}
-              </div>
+              <div className="service-image" />
             </div>
           </div>
         ))}

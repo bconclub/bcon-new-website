@@ -5,7 +5,6 @@
   padding: 0 20px;
 }
 
-/* ========== DESKTOP: 3 COLUMNS WITH STAGGERED LAYOUT ========== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -22,10 +21,8 @@
   -webkit-backdrop-filter: blur(50px);
   transition: all 0.4s ease;
   position: relative;
-  /* ✅ Animation is now handled by GSAP ScrollTrigger in JS */
 }
 
-/* ✅ STAGGERED EFFECT: Middle column (2nd, 5th) pushed DOWN */
 .service-card:nth-child(2),
 .service-card:nth-child(5) {
   margin-top: 30px;
@@ -61,20 +58,17 @@
   overflow: hidden;
 }
 
-/* ========== TABLET: 2 COLUMNS ========== */
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
-  /* Reset desktop stagger, apply tablet stagger */
   .service-card:nth-child(2),
   .service-card:nth-child(5) {
     margin-top: 0;
   }
 
-  /* Right column offset down on tablet */
   .service-card:nth-child(even) {
     margin-top: 30px;
     margin-bottom: -30px;
@@ -85,7 +79,6 @@
   }
 }
 
-/* ========== MOBILE: 2 COLUMNS (KEEP EXACTLY AS IS) ========== */
 @media (max-width: 768px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -97,7 +90,6 @@
     flex: 1;
   }
 
-  /* ✅ MOBILE: Right column offset down (existing design) */
   .service-card:nth-child(even) {
     margin-top: 30px;
     margin-bottom: -30px;
@@ -108,7 +100,6 @@
   }
 }
 
-/* ========== EXTRA SMALL MOBILE ========== */
 @media (max-width: 480px) {
   .services-grid {
     gap: 16px;
@@ -121,7 +112,7 @@
   }
 
   .service-card:nth-child(even) {
-    margin-top: 30px;
+    margin-top: 35px;
     margin-bottom: -30px;
   }
 

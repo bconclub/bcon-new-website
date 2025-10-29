@@ -141,7 +141,7 @@
 /* ========== MOBILE: 2 COLUMNS ========== */
 @media (max-width: 768px) {
   .liquid-bento-section {
-    padding: 60px 20px;
+    padding: 60px 30px;
   }
 
   .liquid-bento-grid {
