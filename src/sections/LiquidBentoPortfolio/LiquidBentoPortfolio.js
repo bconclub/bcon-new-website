@@ -24,31 +24,44 @@ const sampleItems = [
   { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', align: 'top', title: 'Launch Ads' }
 ];
 
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const LiquidBentoPortfolio = () => {
   const sectionRef = useRef(null);
   const stripRef = useRef(null);
-  const [portfolioItems] = useState([...sampleItems, ...sampleItems]);
+  const [portfolioItems] = useState(shuffleArray(sampleItems));
 
   useEffect(() => {
-    if (!stripRef.current) return;
-
+    if (!stripRef.current || !sectionRef.current) return;
+  
     const strip = stripRef.current;
-
-    gsap.to(strip, {
+    const section = sectionRef.current;
+  
+    const tween = gsap.to(strip, {
       x: () => -(strip.scrollWidth - window.innerWidth),
       ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: window.innerWidth > 768 ? 'top 5%' : 'top 20%',
-        end: () => `+=${strip.scrollWidth - window.innerWidth}`,
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-      }
     });
-
+  
+    const scrollTriggerInstance = ScrollTrigger.create({
+      trigger: section,
+      start: () => window.innerWidth > 768 ? 'top 10%' : 'top 15%',
+      end: () => `+=${strip.scrollWidth - window.innerWidth}`,
+      scrub: 1,
+      pin: true,
+      anticipatePin: 1,
+      animation: tween
+    });
+  
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      scrollTriggerInstance.kill(true);
+      tween.kill();
     };
   }, []);
 
