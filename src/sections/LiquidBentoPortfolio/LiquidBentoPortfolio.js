@@ -35,7 +35,26 @@ const shuffleArray = (array) => {
 
 const LiquidBentoPortfolio = () => {
   const [portfolioItems] = useState(shuffleArray(sampleItems));
+  const [visibleCount, setVisibleCount] = useState(16);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const itemsRef = useRef([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setVisibleCount(6);
+    } else {
+      setVisibleCount(portfolioItems.length);
+    }
+  }, [isMobile, portfolioItems.length]);
 
   useEffect(() => {
     itemsRef.current.forEach((item) => {
@@ -68,6 +87,26 @@ const LiquidBentoPortfolio = () => {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
+  }, [visibleCount]);
+
+  useEffect(() => {
+    const section = document.querySelector('.liquid-bento-section');
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+          section.style.minHeight = 'auto';
+        } else {
+          section.style.minHeight = '100vh';
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
   }, []);
 
   const getRatioClass = (ratio) => {
@@ -78,6 +117,13 @@ const LiquidBentoPortfolio = () => {
     return 'ratio-square';
   };
 
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 6, portfolioItems.length));
+  };
+
+  const visibleItems = isMobile ? portfolioItems.slice(0, visibleCount) : portfolioItems;
+  const hasMore = isMobile && visibleCount < portfolioItems.length;
+
   return (
     <section className="liquid-bento-section">
       <div className="bento-header">
@@ -86,7 +132,7 @@ const LiquidBentoPortfolio = () => {
       </div>
 
       <div className="liquid-bento-grid">
-        {portfolioItems.map((item, index) => (
+        {visibleItems.map((item, index) => (
           <div
             key={item.id}
             ref={(el) => (itemsRef.current[index] = el)}
@@ -118,6 +164,14 @@ const LiquidBentoPortfolio = () => {
           </div>
         ))}
       </div>
+
+      {hasMore && (
+        <button onClick={loadMore} className="load-more-button">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      )}
 
       <a href="/work" className="view-work-button">
         View All Work

@@ -213,3 +213,34 @@
   background: #ffffff;
 }
 
+.load-more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 40px auto 0;
+  color: #CCFF00;
+  background: rgba(204, 255, 0, 0.05);
+  border: 1px solid rgba(204, 255, 0, 0.3);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.load-more-button:hover {
+  background: rgba(204, 255, 0, 0.15);
+  border-color: #CCFF00;
+  transform: translateY(2px);
+}
+
+.load-more-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 769px) {
+  .load-more-button {
+    display: none;
+  }
+}
