@@ -9,6 +9,7 @@ import LiquidBentoPortfolio from './sections/LiquidBentoPortfolio/LiquidBentoPor
 import ShowReel from './sections/ShowReel/ShowReel';
 import GradualBlur from './effects/GradualBlur/GradualBlur';
 import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu';
+import ContactSection from './sections/ContactSection/ContactSection';
 
 function App() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];
@@ -104,6 +105,9 @@ function App() {
 
       {/* ==================== SECTION 4: PORTFOLIO ==================== */}
       <LiquidBentoPortfolio />
+
+      {/* ==================== SECTION 5: Contact ==================== */}
+      <ContactSection />
 
       {/* ==================== FIXED FOOTER BLUR ==================== */}
       <GradualBlur 
