@@ -189,12 +189,10 @@
     font-size: 1.8rem;
   }
 }
-
 .view-work-button {
   display: block;
-  width: max-content;
+  width: fit-content;
   margin: 60px auto 0;
-  
   font-family: 'Anybody', sans-serif;
   font-size: 1rem;
   font-weight: 600;
@@ -205,18 +203,13 @@
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 1px;
-  
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
 }
 
 .view-work-button:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(204, 255, 0, 0.5);
+  background: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .view-work-button {
-    padding: 14px 32px;
-    font-size: 0.9rem;
-  }
-}

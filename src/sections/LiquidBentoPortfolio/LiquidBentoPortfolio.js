@@ -20,9 +20,8 @@ const sampleItems = [
   { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
   { id: 13, type: 'video', src: '/portfolio/Project K Final Timeline.mp4', ratio: '16:9', title: 'Brand Asset' },
   { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Launch Ads' },
-  { id: 15, type: 'image', src: '/portfolio/Laptopstore Product Ad.jpg', ratio: '1:1', title: 'Product Ads' },
-  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', title: 'Launch Ads' },
-  { id: 17, type: 'video', src: '/portfolio/WOW VFX.mp4', ratio: '1:1', title: 'VFX Brand' },
+  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', title: 'Product Ads' },
+  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', title: 'Launch Ads' }
 ];
 
 const shuffleArray = (array) => {
@@ -37,6 +36,7 @@ const shuffleArray = (array) => {
 const LiquidBentoPortfolio = () => {
   const [portfolioItems] = useState(shuffleArray(sampleItems));
   const itemsRef = useRef([]);
+  const videoRefs = useRef([]);
 
   useEffect(() => {
     itemsRef.current.forEach((item) => {
@@ -71,6 +71,31 @@ const LiquidBentoPortfolio = () => {
     };
   }, []);
 
+  // Intersection Observer for videos
+  useEffect(() => {
+    const observers = videoRefs.current.map((video) => {
+      if (!video) return null;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(video);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach(observer => observer?.disconnect());
+    };
+  }, []);
+
   const getRatioClass = (ratio) => {
     if (ratio === '1:1') return 'ratio-square';
     if (ratio === '9:16') return 'ratio-portrait';
@@ -78,6 +103,8 @@ const LiquidBentoPortfolio = () => {
     if (ratio === '4:5') return 'ratio-instagram';
     return 'ratio-square';
   };
+
+  let videoIndex = 0;
 
   return (
     <section className="liquid-bento-section">
@@ -96,17 +123,21 @@ const LiquidBentoPortfolio = () => {
             <div className="bento-item-inner">
               {item.type === 'video' ? (
                 <video
+                  ref={(el) => {
+                    if (el) videoRefs.current[videoIndex++] = el;
+                  }}
                   src={item.src}
-                  autoPlay
                   loop
                   muted
                   playsInline
+                  preload="metadata"
                   className="bento-media"
                 />
               ) : (
                 <img
                   src={item.src}
                   alt={item.title}
+                  loading="lazy"
                   className="bento-media"
                 />
               )}
@@ -118,7 +149,7 @@ const LiquidBentoPortfolio = () => {
         ))}
       </div>
       <a href="/work" className="view-work-button">
-      View More Work
+      View All Work
       </a>
     </section>
   );
