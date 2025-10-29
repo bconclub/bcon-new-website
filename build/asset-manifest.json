@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "./static/css/main.1147d7d4.css",
-    "main.js": "./static/js/main.f13d9baa.js",
+    "main.css": "./static/css/main.75cac991.css",
+    "main.js": "./static/js/main.f5ac1acc.js",
     "static/js/453.2ca4b13f.chunk.js": "./static/js/453.2ca4b13f.chunk.js",
     "static/media/Showreel Thumbnail.png": "./static/media/Showreel Thumbnail.7f8ab1f0f54d6a5e9dfa.png",
     "static/media/BCON-Logo.webp": "./static/media/BCON-Logo.1edbd0db58c62f4cf43c.webp",
     "index.html": "./index.html",
-    "main.1147d7d4.css.map": "./static/css/main.1147d7d4.css.map",
-    "main.f13d9baa.js.map": "./static/js/main.f13d9baa.js.map",
+    "main.75cac991.css.map": "./static/css/main.75cac991.css.map",
+    "main.f5ac1acc.js.map": "./static/js/main.f5ac1acc.js.map",
     "453.2ca4b13f.chunk.js.map": "./static/js/453.2ca4b13f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1147d7d4.css",
-    "static/js/main.f13d9baa.js"
+    "static/css/main.75cac991.css",
+    "static/js/main.f5ac1acc.js"
   ]
 }

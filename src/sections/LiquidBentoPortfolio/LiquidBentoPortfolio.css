@@ -1,16 +1,14 @@
-/* ==================== LIQUID BENTO PORTFOLIO - FLOWING STRIP ==================== */
+/* ==================== LIQUID BENTO PORTFOLIO - VERTICAL MASONRY ==================== */
 .liquid-bento-section {
   min-height: 100vh;
   background: #00000000;
-  padding: 60px 0;
+  padding: 80px 40px;
   position: relative;
-  overflow: hidden;
 }
 
 .bento-header {
   text-align: center;
   margin-bottom: 60px;
-  padding: 0 40px;
 }
 
 .bento-heading {
@@ -30,77 +28,49 @@
   margin: 0;
 }
 
-/* ✅ Strip Wrapper */
-.bento-strip-wrapper {
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 0 40px;
+/* ✅ Masonry Grid - 4 Columns */
+.liquid-bento-grid {
+  column-count: 4;
+  column-gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* ✅ Bento Strip - Horizontal Flow */
-.bento-strip {
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
-  height: 100%;
-  will-change: transform;
-}
-
-/* ✅ Bento Items */
 .bento-item {
-  flex-shrink: 0;
+  break-inside: avoid;
+  margin-bottom: 20px;
   position: relative;
   cursor: pointer;
-  transition: transform 0.4s ease;
-}
-
-/* ✅ Vertical Alignment */
-.align-top {
-  align-self: flex-start;
-}
-
-.align-center {
-  align-self: center;
-}
-
-.align-bottom {
-  align-self: flex-end;
+  will-change: transform, opacity;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .bento-item-inner {
   position: relative;
   width: 100%;
-  height: 100%;
   overflow: hidden;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(204, 255, 0, 0.2);
+  border: 2px solid rgba(204, 255, 0, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* ✅ Aspect Ratios - Real Sizes */
-.ratio-square {
-  width: 280px;
-  height: 280px;
+/* ✅ Aspect Ratios */
+.ratio-square .bento-item-inner {
+  aspect-ratio: 1 / 1;
 }
 
-.ratio-portrait {
-  width: 220px;
-  height: 391px;
+.ratio-portrait .bento-item-inner {
+  aspect-ratio: 9 / 16;
 }
 
-.ratio-landscape {
-  width: 450px;
-  height: 253px;
+.ratio-landscape .bento-item-inner {
+  aspect-ratio: 16 / 9;
 }
 
-.ratio-instagram {
-  width: 260px;
-  height: 325px;
+.ratio-instagram .bento-item-inner {
+  aspect-ratio: 4 / 5;
 }
 
 /* ✅ Media */
@@ -115,16 +85,15 @@
 /* ✅ Hover Effects */
 .bento-item:hover {
   transform: translateY(-8px) scale(1.02);
-  z-index: 10;
 }
 
 .bento-item:hover .bento-item-inner {
   border-color: #CCFF00;
-  box-shadow: 0 20px 50px rgba(204, 255, 0, 0.4);
+  box-shadow: 0 10px 40px rgba(204, 255, 0, 0.3);
 }
 
 .bento-item:hover .bento-media {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .bento-item:hover .bento-overlay {
@@ -145,7 +114,7 @@
 
 .bento-title {
   font-family: 'Anybody', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
   margin: 0;
@@ -153,35 +122,15 @@
   letter-spacing: 1px;
 }
 
-/* ========== TABLET ========== */
+/* ========== TABLET: 3 COLUMNS ========== */
 @media (max-width: 1200px) {
-  .bento-strip-wrapper {
-    height: 60vh;
-    padding: 0 30px;
+  .liquid-bento-grid {
+    column-count: 3;
+    column-gap: 16px;
   }
 
-  .bento-strip {
-    gap: 12px;
-  }
-
-  .ratio-square {
-    width: 240px;
-    height: 240px;
-  }
-
-  .ratio-portrait {
-    width: 190px;
-    height: 338px;
-  }
-
-  .ratio-landscape {
-    width: 380px;
-    height: 214px;
-  }
-
-  .ratio-instagram {
-    width: 220px;
-    height: 275px;
+  .bento-item {
+    margin-bottom: 16px;
   }
 
   .bento-heading {
@@ -189,39 +138,23 @@
   }
 }
 
-/* ========== MOBILE ========== */
+/* ========== MOBILE: 2 COLUMNS ========== */
 @media (max-width: 768px) {
   .liquid-bento-section {
-    padding: 40px 0;
+    padding: 60px 20px;
   }
 
-  .bento-strip-wrapper {
-    height: 20vh;
-    padding: 0 20px;
+  .liquid-bento-grid {
+    column-count: 2;
+    column-gap: 12px;
   }
 
-  .bento-strip {
-    gap: 10px;
+  .bento-item {
+    margin-bottom: 12px;
   }
 
-  .ratio-square {
-    width: 180px;
-    height: 180px;
-  }
-
-  .ratio-portrait {
-    width: 140px;
-    height: 249px;
-  }
-
-  .ratio-landscape {
-    width: 280px;
-    height: 158px;
-  }
-
-  .ratio-instagram {
-    width: 160px;
-    height: 200px;
+  .bento-header {
+    margin-bottom: 40px;
   }
 
   .bento-heading {
@@ -232,46 +165,58 @@
     font-size: 1rem;
   }
 
-  .bento-header {
-    margin-bottom: 40px;
+  .bento-title {
+    font-size: 0.85rem;
+  }
+
+  .bento-item-inner {
+    border-radius: 12px;
   }
 }
 
-/* ========== SMALL MOBILE ========== */
+/* ========== EXTRA SMALL MOBILE ========== */
 @media (max-width: 480px) {
-  .bento-strip-wrapper {
-    height: 35vh;
+  .liquid-bento-grid {
+    column-count: 2;
+    column-gap: 10px;
   }
 
-  .bento-strip {
-    gap: 8px;
-  }
-
-  .ratio-square {
-    width: 150px;
-    height: 150px;
-  }
-
-  .ratio-portrait {
-    width: 120px;
-    height: 213px;
-  }
-
-  .ratio-landscape {
-    width: 240px;
-    height: 135px;
-  }
-
-  .ratio-instagram {
-    width: 140px;
-    height: 175px;
+  .bento-item {
+    margin-bottom: 10px;
   }
 
   .bento-heading {
     font-size: 1.8rem;
   }
+}
 
-  .bento-title {
-    font-size: 0.8rem;
+.view-work-button {
+  display: block;
+  width: max-content;
+  margin: 60px auto 0;
+  
+  font-family: 'Anybody', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+  background: #CCFF00;
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  transition: all 0.3s ease;
+}
+
+.view-work-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(204, 255, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .view-work-button {
+    padding: 14px 32px;
+    font-size: 0.9rem;
   }
 }
