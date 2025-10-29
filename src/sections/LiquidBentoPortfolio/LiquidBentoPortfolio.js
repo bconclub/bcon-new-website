@@ -1,27 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './LiquidBentoPortfolio.css';
 
-gsap.registerPlugin(ScrollTrigger);
+const allItems = [
+  { id: 1, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
+  { id: 2, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
+  { id: 3, type: 'video', src: '/portfolio/Global Pride Awards.mp4', ratio: '16:9', title: 'Event Launch' },
+  { id: 4, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Brand Offer' },
+  { id: 5, type: 'image', src: '/portfolio/Laptopstore-Product-Ad.jpg', ratio: '1:1', title: 'Product Ad' },
+  { id: 6, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', title: 'Product Ads' },
+  { id: 7, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', title: 'YouTube Content' },
+  { id: 8, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', title: 'Brand Video' },
+  { id: 9, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', title: 'Product Ads' },
+  { id: 10, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Website Video' },
+  { id: 11, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'Event Ads' },
+  { id: 12, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', title: 'Brand Asset' },
+  { id: 13, type: 'video', src: '/portfolio/WOW VFX.mp4', ratio: '1:1', title: 'VFX Showreel' }
+];
 
-const sampleItems = [
-  { id: 1, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'Event Ads' },
-  { id: 2, type: 'video', src: '/portfolio/Global Pride Awards.mp4', ratio: '16:9', title: 'Event Launch' },
-  { id: 3, type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '4:5', title: 'Event Ads' },
-  { id: 4, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', title: 'Brand Video' },
-  { id: 5, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
-  { id: 6, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', title: 'YouTube Content' },
-  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', title: 'Product Ads' },
-  { id: 8, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Website Video' },
-  { id: 9, type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '4:5', title: 'Brand Launch' },
-  { id: 10, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', title: 'Social Media' },
-  { id: 11, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Brand Offer' },
-  { id: 12, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
-  { id: 13, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', title: 'Brand Asset' },
-  { id: 14, type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Launch Ads' },
-  { id: 15, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', title: 'Product Ads' },
-  { id: 16, type: 'video', src: '/portfolio/11PC 3 Days to Go.mp4', ratio: '9:16', title: 'Launch Ads' }
+const mobileItems = [
+  { id: 1, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Website Video' },
+  { id: 2, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
+  { id: 3, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
+  { id: 4, type: 'video', src: '/portfolio/11PC Love All.mp4', ratio: '9:16', title: 'Social Media' },
+  { id: 5, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Brand Offer' },
+  { id: 6, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', title: 'Brand Asset' }
 ];
 
 const shuffleArray = (array) => {
@@ -34,80 +37,49 @@ const shuffleArray = (array) => {
 };
 
 const LiquidBentoPortfolio = () => {
-  const [portfolioItems] = useState(shuffleArray(sampleItems));
-  const [visibleCount, setVisibleCount] = useState(16);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [desktopItems] = useState(shuffleArray(allItems));
+  const [visibleCount, setVisibleCount] = useState(13);
+  const [deviceType, setDeviceType] = useState('desktop');
   const itemsRef = useRef([]);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const width = window.innerWidth;
+      
+      if (width <= 768) {
+        setDeviceType('mobile');
+        setVisibleCount(6);
+      } else if (width <= 1024) {
+        setDeviceType('tablet');
+        setVisibleCount(13);
+      } else {
+        setDeviceType('desktop');
+        setVisibleCount(13);
+      }
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setVisibleCount(6);
-    } else {
-      setVisibleCount(portfolioItems.length);
-    }
-  }, [isMobile, portfolioItems.length]);
-
-  useEffect(() => {
-    itemsRef.current.forEach((item) => {
+    itemsRef.current.forEach((item, index) => {
       if (!item) return;
-
+      
       gsap.fromTo(
         item,
-        {
-          opacity: 0,
-          y: 60,
-          scale: 0.8,
-          rotation: Math.random() * 10 - 5
-        },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          rotation: 0,
-          duration: 1.2,
-          ease: 'elastic.out(1, 0.5)',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+          duration: 0.6,
+          delay: index * 0.05,
+          ease: 'power2.out'
         }
       );
     });
-
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [visibleCount]);
-
-  useEffect(() => {
-    const section = document.querySelector('.liquid-bento-section');
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-          section.style.minHeight = 'auto';
-        } else {
-          section.style.minHeight = '100vh';
-        }
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+  }, [visibleCount, deviceType]);
 
   const getRatioClass = (ratio) => {
     if (ratio === '1:1') return 'ratio-square';
@@ -117,12 +89,8 @@ const LiquidBentoPortfolio = () => {
     return 'ratio-square';
   };
 
-  const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 6, portfolioItems.length));
-  };
-
-  const visibleItems = isMobile ? portfolioItems.slice(0, visibleCount) : portfolioItems;
-  const hasMore = isMobile && visibleCount < portfolioItems.length;
+  const items = deviceType === 'mobile' ? mobileItems : desktopItems;
+  const visibleItems = items.slice(0, visibleCount);
 
   return (
     <section className="liquid-bento-section">
@@ -146,7 +114,7 @@ const LiquidBentoPortfolio = () => {
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="bento-media"
                 />
               ) : (
@@ -164,14 +132,6 @@ const LiquidBentoPortfolio = () => {
           </div>
         ))}
       </div>
-
-      {hasMore && (
-        <button onClick={loadMore} className="load-more-button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5V19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-      )}
 
       <a href="/work" className="view-work-button">
         View All Work
