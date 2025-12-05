@@ -1,4 +1,5 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // ✅ Component imports - Updated paths
 import LiquidEther from './effects/LiquidEther/LiquidEther';
 import RotatingText from './sections/RotatingText/RotatingText';
@@ -10,15 +11,17 @@ import ShowReel from './sections/ShowReel/ShowReel';
 import GradualBlur from './effects/GradualBlur/GradualBlur';
 import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu';
 import ContactSection from './sections/ContactSection/ContactSection';
+import AllWork from './pages/AllWork';
+// Keep this line, no changes needed
 
-function App() {
+function HomePage() {
   const rotatingWords = ['Thinks', 'Learns', 'Scales'];
   
   // ✅ Menu configuration
   const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home page', link: '#home' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '#about' },
-    { label: 'Work', ariaLabel: 'View our work', link: '#work' },
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '/#about' },
+    { label: 'Work', ariaLabel: 'View our work', link: '/#work' },
     { label: 'Hire Us', ariaLabel: 'Get in touch', link: 'https://wa.me/919353253817' }
   ];
 
@@ -90,7 +93,7 @@ function App() {
             rotationEnd="bottom top"
             wordAnimationEnd="bottom center"
           >
-            At BCON, we merge data, design, and technology to build growth engines that never stop learning.
+            At BCON, we combine strategy, creativity, and AI to build brands that don't just grow, they scale and dominate.
           </ScrollReveal>
         </div>
       </section>
@@ -104,7 +107,7 @@ function App() {
       </section>
 
       {/* ==================== SECTION 4: PORTFOLIO ==================== */}
-      <LiquidBentoPortfolio />
+      <LiquidBentoPortfolio showAll={false} />
 
       {/* ==================== SECTION 5: Contact ==================== */}
       <ContactSection />
@@ -122,6 +125,17 @@ function App() {
         style={{ zIndex: 50 }} 
       />
     </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/work" element={<AllWork />} />
+      </Routes>
+    </Router>
   );
 }
 
