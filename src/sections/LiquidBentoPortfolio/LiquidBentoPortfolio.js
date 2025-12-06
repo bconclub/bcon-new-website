@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './LiquidBentoPortfolio.css';
@@ -179,19 +178,7 @@ const arrangeItemsIntelligently = (items, columnCount) => {
   return arranged.length > 0 ? arranged : items;
 };
 
-// Curated items for front page - you can customize this list
-const curatedFrontPageItems = [
-  { id: 'thar-ai-ad', type: 'vimeo', src: '1143755754', ratio: '9:16', title: 'Thar AI Ad' },
-  { id: 'vyjayanthi-movies', type: 'vimeo', src: '1143763635', ratio: '16:9', title: 'Vyjayanthi Movies Intro' },
-  { id: 'vimeo-7th', type: 'vimeo', src: '1143892769', ratio: '9:16', title: 'Birdbox Brand Video' },
-  { id: 'comet-ai-ad', type: 'vimeo', src: '1143777731', ratio: '4:3', title: 'Comet AI Ad' },
-  { id: 'laptopstore-swap-deals', type: 'vimeo', src: '1143775448', ratio: '1:1', title: 'Laptopstore Swap Deals' },
-  { id: '11pc-launch', type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '1:1', title: '11PC Launch' },
-  { id: 'birdbox-launching', type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Birdbox Launching Soon' },
-  { id: 'wc-event-2', type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'WC Event' }
-];
-
-const LiquidBentoPortfolio = ({ showAll = false }) => {
+const LiquidBentoPortfolio = () => {
   const [visibleCount, setVisibleCount] = useState(8);
   const [secondSectionVisibleCount, setSecondSectionVisibleCount] = useState(8);
   const [deviceType, setDeviceType] = useState('desktop');
@@ -219,6 +206,28 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
   const secondSectionVideoRefs = useRef({});
   const secondSectionVimeoIframeRefs = useRef({});
 
+  // Second section items - Vimeo videos and images (defined early for use in useEffect)
+  // Using descriptive IDs for easier arrangement and identification
+  const allSecondSectionItems = useMemo(() => {
+    const rawItems = [
+      { id: 'thar-ai-ad', type: 'vimeo', src: '1143755754', ratio: '9:16', title: 'Thar AI Ad' },
+      { id: 'vyjayanthi-movies-intro', type: 'vimeo', src: '1143763635', ratio: '16:9', title: 'Vyjayanthi Movies Intro' },
+      { id: 'laptopstore-swap-deals', type: 'vimeo', src: '1143775448', ratio: '1:1', title: 'Laptopstore Swap Deals' },
+      { id: 'campa-cola-ai-ad', type: 'vimeo', src: '1143776342', ratio: '9:16', title: 'Campa Cola AI Ad' },
+      { id: 'comet-ai-ad', type: 'vimeo', src: '1143777731', ratio: '4:3', title: 'Comet AI Ad' },
+      { id: 'organix-rosa-brand', type: 'vimeo', src: '1143785386', ratio: '9:16', title: 'Organix Rosa Brand' },
+      { id: 'birdbox-brand-video', type: 'vimeo', src: '1143892769', ratio: '9:16', title: 'Birdbox Brand Video' },
+      // Images
+      { id: '11pc-launch', type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '1:1', title: '11PC Launch' },
+      { id: '11pc-event', type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '1:1', title: '11PC Event' },
+      { id: 'birdbox-launching-soon', type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Birdbox Launching Soon' },
+      { id: 'come-to-dubai', type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Come to Dubai' },
+      { id: 'laptopstore-product-ad', type: 'image', src: '/portfolio/Laptopstore-Product-Ad.jpg', ratio: '1:1', title: 'Laptopstore Product Ad' },
+      { id: 'wc-event', type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'WC Event' }
+    ];
+    return normalizeItemRatios(rawItems);
+  }, []);
+
   // Intelligently arranged items
   const desktopItems = useMemo(() => {
     const shuffled = shuffleArray(allItems.slice(1));
@@ -234,24 +243,24 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
         setDeviceType('mobile');
         setColumnCount(2);
         setVisibleCount(6); // 2 columns × 3 rows = 6 items
-        setSecondSectionVisibleCount(6);
+        setSecondSectionVisibleCount(allSecondSectionItems.length);
       } else if (width < 1200) {
         setDeviceType('tablet');
         setColumnCount(3);
         setVisibleCount(6); // 3 columns × 2 rows = 6 items
-        setSecondSectionVisibleCount(6);
+        setSecondSectionVisibleCount(allSecondSectionItems.length);
       } else {
         setDeviceType('desktop');
         setColumnCount(5);
         setVisibleCount(10); // 5 columns × 2 rows = 10 items
-        setSecondSectionVisibleCount(showAll ? itemsToDisplay.length : 10);
+        setSecondSectionVisibleCount(allSecondSectionItems.length);
       }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [allSecondSectionItems.length]);
 
   // Optimized GSAP animations with ScrollTrigger - only animate when in viewport
   useEffect(() => {
@@ -502,50 +511,37 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
     setPlayedMap((prev) => ({ ...prev, [id]: false }));
   };
 
-  // Second section items - Vimeo videos and images
-  const allSecondSectionItems = useMemo(() => {
-    const rawItems = [
-      featuredVimeoItem,
-      { id: 'vyjayanthi-movies', type: 'vimeo', src: '1143763635', ratio: '16:9', title: 'Vyjayanthi Movies Intro' },
-      { id: 'laptopstore-swap-deals', type: 'vimeo', src: '1143775448', ratio: '1:1', title: 'Laptopstore Swap Deals' },
-      { id: 'vimeo-4th', type: 'vimeo', src: '1143776342', ratio: '9:16', title: 'Campa Cola AI Ad' },
-      { id: 'comet-ai-ad', type: 'vimeo', src: '1143777731', ratio: '4:3', title: 'Comet AI Ad' },
-      { id: 'vimeo-6th', type: 'vimeo', src: '1143785386', ratio: '9:16', title: 'Video 6' },
-      { id: 'vimeo-7th', type: 'vimeo', src: '1143892769', ratio: '9:16', title: 'Birdbox Brand Video' },
-      // Images
-      { id: '11pc-launch', type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '1:1', title: '11PC Launch' },
-      { id: '11pc-event', type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '1:1', title: '11PC Event' },
-      { id: 'birdbox-launching', type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Birdbox Launching Soon' },
-      { id: 'come-to-dubai-2', type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Come to Dubai' },
-      { id: 'laptopstore-product-2', type: 'image', src: '/portfolio/Laptopstore-Product-Ad.jpg', ratio: '1:1', title: 'Laptopstore Product Ad' },
-      { id: 'wc-event-2', type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'WC Event' }
-    ];
-    return normalizeItemRatios(rawItems);
-  }, []);
-
-  // Use curated items for front page, all items for AllWork page
-  const itemsToDisplay = useMemo(() => {
-    if (showAll) {
-      return allSecondSectionItems;
-    }
-    // Use curated items for front page
-    const curatedNormalized = normalizeItemRatios(curatedFrontPageItems);
-    return curatedNormalized;
-  }, [showAll, allSecondSectionItems]);
-
-  // Pre-fetch Vimeo thumbnails for items to display
-  useEffect(() => {
-    itemsToDisplay.forEach((item) => {
 
   const secondSectionItems = useMemo(() => {
-    const arranged = arrangeItemsIntelligently(itemsToDisplay, columnCount);
-    if (showAll) {
-      // On AllWork page, show all items (no limit)
-      return arranged;
+    // Mobile: fixed order (no shuffle) per requested sequence
+    if (columnCount <= 2) {
+      const mobileOrder = [
+        'thar-ai-ad',
+        'vyjayanthi-movies-intro',
+        'laptopstore-swap-deals',
+        'campa-cola-ai-ad',
+        'comet-ai-ad',
+        'birdbox-launching-soon'
+      ];
+      const ordered = mobileOrder
+        .map(id => allSecondSectionItems.find(item => item.id === id))
+        .filter(Boolean);
+      const remaining = allSecondSectionItems.filter(item => !mobileOrder.includes(item.id));
+      const combined = [...ordered, ...remaining];
+      return combined.slice(0, 6); // mobile max 6
     }
-    // On front page, show limited items
-    return arranged.slice(0, secondSectionVisibleCount);
-  }, [itemsToDisplay, columnCount, secondSectionVisibleCount, showAll]);
+
+    // Tablet/Desktop: shuffle then arrange intelligently
+    const mixed = shuffleArray(allSecondSectionItems);
+    const arranged = arrangeItemsIntelligently(mixed, columnCount);
+
+    const maxVisible =
+      columnCount >= 5 ? 12 :
+      columnCount >= 3 ? 9 :
+      6; // fallback
+
+    return arranged.slice(0, maxVisible);
+  }, [allSecondSectionItems, columnCount]);
 
   // Load More handlers
   const handleLoadMore = () => {
@@ -555,7 +551,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
 
   const handleSecondSectionLoadMore = () => {
     const loadAmount = deviceType === 'mobile' ? 4 : (deviceType === 'desktop' ? 10 : 6);
-    setSecondSectionVisibleCount(prev => Math.min(prev + loadAmount, itemsToDisplay.length));
+    setSecondSectionVisibleCount(prev => Math.min(prev + loadAmount, allSecondSectionItems.length));
   };
 
   // IntersectionObserver for lazy loading (first section)
@@ -634,7 +630,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
 
   // Pre-fetch thumbnails for all second section Vimeo videos on mount
   useEffect(() => {
-    itemsToDisplay.forEach((item) => {
+    allSecondSectionItems.forEach((item) => {
       if (item.type === 'vimeo') {
         // Always try to fetch thumbnail, function handles caching
         fetchVimeoThumbnail(item.src, setSecondSectionVimeoThumbnails).catch((error) => {
@@ -642,7 +638,20 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
         });
       }
     });
-  }, [itemsToDisplay]);
+  }, [allSecondSectionItems]);
+
+  // Mark all vimeo items as load-ready so iframes can render
+  useEffect(() => {
+    setSecondSectionVimeoLoadedMap((prev) => {
+      const next = { ...prev };
+      allSecondSectionItems.forEach((item) => {
+        if (item.type === 'vimeo') {
+          next[item.id] = true;
+        }
+      });
+      return next;
+    });
+  }, [allSecondSectionItems]);
 
   // Update Vimeo iframe src when play state changes (first section) - optimized to only update changed videos
   useEffect(() => {
@@ -696,6 +705,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
   
   // Second section handlers
   const handleSecondSectionPlay = async (id, src) => {
+    console.log('handleSecondSectionPlay called:', { id, src });
     // If already playing, toggle to pause
     if (secondSectionPlayedMap[id]) {
       handleSecondSectionPause(id);
@@ -704,6 +714,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
     
     const item = secondSectionItems.find(i => i.id === id);
     const isVimeo = item?.type === 'vimeo';
+    console.log('Item found:', { item, isVimeo });
     
     if (!isVimeo) {
       Object.keys(secondSectionVideoRefs.current).forEach((videoId) => {
@@ -955,7 +966,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
                   </div>
                 );
               })()}
-              {sectionVimeoLoadedMap[item.id] && sectionPlayedMap[item.id] ? (
+              {sectionVimeoLoadedMap[item.id] ? (
                 <>
                   <iframe
                     key={`vimeo-${item.id}`}
@@ -963,15 +974,17 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
                       const refsMap = sectionVimeoLoadedMap === vimeoLoadedMap ? vimeoIframeRefs : secondSectionVimeoIframeRefs;
                       if (el) {
                         refsMap.current[item.id] = el;
+                        console.log(`Vimeo iframe loaded for ${item.id}:`, item.src);
                       }
                     }}
-                    src={`https://player.vimeo.com/video/${item.src}?autoplay=1&loop=1&controls=0&title=0&byline=0&portrait=0${item.ratio === '1:1' ? '' : '&responsive=1'}`}
+                    src={`https://player.vimeo.com/video/${item.src}?autoplay=${sectionPlayedMap[item.id] ? 1 : 0}&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1${item.ratio === '1:1' ? '' : '&responsive=1'}`}
                     className="bento-media"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
                     onLoad={() => {
+                      console.log(`Vimeo iframe onLoad for ${item.id}`);
                       // Remove loading spinner when iframe loads
                       if (sectionVimeoLoadingMap === vimeoLoadingMap) {
                         setVimeoLoadingMap((prev) => ({ ...prev, [item.id]: false }));
@@ -980,7 +993,7 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
                       }
                     }}
                     onError={(e) => {
-                      console.error('Vimeo iframe error:', e);
+                      console.error(`Vimeo iframe error for ${item.id} (${item.src}):`, e);
                     }}
                     style={{ 
                       width: '100%', 
@@ -992,24 +1005,6 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
                       border: 'none',
                       display: 'block',
                       borderRadius: '14px'
-                    }}
-                  />
-                  {/* Clickable overlay to capture clicks anywhere on the video */}
-                  <div
-                    className="bento-video-overlay"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      sectionHandlePlay(item.id, item.src);
-                    }}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      cursor: 'pointer',
-                      zIndex: sectionPlayedMap[item.id] ? 3 : 2,
-                      pointerEvents: sectionPlayedMap[item.id] ? 'auto' : 'none'
                     }}
                   />
                 </>
@@ -1174,62 +1169,36 @@ const LiquidBentoPortfolio = ({ showAll = false }) => {
           )}
         </div>
 
-        {!showAll && (
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            {secondSectionVisibleCount < itemsToDisplay.length && (
-              <button 
-                className="load-more-button"
-                onClick={handleSecondSectionLoadMore}
-                aria-label="Load more items"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              </button>
-            )}
-            <Link 
-              to="/work"
-              className="view-all-work-button"
-              style={{
-                display: 'inline-block',
-                textAlign: 'center',
-                marginTop: '30px',
-                padding: '16px 32px',
-                backgroundColor: 'transparent',
-                border: '2px solid #CCFF00',
-                color: '#CCFF00',
-                textDecoration: 'none',
-                fontFamily: 'Anybody, sans-serif',
-                fontSize: '16px',
-                fontWeight: 600,
-                borderRadius: '8px',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#CCFF00';
-                e.target.style.color = '#000';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = '#CCFF00';
-              }}
-            >
-              View All Work →
-            </Link>
-          </div>
-        )}
-        {showAll && secondSectionVisibleCount < itemsToDisplay.length && (
-          <button 
-            className="load-more-button"
-            onClick={handleSecondSectionLoadMore}
-            aria-label="Load more items"
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <a 
+            href="/work"
+            className="view-work-button"
+            style={{
+              display: 'inline-block',
+              padding: '14px 28px',
+              borderRadius: '999px',
+              border: '1px solid #CCFF00',
+              color: '#CCFF00',
+              textDecoration: 'none',
+              fontFamily: 'Anybody, sans-serif',
+              fontSize: '15px',
+              fontWeight: 600,
+              letterSpacing: '0.5px',
+              transition: 'all 0.25s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#CCFF00';
+              e.target.style.color = '#000';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'transparent';
+              e.target.style.color = '#CCFF00';
+            }}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </button>
-        )}
+            View All Work
+          </a>
+        </div>
+
       </section>
     </>
   );

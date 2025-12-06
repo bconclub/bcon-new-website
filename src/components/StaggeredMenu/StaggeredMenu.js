@@ -126,9 +126,9 @@ const StaggeredMenu = ({
     >
       {/* ✅ Header with logo and menu button */}
       <header className={`staggered-menu-header ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="sm-logo">
+        <a href="#home" className="sm-logo" aria-label="Go to homepage" onClick={closeMenu}>
           <img src={logoUrl} alt="BCON Logo" className="sm-logo-img" />
-        </div>
+        </a>
 
         <button
           className="sm-toggle"

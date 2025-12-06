@@ -11,11 +11,11 @@ const ContactSection = () => {
 
   const services = [
     'AI Strategy Consulting',
-    'Performance Marketing',
-    'Brand Building',
-    'AI Content Creation',
-    'Web & Next-Gen Apps',
-    'Analytics & Intelligence'
+    'Human X AI Marketing',
+    'AI-Powered Content',
+    'Smart Webistes',
+    'AI-Driven Ads',
+    'Conversation AI - PROXe'
   ];
 
   const handleChange = (e) => {

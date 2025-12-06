@@ -30,7 +30,7 @@ const AllWork = () => {
       />
 
       {/* All Work Portfolio - shows all items */}
-      <LiquidBentoPortfolio showAll={true} />
+      <LiquidBentoPortfolio />
 
       {/* Fixed Footer Blur */}
       <GradualBlur 
