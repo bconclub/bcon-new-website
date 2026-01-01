@@ -21,6 +21,11 @@ npm install
 ```bash
 npm start
 ```
+or
+```bash
+npm run dev
+```
+- Both commands are equivalent and run the CRA dev server
 - Serves at http://localhost:3000
 - Hot reload enabled
 
@@ -38,6 +43,7 @@ npm test
 
 ## Scripts (from package.json)
 - `start` – CRA dev server
+- `dev` – CRA dev server (alias for `start`)
 - `build` – production bundle
 - `test` – Jest/RTL in watch mode
 - `eject` – one-way eject of CRA config (not recommended unless necessary)
@@ -71,15 +77,17 @@ src/               Application source
 ```
 
 ## Build truths / operational notes
-- No `dev` script; use `npm start` for local development.
+- Both `npm start` and `npm run dev` start the development server (they are equivalent).
 - CRA 5 uses Webpack 5; environment variables must be prefixed with `REACT_APP_`.
 - Static assets in `public/` are copied through unchanged; prefer importing from `src/` when possible for hashing.
 - The build output (`build/`) is safe to deploy on any static host.
+- React version: 19.2.0, React DOM: 19.2.0
 
 ## Deployment
 - Run `npm run build` and deploy the `build/` directory to your static host or CDN.
 
 ## Troubleshooting
-- If npm reports missing scripts, verify you are using `npm start` (not `npm run dev`).
+- Both `npm start` and `npm run dev` are available for development.
 - After dependency changes, re-run `npm install` to ensure overrides take effect.
 - For Windows PowerShell, use the commands exactly as shown above.
+- If you encounter build issues, ensure Node.js 18+ and npm 9+ are installed.
