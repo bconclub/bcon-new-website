@@ -465,7 +465,7 @@ export default function LiquidBentoPortfolio({
       { id: 'ba-tech-video', type: 'vimeo' as const, src: '1151200145', ratio: '16:9', title: 'PROXe AI System' },
       { id: 'ba-16-9-2', type: 'vimeo' as const, src: '1151200982', ratio: '16:9', title: 'Turquoise Travel App' },
       // 9:16 videos next (will stack in right column on desktop)
-      { id: 'ba-9-16-1', type: 'vimeo' as const, src: '1151201538', ratio: '9:16', title: 'Adipoli Restaurant System', isPaired: true },
+      { id: 'ba-9-16-1', type: 'vimeo' as const, src: '1151208224', ratio: '9:16', title: 'Adipoli Restaurant System', isPaired: true },
       { id: 'ba-9-16-2', type: 'vimeo' as const, src: '1151206257', ratio: '9:16', title: 'Pilot Academy Onboarding', isPaired: true },
     ];
   }, [isBusinessApps]);
@@ -1060,7 +1060,7 @@ export default function LiquidBentoPortfolio({
         {/* Hero Video - Mobile Only */}
         {!isBusinessApps && (
           <div style={{ width: '100%', clear: 'both', marginBottom: '40px' }}>
-            <WorkHeroVideo />
+        <WorkHeroVideo />
           </div>
         )}
 
@@ -1112,43 +1112,43 @@ export default function LiquidBentoPortfolio({
             })()}
           </div>
         ) : (
-          <div className="liquid-bento-grid">
+        <div className="liquid-bento-grid">
             {displayItems.map((item, index) => 
-              renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
-            )}
-          </div>
+            renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
+          )}
+        </div>
         )}
 
         {!isBusinessApps && (
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <Link 
-              href="/work"
-              className="view-work-button"
-              style={{
-                display: 'inline-block',
-                padding: '14px 28px',
-                borderRadius: '999px',
-                border: '1px solid #CCFF00',
-                color: '#CCFF00',
-                textDecoration: 'none',
-                fontFamily: 'Anybody, sans-serif',
-                fontSize: '15px',
-                fontWeight: 600,
-                letterSpacing: '0.5px',
-                transition: 'all 0.25s ease'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = '#CCFF00';
-                (e.target as HTMLElement).style.color = '#000';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'transparent';
-                (e.target as HTMLElement).style.color = '#CCFF00';
-              }}
-            >
-              View All Work
-            </Link>
-          </div>
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <Link 
+            href="/work"
+            className="view-work-button"
+            style={{
+              display: 'inline-block',
+              padding: '14px 28px',
+              borderRadius: '999px',
+              border: '1px solid #CCFF00',
+              color: '#CCFF00',
+              textDecoration: 'none',
+              fontFamily: 'Anybody, sans-serif',
+              fontSize: '15px',
+              fontWeight: 600,
+              letterSpacing: '0.5px',
+              transition: 'all 0.25s ease'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.backgroundColor = '#CCFF00';
+              (e.target as HTMLElement).style.color = '#000';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.backgroundColor = 'transparent';
+              (e.target as HTMLElement).style.color = '#CCFF00';
+            }}
+          >
+            View All Work
+          </Link>
+        </div>
         )}
       </section>
     </>
