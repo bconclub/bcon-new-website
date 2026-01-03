@@ -1,0 +1,131 @@
+.showcase-card {
+  width: 50%;
+  background: #1C1C1C;
+  border: 1px solid #2D2D2D;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  opacity: 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.showcase-card-left {
+  float: left;
+  clear: right;
+  margin-right: 5%;
+}
+
+.showcase-card-right {
+  float: right;
+  clear: left;
+  margin-left: 5%;
+}
+
+.showcase-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-color, #CCFF00);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px color-mix(in srgb, var(--accent-color, #CCFF00) 40%, transparent);
+}
+
+.showcase-image-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background: #0A0A0A;
+  position: relative;
+  max-height: 35vh;
+}
+
+.showcase-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: block;
+}
+
+.showcase-card:hover .showcase-image {
+  transform: scale(1.05);
+}
+
+.showcase-caption {
+  padding: 12px 20px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #FFFFFF;
+  line-height: 1.4;
+}
+
+.showcase-caption p {
+  margin: 0;
+}
+
+.showcase-cards-container .showcase-card:last-child {
+  margin-bottom: 0;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+  .showcase-card {
+    width: 70%;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    clear: both;
+  }
+
+  .showcase-card-left,
+  .showcase-card-right {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .showcase-image-wrapper {
+    max-height: 40vh;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .showcase-card {
+    width: 100%;
+    margin-bottom: 24px;
+    float: none;
+    clear: both;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .showcase-card-left,
+  .showcase-card-right {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .showcase-image-wrapper {
+    max-height: 35vh;
+  }
+
+  .showcase-caption {
+    padding: 16px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-card {
+    margin-bottom: 32px;
+    border-radius: 12px;
+  }
+
+  .showcase-caption {
+    padding: 16px;
+    font-size: 13px;
+  }
+}
+

@@ -38,8 +38,9 @@ export default function ScrollReveal({
     const text = typeof children === 'string' ? children : '';
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
+      const isBCON = word.toUpperCase() === 'BCON' || word.toUpperCase() === 'BCON.';
       return (
-        <span className="word" key={index}>
+        <span className={`word ${isBCON ? 'word-bcon' : ''}`} key={index} data-word={isBCON ? 'bcon' : ''}>
           {word}
         </span>
       );
@@ -69,10 +70,33 @@ export default function ScrollReveal({
     );
 
     const wordElements = el.querySelectorAll('.word');
+    const bconWord = el.querySelector('.word-bcon');
+    
+    // Check if we should skip color animation (for reveal-line-1, reveal-line-2, reveal-line-3)
+    const shouldSkipColorAnimation = containerClassName.includes('reveal-line-1') || 
+                                     containerClassName.includes('reveal-line-2') || 
+                                     containerClassName.includes('reveal-line-3');
+    
+    // Set initial color based on line type
+    let initialColor = '#ffffff';
+    if (containerClassName.includes('reveal-line-3')) {
+      initialColor = '#CCFF00';
+    } else if (containerClassName.includes('reveal-line-1') || containerClassName.includes('reveal-line-2')) {
+      initialColor = '#ffffff';
+    }
+    
+    // Set initial colors for all words
+    wordElements.forEach((word) => {
+      if (word.classList.contains('word-bcon')) {
+        gsap.set(word, { color: '#ffffff' }); // BCON starts white
+      } else {
+        gsap.set(word, { color: initialColor }); // Other words use initial color
+      }
+    });
     
     gsap.fromTo(
       wordElements,
-      { opacity: baseOpacity, willChange: 'opacity', color: '#ffffff' },
+      { opacity: baseOpacity, willChange: 'opacity' },
       {
         ease: 'none',
         opacity: 1,
@@ -87,23 +111,44 @@ export default function ScrollReveal({
       }
     );
 
-    // Green color wave effect
-    gsap.fromTo(
-      wordElements,
-      { color: '#CCFF00' },
-      {
-        ease: 'none',
-        color: '#ffffff',
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top bottom-=20%',
-          end: wordAnimationEnd,
-          scrub: true
+    // Special animation for BCON word in reveal-line-3: animate from white to accent color
+    if (containerClassName.includes('reveal-line-3') && bconWord) {
+      // Animate BCON from white to accent color during scroll
+      gsap.to(
+        bconWord,
+        {
+          ease: 'none',
+          color: '#CCFF00',
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: 'top bottom-=20%',
+            end: wordAnimationEnd,
+            scrub: true
+          }
         }
-      }
-    );
+      );
+    }
+
+    // Green color wave effect - skip for reveal lines to preserve CSS colors
+    if (!shouldSkipColorAnimation) {
+      gsap.fromTo(
+        wordElements,
+        { color: '#CCFF00' },
+        {
+          ease: 'none',
+          color: '#ffffff',
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: 'top bottom-=20%',
+            end: wordAnimationEnd,
+            scrub: true
+          }
+        }
+      );
+    }
 
     if (enableBlur) {
       gsap.fromTo(
@@ -135,4 +180,6 @@ export default function ScrollReveal({
     </h2>
   );
 }
+
+
 

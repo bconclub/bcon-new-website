@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,7 +19,6 @@ export default function ServicesGrid() {
   const router = useRouter();
   const gridRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   const services: Service[] = [
     {
@@ -88,26 +87,6 @@ export default function ServicesGrid() {
     };
   }, []);
 
-  // Handle click outside to deselect card on mobile
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (selectedCard && window.innerWidth <= 1024) {
-        // Check if click is outside any service card
-        const target = e.target as HTMLElement;
-        const clickedCard = target.closest('.service-card');
-        if (!clickedCard) {
-          setSelectedCard(null);
-        }
-      }
-    };
-
-    if (selectedCard) {
-      document.addEventListener('click', handleClickOutside);
-      return () => {
-        document.removeEventListener('click', handleClickOutside);
-      };
-    }
-  }, [selectedCard]);
 
 
   return (
@@ -115,65 +94,33 @@ export default function ServicesGrid() {
       <div className="services-grid">
         {services.map((service, index) => {
           const isEven = index % 2 === 0;
-          const isSelected = selectedCard === service.id;
           
           const handleCardClick = (e: React.MouseEvent) => {
-            const isMobile = window.innerWidth <= 1024;
-            if (isMobile) {
-              // Mobile: two-step process
-              if (isSelected) {
-                // Second click: navigate to service page
-                e.preventDefault();
-                router.push(`/services#service-${service.id}`);
-                // Scroll to the service section after navigation
-                setTimeout(() => {
-                  const element = document.getElementById(`service-${service.id}`);
-                  if (element) {
-                    // Scroll to the beginning of the service section with offset for header
-                    // This ensures heading and content are visible
-                    const headerOffset = 100;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }, 300);
-                setSelectedCard(null); // Reset selection after navigation
-              } else {
-                // First click: activate card (show accent light and button)
-                e.preventDefault();
-                setSelectedCard(service.id);
+            // One-click navigation for all devices
+            e.preventDefault();
+            router.push(`/services#service-${service.id}`);
+            // Scroll to the service section after navigation
+            setTimeout(() => {
+              const element = document.getElementById(`service-${service.id}`);
+              if (element) {
+                // Scroll to the beginning of the service section with offset for header
+                // This ensures heading and content are visible
+                const headerOffset = 100;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
               }
-            } else {
-              // Desktop: navigate immediately
-              e.preventDefault();
-              router.push(`/services#service-${service.id}`);
-              // Scroll to the service section after navigation
-              setTimeout(() => {
-                const element = document.getElementById(`service-${service.id}`);
-                if (element) {
-                  // Scroll to the beginning of the service section with offset for header
-                  // This ensures heading and content are visible
-                  const headerOffset = 100;
-                  const elementPosition = element.getBoundingClientRect().top;
-                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                  
-                  window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                  });
-                }
-              }, 300);
-            }
+            }, 300);
           };
 
           return (
             <div 
               key={service.id} 
-              className={`service-card ${isEven ? 'service-card-left' : 'service-card-right'} ${isSelected ? 'service-card-selected' : ''}`}
+              className={`service-card ${isEven ? 'service-card-left' : 'service-card-right'}`}
               ref={(el) => (cardsRef.current[index] = el)}
               onClick={handleCardClick}
             >
@@ -213,4 +160,6 @@ export default function ServicesGrid() {
     </div>
   );
 }
+
+
 

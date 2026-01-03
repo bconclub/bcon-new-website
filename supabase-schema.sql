@@ -170,3 +170,6 @@ LEFT JOIN categories c ON p.category_id = c.id;
 -- GRANT SELECT ON portfolio_items_view TO anon;
 -- GRANT SELECT ON portfolio_items_view TO authenticated;
 
+
+
+

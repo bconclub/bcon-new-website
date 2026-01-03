@@ -7,7 +7,7 @@ import { gsap } from 'gsap';
 import './StaggeredMenu.css';
 import Image from 'next/image';
 // Image will be loaded from public folder
-const logoUrl = '/assets/images/BCON-Logo.webp';
+const logoUrl = '/BCON White logo.webp';
 
 interface MenuItem {
   label: string;
@@ -121,6 +121,8 @@ export default function StaggeredMenu({
   };
 
   const closeMenu = () => {
+    if (!isOpen) return;
+    
     setIsOpen(false);
     onMenuClose?.();
 
@@ -162,6 +164,37 @@ export default function StaggeredMenu({
     }
   };
 
+  // Handle click outside to close menu
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      // Don't close if clicking on the menu button or header
+      const target = event.target as HTMLElement;
+      if (target.closest('.sm-toggle') || target.closest('.staggered-menu-header')) {
+        return;
+      }
+      
+      // Don't close if clicking inside the menu panel
+      if (panelRef.current && panelRef.current.contains(target)) {
+        return;
+      }
+
+      // Close menu if clicking anywhere else
+      closeMenu();
+    };
+
+    // Add event listener with a small delay to avoid immediate closure
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside);
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpen, position]);
+
   const isExternalLink = (link: string) => {
     return link.startsWith('http') || link.startsWith('https') || link.startsWith('mailto:') || link.startsWith('tel:');
   };
@@ -174,7 +207,9 @@ export default function StaggeredMenu({
       style={{ '--sm-accent': accentColor } as React.CSSProperties}
     >
       {/* Header with logo and menu button */}
-      <header className={`staggered-menu-header ${isScrolled ? 'scrolled' : ''}`}>
+      <header 
+        className={`staggered-menu-header ${isScrolled ? 'scrolled' : ''}`}
+      >
         <Link href="/" className="sm-logo" aria-label="Go to homepage" onClick={closeMenu}>
           <Image src={logoUrl} alt="BCON Logo" className="sm-logo-img" width={120} height={40} />
         </Link>
@@ -198,6 +233,15 @@ export default function StaggeredMenu({
         </button>
       </header>
 
+      {/* Backdrop overlay - click to close */}
+      {isOpen && (
+        <div 
+          className="sm-backdrop" 
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Prelayers for staggered effect */}
       <div className="sm-prelayers">
         {[0, 1, 2].map((i) => (
@@ -218,6 +262,7 @@ export default function StaggeredMenu({
         className="staggered-menu-panel"
         ref={panelRef}
         style={{ transform: position === 'right' ? 'translateX(100%)' : 'translateX(-100%)' }}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" data-numbering={displayItemNumbering || undefined}>

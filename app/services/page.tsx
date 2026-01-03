@@ -7,9 +7,9 @@ import GradualBlur from '@/effects/GradualBlur/GradualBlur';
 export default function Services() {
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '/#about' },
-    { label: 'Work', ariaLabel: 'View our work', link: '/#work' },
-    { label: 'Hire Us', ariaLabel: 'Get in touch', link: 'https://wa.me/919353253817' }
+    { label: 'About', ariaLabel: 'Learn about us', link: '/' },
+    { label: 'Work', ariaLabel: 'View our work', link: '/' },
+    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
   ];
 
   const socialItems = [
@@ -48,4 +48,6 @@ export default function Services() {
     </>
   );
 }
+
+
 

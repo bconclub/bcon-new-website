@@ -23,10 +23,10 @@ export default function Home() {
   // Menu configuration
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '/#about' },
-    { label: 'Work', ariaLabel: 'View our work', link: '/#work' },
-    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
-    { label: 'Hire Us', ariaLabel: 'Get in touch', link: 'https://wa.me/919353253817' }
+    { label: 'About', ariaLabel: 'Learn about us', link: '/' },
+    { label: 'Work', ariaLabel: 'View our work', link: '/' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/' },
+    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
   ];
 
   const socialItems = [
@@ -91,7 +91,7 @@ export default function Home() {
               wordAnimationEnd="bottom center"
               containerClassName="reveal-line-1"
             >
-              Your business isn't lacking ambition.
+              Creative minds that code.
             </ScrollReveal>
             <ScrollReveal
               baseOpacity={0}
@@ -102,7 +102,7 @@ export default function Home() {
               wordAnimationEnd="bottom center"
               containerClassName="reveal-line-2"
             >
-              It's lacking intelligence.
+              Technical hands that design.
             </ScrollReveal>
             <ScrollReveal
               baseOpacity={0}
@@ -113,7 +113,7 @@ export default function Home() {
               wordAnimationEnd="bottom center"
               containerClassName="reveal-line-3"
             >
-              Let's fix that.
+              That's rare. That's BCON.
             </ScrollReveal>
           </div>
         </div>
@@ -128,9 +128,12 @@ export default function Home() {
       </section>
 
       {/* ==================== SECTION 4: PORTFOLIO ==================== */}
+      <LiquidBentoPortfolio eyebrowText="Our Work" headingText="Business Apps" isBusinessApps={true} />
+
+      {/* ==================== SECTION 5: PORTFOLIO DUPLICATE ==================== */}
       <LiquidBentoPortfolio />
 
-      {/* ==================== SECTION 5: Contact ==================== */}
+      {/* ==================== SECTION 6: Contact ==================== */}
       <ContactSection />
 
       {/* ==================== FIXED FOOTER BLUR ==================== */}

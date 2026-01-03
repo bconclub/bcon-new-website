@@ -51,7 +51,7 @@ const nextConfig = {
   },
 
   // Output configuration
-  output: 'standalone', // For better deployment optimization
+  // output: 'standalone', // Commented out to fix routing issues
 
   // Environment variables that should be available on the client
   env: {
@@ -61,4 +61,6 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+
 

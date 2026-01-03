@@ -37,12 +37,14 @@ export default function RotatingText({ words, interval = 3000 }: RotatingTextPro
         fontWeight: '700',
         textTransform: 'capitalise',
         letterSpacing: '3px',
-        color: '#CCFF00'
-        
+        color: '#CCFF00',
+        textAlign: 'center'
       }}
     >
       {words[currentIndex]}
     </span>
   );
 }
+
+
 

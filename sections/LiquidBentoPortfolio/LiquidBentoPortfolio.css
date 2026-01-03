@@ -11,21 +11,23 @@
   margin-bottom: 60px;
 }
 
+.bento-eyebrow {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 .bento-heading {
   font-family: 'Anybody', sans-serif;
   font-size: 3rem;
   font-weight: 700;
   color: #ffffff;
-  margin: 0 0 1rem 0;
-  letter-spacing: 2px;
-}
-
-.bento-subheading {
-  font-family: 'Anybody', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
   margin: 0;
+  letter-spacing: 2px;
 }
 
 /* Masonry Grid - 5 Columns Desktop, 3 Tablet, 2 Mobile */
@@ -34,6 +36,82 @@
   column-gap: 20px;
   max-width: 1400px;
   margin: 0 auto;
+  isolation: isolate; /* Isolate from other elements */
+  contain: layout; /* Contain layout to prevent interference */
+}
+
+/* Business Apps Grid - Custom layout: 2 columns on desktop */
+.business-apps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  isolation: isolate;
+  contain: layout;
+}
+
+/* Desktop: 3 columns - left: 2x 16:9 stacked, middle: 1x 9:16, right: 1x 9:16 */
+@media (min-width: 1200px) {
+  .business-apps-grid {
+    grid-template-columns: 1fr 0.7fr 0.7fr; /* 9:16 columns are 30% smaller (0.7 = 70% of original) */
+    gap: 20px;
+  }
+  
+  /* Column containers for desktop layout */
+  .business-apps-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Ensure items don't break */
+  .business-apps-column .bento-item {
+    margin-bottom: 0;
+  }
+  
+  /* 9:16 items in middle and right columns are 30% smaller via grid columns */
+  .business-apps-column-middle .bento-item,
+  .business-apps-column-right .bento-item {
+    width: 100%;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .business-apps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+/* Container for paired 9:16 videos - hidden on desktop/tablet, shown on mobile */
+.business-apps-pair {
+  display: none;
+  break-inside: avoid;
+}
+
+/* Mobile: 1 column with paired 9:16 videos side by side */
+@media (max-width: 767px) {
+  .business-apps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Show paired container on mobile only */
+  .business-apps-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Ensure paired items don't break */
+  .business-apps-pair .bento-item {
+    margin-bottom: 0;
+  }
 }
 
 .bento-item {
@@ -109,6 +187,13 @@
   border-radius: 14px;
 }
 
+/* 9:16 videos should fill container completely */
+.ratio-stories .bento-media,
+.ratio-stories video,
+.ratio-stories iframe {
+  object-fit: cover;
+}
+
 /* Video elements fill container */
 .bento-item-inner > video {
   position: absolute;
@@ -118,6 +203,11 @@
   object-fit: contain;
   border-radius: 14px;
   display: block;
+}
+
+/* 9:16 videos fill container completely */
+.ratio-stories .bento-item-inner > video {
+  object-fit: cover;
 }
 
 /* Vimeo iframe specific styling - Fill container completely */
@@ -133,6 +223,11 @@
   border-radius: 14px;
   display: block;
   object-fit: contain;
+}
+
+/* 9:16 Vimeo iframes fill container completely */
+.ratio-stories .bento-item-inner iframe {
+  object-fit: cover;
 }
 
 /* Hover Effects */
@@ -196,6 +291,8 @@
   .liquid-bento-grid {
     column-count: 2;
     column-gap: 12px;
+    margin-top: 0; /* Ensure no top margin that could cause overlap */
+    clear: both; /* Clear any floated elements above */
   }
 
   .bento-item {
@@ -225,10 +322,11 @@
   font-family: 'Anybody', sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: #000000;
-  background: #CCFF00;
+  color: #CCFF00 !important;
+  background: transparent;
   padding: 16px 40px;
   border-radius: 50px;
+  border: 1px solid #CCFF00;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -239,7 +337,8 @@
 .view-work-button:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(204, 255, 0, 0.5);
-  background: #ffffff;
+  background: #CCFF00;
+  color: #000000 !important;
 }
 
 .bento-play-button {
@@ -324,4 +423,6 @@
 .bento-loading-spinner {
   animation: spin 1s linear infinite;
 }
+
+
 

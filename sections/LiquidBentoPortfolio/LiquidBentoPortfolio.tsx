@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import WorkHeroVideo from '@/sections/WorkHeroVideo/WorkHeroVideo';
 import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,6 +15,7 @@ interface PortfolioItem {
   src: string;
   ratio: string;
   title: string;
+  isPaired?: boolean;
 }
 
 // Featured Vimeo item stays first
@@ -169,7 +171,17 @@ const arrangeItemsIntelligently = (items: PortfolioItem[], columnCount: number):
   return arranged.length > 0 ? arranged : items;
 };
 
-export default function LiquidBentoPortfolio() {
+interface LiquidBentoPortfolioProps {
+  eyebrowText?: string;
+  headingText?: string;
+  isBusinessApps?: boolean;
+}
+
+export default function LiquidBentoPortfolio({ 
+  eyebrowText = 'Our Work', 
+  headingText = 'Creative',
+  isBusinessApps = false
+}: LiquidBentoPortfolioProps) {
   const [visibleCount, setVisibleCount] = useState(8);
   const [secondSectionVisibleCount, setSecondSectionVisibleCount] = useState(8);
   const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
@@ -442,6 +454,22 @@ export default function LiquidBentoPortfolio() {
     setPlayedMap((prev) => ({ ...prev, [idStr]: false }));
   };
 
+  // Business Apps specific items - 16:9 and 9:16 videos
+  const businessAppsItems = useMemo(() => {
+    if (!isBusinessApps) return [];
+    
+    // Create items for 16:9 and 9:16 containers
+    // Format: { id, type: 'video' or 'vimeo', src: '/path/to/video.mp4' or 'vimeo_id', ratio: '16:9' or '9:16', title: 'Title' }
+    return [
+      // 16:9 videos first (will stack in left column on desktop)
+      { id: 'ba-tech-video', type: 'vimeo' as const, src: '1151200145', ratio: '16:9', title: 'PROXe AI System' },
+      { id: 'ba-16-9-2', type: 'vimeo' as const, src: '1151200982', ratio: '16:9', title: 'Turquoise Travel App' },
+      // 9:16 videos next (will stack in right column on desktop)
+      { id: 'ba-9-16-1', type: 'vimeo' as const, src: '1151201538', ratio: '9:16', title: 'Adipoli Restaurant System', isPaired: true },
+      { id: 'ba-9-16-2', type: 'vimeo' as const, src: '1151206257', ratio: '9:16', title: 'Pilot Academy Onboarding', isPaired: true },
+    ];
+  }, [isBusinessApps]);
+
   const secondSectionItems = useMemo(() => {
     if (columnCount <= 2) {
       const mobileOrder = [
@@ -598,7 +626,9 @@ export default function LiquidBentoPortfolio() {
           const itemId = entry.target.getAttribute('data-item-id');
           if (entry.isIntersecting && itemId) {
             setSecondSectionInViewMap((prev) => ({ ...prev, [itemId]: true }));
-            const item = secondSectionItems.find(i => String(i.id) === itemId);
+            // Check both secondSectionItems and businessAppsItems
+            const item = secondSectionItems.find(i => String(i.id) === itemId) || 
+                        (isBusinessApps ? businessAppsItems.find(i => String(i.id) === itemId) : null);
             if (item && item.type === 'vimeo' && !secondSectionVimeoThumbnails[item.src]) {
               fetchVimeoThumbnail(item.src, setSecondSectionVimeoThumbnails);
             }
@@ -624,7 +654,7 @@ export default function LiquidBentoPortfolio() {
         }
       });
     };
-  }, [secondSectionItems, secondSectionVimeoThumbnails]);
+  }, [secondSectionItems, secondSectionVimeoThumbnails, isBusinessApps, businessAppsItems]);
 
   // Pre-fetch thumbnails for all second section Vimeo videos on mount
   useEffect(() => {
@@ -637,6 +667,19 @@ export default function LiquidBentoPortfolio() {
     });
   }, [allSecondSectionItems]);
 
+  // Pre-fetch thumbnails for Business Apps Vimeo videos on mount
+  useEffect(() => {
+    if (isBusinessApps) {
+      businessAppsItems.forEach((item) => {
+        if (item.type === 'vimeo') {
+          fetchVimeoThumbnail(item.src, setSecondSectionVimeoThumbnails).catch((error) => {
+            console.warn(`Failed to fetch thumbnail for ${item.src}:`, error);
+          });
+        }
+      });
+    }
+  }, [isBusinessApps, businessAppsItems]);
+
   // Mark all vimeo items as load-ready
   useEffect(() => {
     setSecondSectionVimeoLoadedMap((prev) => {
@@ -646,9 +689,17 @@ export default function LiquidBentoPortfolio() {
           next[String(item.id)] = true;
         }
       });
+      // Also mark Business Apps Vimeo items as load-ready
+      if (isBusinessApps) {
+        businessAppsItems.forEach((item) => {
+          if (item.type === 'vimeo') {
+            next[String(item.id)] = true;
+          }
+        });
+      }
       return next;
     });
-  }, [allSecondSectionItems]);
+  }, [allSecondSectionItems, isBusinessApps, businessAppsItems]);
 
   // Update Vimeo iframe src when play state changes (second section)
   useEffect(() => {
@@ -995,51 +1046,114 @@ export default function LiquidBentoPortfolio() {
     );
   };
 
+  // Use business apps items if isBusinessApps is true, otherwise use secondSectionItems
+  const displayItems = isBusinessApps ? businessAppsItems : secondSectionItems;
+
   return (
     <>
       <section className="liquid-bento-section">
         <div className="bento-header">
-          <h2 className="bento-heading">Our Work</h2>
-          <p className="bento-subheading">Creative excellence across all platforms</p>
+          <p className="bento-eyebrow">{eyebrowText}</p>
+          <h2 className="bento-heading">{headingText}</h2>
         </div>
 
-        <div className="liquid-bento-grid">
-          {secondSectionItems.map((item, index) => 
-            renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
-          )}
-        </div>
+        {/* Hero Video - Mobile Only */}
+        {!isBusinessApps && (
+          <div style={{ width: '100%', clear: 'both', marginBottom: '40px' }}>
+            <WorkHeroVideo />
+          </div>
+        )}
 
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-          <Link 
-            href="/work"
-            className="view-work-button"
-            style={{
-              display: 'inline-block',
-              padding: '14px 28px',
-              borderRadius: '999px',
-              border: '1px solid #CCFF00',
-              color: '#CCFF00',
-              textDecoration: 'none',
-              fontFamily: 'Anybody, sans-serif',
-              fontSize: '15px',
-              fontWeight: 600,
-              letterSpacing: '0.5px',
-              transition: 'all 0.25s ease'
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#CCFF00';
-              (e.target as HTMLElement).style.color = '#000';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = 'transparent';
-              (e.target as HTMLElement).style.color = '#CCFF00';
-            }}
-          >
-            View All Work
-          </Link>
-        </div>
+        {isBusinessApps ? (
+          <div className="business-apps-grid">
+            {(() => {
+              const isMobile = deviceType === 'mobile';
+              const sixteenNineItems = displayItems.filter(item => item.ratio === '16:9');
+              const nineSixteenItems = displayItems.filter(item => item.ratio === '9:16');
+              
+              if (isMobile) {
+                // Mobile: render with pairing logic
+                return displayItems.filter(item => item !== null).map((item, index) => {
+                  const isPairedItem = item.isPaired && item.ratio === '9:16';
+                  const nextItem = displayItems[index + 1];
+                  const isFirstOfPair = isPairedItem && nextItem?.isPaired && nextItem?.ratio === '9:16';
+                  
+                  if (isFirstOfPair) {
+                    return (
+                      <div key={`pair-${item.id}`} className="business-apps-pair">
+                        {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                        {renderPortfolioItem(nextItem, index + 1, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                      </div>
+                    );
+                  } else if (isPairedItem && displayItems[index - 1]?.isPaired && displayItems[index - 1]?.ratio === '9:16') {
+                    return null;
+                  }
+                  
+                  return renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap);
+                });
+              } else {
+                // Desktop/Tablet: render 16:9 items in left column, 9:16 items in middle and right columns
+                return (
+                  <>
+                    <div className="business-apps-column business-apps-column-left">
+                      {sixteenNineItems.map((item, index) => 
+                        renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
+                      )}
+                    </div>
+                    <div className="business-apps-column business-apps-column-middle">
+                      {nineSixteenItems.length > 0 && renderPortfolioItem(nineSixteenItems[0], sixteenNineItems.length, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                    </div>
+                    <div className="business-apps-column business-apps-column-right">
+                      {nineSixteenItems.length > 1 && renderPortfolioItem(nineSixteenItems[1], sixteenNineItems.length + 1, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                    </div>
+                  </>
+                );
+              }
+            })()}
+          </div>
+        ) : (
+          <div className="liquid-bento-grid">
+            {displayItems.map((item, index) => 
+              renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
+            )}
+          </div>
+        )}
+
+        {!isBusinessApps && (
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <Link 
+              href="/work"
+              className="view-work-button"
+              style={{
+                display: 'inline-block',
+                padding: '14px 28px',
+                borderRadius: '999px',
+                border: '1px solid #CCFF00',
+                color: '#CCFF00',
+                textDecoration: 'none',
+                fontFamily: 'Anybody, sans-serif',
+                fontSize: '15px',
+                fontWeight: 600,
+                letterSpacing: '0.5px',
+                transition: 'all 0.25s ease'
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.backgroundColor = '#CCFF00';
+                (e.target as HTMLElement).style.color = '#000';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                (e.target as HTMLElement).style.color = '#CCFF00';
+              }}
+            >
+              View All Work
+            </Link>
+          </div>
+        )}
       </section>
     </>
   );
 }
+
+
 
