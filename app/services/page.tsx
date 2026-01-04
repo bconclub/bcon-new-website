@@ -8,7 +8,8 @@ export default function Services() {
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
     { label: 'About', ariaLabel: 'Learn about us', link: '/' },
-    { label: 'Work', ariaLabel: 'View our work', link: '/' },
+    { label: 'Work', ariaLabel: 'View our work', link: '/work' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
     { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
   ];
 

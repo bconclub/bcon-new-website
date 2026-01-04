@@ -6,6 +6,7 @@ import Loader from '@/effects/Loader/Loader';
 import ScrollReveal from '@/sections/ScrollReveal/ScrollReveal';
 import ServicesGrid from '@/sections/ServicesGrid/ServicesGrid';
 import LiquidBentoPortfolio from '@/sections/LiquidBentoPortfolio/LiquidBentoPortfolio';
+import BusinessAppsCarousel from '@/sections/BusinessAppsCarousel/BusinessAppsCarousel';
 import ShowReel from '@/sections/ShowReel/ShowReel';
 import GradualBlur from '@/effects/GradualBlur/GradualBlur';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
@@ -24,8 +25,8 @@ export default function Home() {
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
     { label: 'About', ariaLabel: 'Learn about us', link: '/' },
-    { label: 'Work', ariaLabel: 'View our work', link: '/' },
-    { label: 'Services', ariaLabel: 'View our services', link: '/' },
+    { label: 'Work', ariaLabel: 'View our work', link: '/work' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
     { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
   ];
 
@@ -127,11 +128,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==================== SECTION 4: PORTFOLIO ==================== */}
-      <LiquidBentoPortfolio eyebrowText="Our Work" headingText="Business Apps" isBusinessApps={true} />
-
-      {/* ==================== SECTION 5: PORTFOLIO DUPLICATE ==================== */}
+      {/* ==================== SECTION 4: PORTFOLIO DUPLICATE ==================== */}
       <LiquidBentoPortfolio />
+
+      {/* ==================== SECTION 5: BUSINESS APPS CAROUSEL ==================== */}
+      <BusinessAppsCarousel />
 
       {/* ==================== SECTION 6: Contact ==================== */}
       <ContactSection />

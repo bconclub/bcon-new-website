@@ -16,6 +16,8 @@ interface PortfolioItem {
   ratio: string;
   title: string;
   isPaired?: boolean;
+  highlights?: string[];
+  description?: string;
 }
 
 // Featured Vimeo item stays first
@@ -184,6 +186,7 @@ export default function LiquidBentoPortfolio({
 }: LiquidBentoPortfolioProps) {
   const [visibleCount, setVisibleCount] = useState(8);
   const [secondSectionVisibleCount, setSecondSectionVisibleCount] = useState(8);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
   const [columnCount, setColumnCount] = useState(5);
   const [playedMap, setPlayedMap] = useState<Record<string, boolean>>({});
@@ -458,15 +461,64 @@ export default function LiquidBentoPortfolio({
   const businessAppsItems = useMemo(() => {
     if (!isBusinessApps) return [];
     
-    // Create items for 16:9 and 9:16 containers
-    // Format: { id, type: 'video' or 'vimeo', src: '/path/to/video.mp4' or 'vimeo_id', ratio: '16:9' or '9:16', title: 'Title' }
+    // Create items for carousel with project details
     return [
-      // 16:9 videos first (will stack in left column on desktop)
-      { id: 'ba-tech-video', type: 'vimeo' as const, src: '1151200145', ratio: '16:9', title: 'PROXe AI System' },
-      { id: 'ba-16-9-2', type: 'vimeo' as const, src: '1151200982', ratio: '16:9', title: 'Turquoise Travel App' },
-      // 9:16 videos next (will stack in right column on desktop)
-      { id: 'ba-9-16-1', type: 'vimeo' as const, src: '1151208224', ratio: '9:16', title: 'Adipoli Restaurant System', isPaired: true },
-      { id: 'ba-9-16-2', type: 'vimeo' as const, src: '1151206257', ratio: '9:16', title: 'Pilot Academy Onboarding', isPaired: true },
+      { 
+        id: 'ba-tech-video', 
+        type: 'vimeo' as const, 
+        src: '1151200145', 
+        ratio: '9:16', 
+        title: 'PROXe AI System',
+        description: 'An intelligent AI-powered system for business automation',
+        highlights: [
+          'AI-powered automation',
+          'Real-time analytics dashboard',
+          'Custom workflow builder',
+          'Multi-platform integration'
+        ]
+      },
+      { 
+        id: 'ba-16-9-2', 
+        type: 'vimeo' as const, 
+        src: '1151200982', 
+        ratio: '9:16', 
+        title: 'Turquoise Travel App',
+        description: 'A comprehensive travel management platform',
+        highlights: [
+          'Trip planning & booking',
+          'Real-time flight tracking',
+          'Hotel & activity recommendations',
+          'Social travel sharing'
+        ]
+      },
+      { 
+        id: 'ba-9-16-1', 
+        type: 'vimeo' as const, 
+        src: '1151208224', 
+        ratio: '9:16', 
+        title: 'Adipoli RestauApp System',
+        description: 'Complete restaurant management solution',
+        highlights: [
+          'Table reservation system',
+          'Menu management',
+          'Order tracking',
+          'Customer loyalty program'
+        ]
+      },
+      { 
+        id: 'ba-9-16-2', 
+        type: 'vimeo' as const, 
+        src: '1151206257', 
+        ratio: '9:16', 
+        title: 'Pilot Academy Onboarding',
+        description: 'Streamlined onboarding platform for pilot training',
+        highlights: [
+          'Interactive training modules',
+          'Progress tracking',
+          'Certification management',
+          'Performance analytics'
+        ]
+      },
     ];
   }, [isBusinessApps]);
 
@@ -1065,51 +1117,78 @@ export default function LiquidBentoPortfolio({
         )}
 
         {isBusinessApps ? (
-          <div className="business-apps-grid">
-            {(() => {
-              const isMobile = deviceType === 'mobile';
-              const sixteenNineItems = displayItems.filter(item => item.ratio === '16:9');
-              const nineSixteenItems = displayItems.filter(item => item.ratio === '9:16');
-              
-              if (isMobile) {
-                // Mobile: render with pairing logic
-                return displayItems.filter(item => item !== null).map((item, index) => {
-                  const isPairedItem = item.isPaired && item.ratio === '9:16';
-                  const nextItem = displayItems[index + 1];
-                  const isFirstOfPair = isPairedItem && nextItem?.isPaired && nextItem?.ratio === '9:16';
-                  
-                  if (isFirstOfPair) {
-                    return (
-                      <div key={`pair-${item.id}`} className="business-apps-pair">
+          <div className="business-apps-carousel">
+            {/* Left Arrow - Positioned on left side */}
+            <button
+              className="business-apps-nav-button business-apps-nav-prev"
+              onClick={() => setCurrentSlide((prev) => (prev > 0 ? prev - 1 : displayItems.length - 1))}
+              aria-label="Previous project"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+            <div className="business-apps-carousel-container">
+              <div 
+                className="business-apps-slides"
+                style={{
+                  transform: `translateX(-${currentSlide * 100}%)`,
+                  transition: 'transform 0.5s ease-in-out'
+                }}
+              >
+                {displayItems.map((item, index) => (
+                  <div key={item.id} className="business-apps-slide">
+                    <div className="business-apps-slide-content">
+                      <div className="business-apps-media">
                         {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
-                        {renderPortfolioItem(nextItem, index + 1, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
                       </div>
-                    );
-                  } else if (isPairedItem && displayItems[index - 1]?.isPaired && displayItems[index - 1]?.ratio === '9:16') {
-                    return null;
-                  }
-                  
-                  return renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap);
-                });
-              } else {
-                // Desktop/Tablet: render 16:9 items in left column, 9:16 items in middle and right columns
-                return (
-                  <>
-                    <div className="business-apps-column business-apps-column-left">
-                      {sixteenNineItems.map((item, index) => 
-                        renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
-                      )}
+                      <div className="business-apps-details">
+                        <h3 className="business-apps-details-title">{item.title}</h3>
+                        {item.description && (
+                          <p className="business-apps-details-description">{item.description}</p>
+                        )}
+                        {item.highlights && item.highlights.length > 0 && (
+                          <div className="business-apps-highlights">
+                            <h4 className="business-apps-highlights-title">Key Features</h4>
+                            <ul className="business-apps-highlights-list">
+                              {item.highlights.map((highlight, idx) => (
+                                <li key={idx} className="business-apps-highlight-item">
+                                  {highlight}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="business-apps-column business-apps-column-middle">
-                      {nineSixteenItems.length > 0 && renderPortfolioItem(nineSixteenItems[0], sixteenNineItems.length, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
-                    </div>
-                    <div className="business-apps-column business-apps-column-right">
-                      {nineSixteenItems.length > 1 && renderPortfolioItem(nineSixteenItems[1], sixteenNineItems.length + 1, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
-                    </div>
-                  </>
-                );
-              }
-            })()}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Arrow - Positioned on right side */}
+            <button
+              className="business-apps-nav-button business-apps-nav-next"
+              onClick={() => setCurrentSlide((prev) => (prev < displayItems.length - 1 ? prev + 1 : 0))}
+              aria-label="Next project"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+
+            {/* Dots - Positioned on right side vertically */}
+            <div className="business-apps-dots">
+              {displayItems.map((_, index) => (
+                <button
+                  key={index}
+                  className={`business-apps-dot ${index === currentSlide ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
         <div className="liquid-bento-grid">

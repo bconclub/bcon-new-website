@@ -248,7 +248,7 @@ export default function StaggeredMenu({
           <div
             key={i}
             className="sm-prelayer"
-            ref={(el) => (prelayersRef.current[i] = el)}
+            ref={(el) => { prelayersRef.current[i] = el; }}
             style={{
               background: i === 0 ? 'rgba(0, 0, 0, 0.3)' : i === 1 ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.7)',
               transform: position === 'right' ? 'translateX(100%)' : 'translateX(-100%)'
@@ -279,7 +279,7 @@ export default function StaggeredMenu({
                       href={item.link}
                       className="sm-panel-item"
                       aria-label={item.ariaLabel}
-                      ref={(el) => (itemsRef.current[index] = el)}
+                      ref={(el) => { itemsRef.current[index] = el; }}
                       onClick={closeMenu}
                     >
                       {linkContent}
@@ -289,7 +289,7 @@ export default function StaggeredMenu({
                       href={item.link}
                       className="sm-panel-item"
                       aria-label={item.ariaLabel}
-                      ref={(el) => (itemsRef.current[index] = el)}
+                      ref={(el) => { itemsRef.current[index] = el; }}
                       onClick={closeMenu}
                     >
                       {linkContent}
@@ -302,7 +302,7 @@ export default function StaggeredMenu({
 
           {/* Social Links */}
           {displaySocials && socialItems.length > 0 && (
-            <div className="sm-socials" ref={(el) => (itemsRef.current[items.length] = el)}>
+            <div className="sm-socials" ref={(el) => { itemsRef.current[items.length] = el; }}>
               <h3 className="sm-socials-title">Follow Us</h3>
               <ul className="sm-socials-list">
                 {socialItems.map((social, index) => (

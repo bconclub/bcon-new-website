@@ -8,21 +8,15 @@ import './ShowReel.css';
 
 interface VimeoPlayer {
   pause: () => void;
-  on: (event: string, callback: () => void) => void;
-  off: (event: string, callback: () => void) => void;
+  on: (event: string, callback: (data?: any) => void) => void;
+  off: (event: string, callback?: (data?: any) => void) => void;
 }
 
-declare global {
-  interface Window {
-    Vimeo: {
-      Player: new (element: HTMLIFrameElement) => VimeoPlayer;
-    };
-  }
-}
+// Vimeo Player types are handled by @vimeo/player types package
 
 export default function ShowReel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [player, setPlayer] = useState<VimeoPlayer | null>(null);
+  const [player, setPlayer] = useState<any>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -43,20 +37,23 @@ export default function ShowReel() {
   useEffect(() => {
     if (isModalOpen && window.Vimeo && iframeRef.current) {
       const vimeoPlayer = new window.Vimeo.Player(iframeRef.current);
-      setPlayer(vimeoPlayer);
+      setPlayer(vimeoPlayer as any);
 
-      vimeoPlayer.on('loaded', () => {
+      const onLoaded = () => {
         setVideoLoaded(true);
-      });
+      };
 
-      vimeoPlayer.on('ended', () => {
+      const onEnded = () => {
         setIsModalOpen(false);
         document.body.style.overflow = 'unset';
-      });
+      };
+
+      vimeoPlayer.on('loaded', onLoaded);
+      vimeoPlayer.on('ended', onEnded);
 
       return () => {
-        vimeoPlayer.off('ended');
-        vimeoPlayer.off('loaded');
+        vimeoPlayer.off('ended', onEnded);
+        vimeoPlayer.off('loaded', onLoaded);
       };
     }
   }, [isModalOpen]);

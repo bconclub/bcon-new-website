@@ -8,7 +8,7 @@ import './ShowcaseSection.css';
 gsap.registerPlugin(ScrollTrigger);
 
 interface ShowcaseSectionProps {
-  title: string;
+  title?: string;
   eyebrow?: string;
   subheader?: string;
   children: React.ReactNode;

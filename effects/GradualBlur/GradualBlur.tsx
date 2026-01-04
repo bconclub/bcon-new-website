@@ -117,7 +117,7 @@ function GradualBlur(props: GradualBlurProps) {
     return responsive ? value : config[key];
   };
 
-  const useIntersectionObserver = (ref: React.RefObject<HTMLDivElement>, shouldObserve: boolean) => {
+  const useIntersectionObserver = (ref: React.RefObject<HTMLDivElement | null>, shouldObserve: boolean) => {
     const [isVisible, setIsVisible] = useState(!shouldObserve);
 
     useEffect(() => {
@@ -138,7 +138,7 @@ function GradualBlur(props: GradualBlurProps) {
   const isVisible = useIntersectionObserver(containerRef, config.animated === 'scroll');
 
   const blurDivs = useMemo(() => {
-    const divs: JSX.Element[] = [];
+    const divs: React.ReactElement[] = [];
     const increment = 100 / config.divCount;
     const currentStrength =
       isHovered && config.hoverIntensity ? config.strength * config.hoverIntensity : config.strength;
@@ -151,7 +151,7 @@ function GradualBlur(props: GradualBlurProps) {
 
       let blurValue: number;
       if (config.exponential) {
-        blurValue = math.pow(2, progress * 4) * 0.0625 * currentStrength;
+        blurValue = Number(math.pow(2, progress * 4)) * 0.0625 * currentStrength;
       } else {
         blurValue = 0.0625 * (progress * config.divCount + 1) * currentStrength;
       }

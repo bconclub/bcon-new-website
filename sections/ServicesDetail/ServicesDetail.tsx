@@ -122,7 +122,7 @@ export default function ServicesDetail() {
           <div 
             key={service.id} 
             id={`service-${service.id}`}
-            className={`service-card-modern ${service.layout === 'right' ? 'service-card-reverse' : ''}`}
+            className={`service-card-modern ${service.layout === 'right' ? 'service-card-reverse' : ''} ${service.id === 3 ? 'service-card-video-layout' : ''}`}
           >
             {/* Left Side - Content */}
             <div className="service-card-content">
@@ -160,31 +160,65 @@ export default function ServicesDetail() {
               </div>
             </div>
 
-            {/* Right Side - Visual Card */}
-            <div className="service-card-visual">
-              <div className="service-visual-card">
-                <div className="visual-card-header">
-                  <span className="visual-card-badge">Featured</span>
-                  <div className="visual-card-icon">→</div>
+            {/* Right Side - Visual Card or Video (for Business Apps) */}
+            {service.id === 3 ? (
+              <div className="service-card-video">
+                <div className="service-video-wrapper">
+                  <video
+                    className="service-video-player"
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    preload="metadata"
+                  >
+                    <source src="/portfolio/WOW%20VFX.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
-                <div className="visual-card-content">
-                  <div className="visual-card-graphic">
-                    <div className="graphic-circle"></div>
-                    <div className="graphic-elements">
-                      <div className="graphic-dot graphic-dot-1"></div>
-                      <div className="graphic-dot graphic-dot-2"></div>
-                      <div className="graphic-dot graphic-dot-3"></div>
-                    </div>
+              </div>
+            ) : (
+              <div className="service-card-visual">
+                <div className="service-visual-card">
+                  <div className="visual-card-header">
+                    <span className="visual-card-badge">Featured</span>
+                    <div className="visual-card-icon">→</div>
                   </div>
-                  <div className="visual-card-text">
-                    <h3 className="visual-card-title">Intelligent Solutions</h3>
-                    <p className="visual-card-desc">Powered by Human × AI collaboration</p>
+                  <div className="visual-card-content">
+                    <div className="visual-card-graphic">
+                      <div className="graphic-circle"></div>
+                      <div className="graphic-elements">
+                        <div className="graphic-dot graphic-dot-1"></div>
+                        <div className="graphic-dot graphic-dot-2"></div>
+                        <div className="graphic-dot graphic-dot-3"></div>
+                      </div>
+                    </div>
+                    <div className="visual-card-text">
+                      <h3 className="visual-card-title">Intelligent Solutions</h3>
+                      <p className="visual-card-desc">Powered by Human × AI collaboration</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
+      </div>
+
+      {/* Scroll Navigation for Business Apps Section */}
+      <div className="service-scroll-navigation" id="service-scroll-nav">
+        <div className="scroll-nav-container">
+          {services.map((service) => (
+            <a
+              key={service.id}
+              href={`#service-${service.id}`}
+              className="scroll-nav-dot"
+              aria-label={`Navigate to ${service.title}`}
+            >
+              <span className="scroll-nav-label">{service.title}</span>
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Bottom CTA Section */}
@@ -201,6 +235,7 @@ export default function ServicesDetail() {
     </section>
   );
 }
+
 
 
 

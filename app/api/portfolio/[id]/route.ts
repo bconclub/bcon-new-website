@@ -4,10 +4,11 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 // GET - Fetch single portfolio item
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const { id } = await params;
+    const supabase = await createServerSupabaseClient();
     
     const { data, error } = await supabase
       .from('portfolio_items')
@@ -19,7 +20,7 @@ export async function GET(
           slug
         )
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -41,10 +42,11 @@ export async function GET(
 // PUT - Update portfolio item (admin only)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const { id } = await params;
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { session } } = await supabase.auth.getSession();
@@ -59,7 +61,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('portfolio_items')
       .update(body)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -82,10 +84,11 @@ export async function PUT(
 // DELETE - Delete portfolio item (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const { id } = await params;
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { session } } = await supabase.auth.getSession();
@@ -99,7 +102,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('portfolio_items')
       .delete()
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) {
       return NextResponse.json(

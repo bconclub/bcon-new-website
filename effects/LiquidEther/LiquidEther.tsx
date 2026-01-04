@@ -530,12 +530,14 @@ export default function LiquidEther({
         this.scene.add(this.line);
       }
 
-      update({ dt, isBounce, BFECC }: { dt: number; isBounce: boolean; BFECC: boolean }) {
-        if (this.uniforms) {
-          this.uniforms.dt.value = dt;
-          this.uniforms.isBFECC.value = BFECC;
+      update(params?: { dt: number; isBounce: boolean; BFECC: boolean }) {
+        if (params) {
+          if (this.uniforms) {
+            this.uniforms.dt.value = params.dt;
+            this.uniforms.isBFECC.value = params.BFECC;
+          }
+          if (this.line) this.line.visible = params.isBounce;
         }
-        if (this.line) this.line.visible = isBounce;
         super.update();
       }
     }
@@ -548,9 +550,9 @@ export default function LiquidEther({
         this.init(simProps);
       }
 
-      init(simProps: any) {
+      init(simProps?: any) {
         super.init();
-        if (!this.scene) return;
+        if (!this.scene || !simProps) return;
         const mouseG = new THREE.PlaneGeometry(1, 1);
         const mouseM = new THREE.RawShaderMaterial({
           vertexShader: mouse_vert,
@@ -568,7 +570,7 @@ export default function LiquidEther({
         this.scene.add(this.mouse);
       }
 
-      update(props: any) {
+      update(props?: any) {
         if (!this.mouse) return;
         const forceX = (Mouse.diff.x / 2) * props.mouse_force;
         const forceY = (Mouse.diff.y / 2) * props.mouse_force;
@@ -612,9 +614,14 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ viscous, iterations, dt }: { viscous: number; iterations: number; dt: number }): THREE.WebGLRenderTarget {
+      update(params?: { viscous: number; iterations: number; dt: number }): THREE.WebGLRenderTarget | void {
+        if (!params) {
+          super.update();
+          return;
+        }
+        const { viscous, iterations, dt } = params;
         let fbo_in: THREE.WebGLRenderTarget;
-        let fbo_out: THREE.WebGLRenderTarget;
+        let fbo_out: THREE.WebGLRenderTarget = this.props.output1;
         if (this.uniforms) this.uniforms.v.value = viscous;
         for (let i = 0; i < iterations; i++) {
           if (i % 2 === 0) {
@@ -653,8 +660,8 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ vel }: { vel: THREE.WebGLRenderTarget }) {
-        if (this.uniforms) this.uniforms.velocity.value = vel.texture;
+      update(params?: { vel: THREE.WebGLRenderTarget }) {
+        if (params && this.uniforms) this.uniforms.velocity.value = params.vel.texture;
         super.update();
       }
     }
@@ -679,9 +686,14 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ iterations }: { iterations: number }): THREE.WebGLRenderTarget {
+      update(params?: { iterations: number }): THREE.WebGLRenderTarget | void {
+        if (!params) {
+          super.update();
+          return;
+        }
+        const { iterations } = params;
         let p_in: THREE.WebGLRenderTarget;
-        let p_out: THREE.WebGLRenderTarget;
+        let p_out: THREE.WebGLRenderTarget = this.props.output1;
         for (let i = 0; i < iterations; i++) {
           if (i % 2 === 0) {
             p_in = this.props.output0;
@@ -717,8 +729,9 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ vel, pressure }: { vel: THREE.WebGLRenderTarget; pressure: THREE.WebGLRenderTarget }) {
-        if (this.uniforms) {
+      update(params?: { vel: THREE.WebGLRenderTarget; pressure: THREE.WebGLRenderTarget }) {
+        if (params && this.uniforms) {
+          const { vel, pressure } = params;
           this.uniforms.velocity.value = vel.texture;
           this.uniforms.pressure.value = pressure.texture;
         }
@@ -781,7 +794,7 @@ export default function LiquidEther({
 
       createAllFBO() {
         const type = this.getFloatType();
-        const opts: THREE.WebGLRenderTargetOptions = {
+        const opts: THREE.RenderTargetOptions = {
           type,
           depthBuffer: false,
           stencilBuffer: false,
@@ -877,11 +890,12 @@ export default function LiquidEther({
         });
         let vel = this.fbos.vel_1!;
         if (this.options.isViscous && this.viscous) {
-          vel = this.viscous.update({
+          const viscousResult = this.viscous.update({
             viscous: this.options.viscous,
             iterations: this.options.iterations_viscous,
             dt: this.options.dt
           });
+          if (viscousResult) vel = viscousResult;
         }
         this.divergence?.update({ vel });
         const pressure = this.poisson?.update({
@@ -894,10 +908,10 @@ export default function LiquidEther({
     }
 
     class Output {
-      simulation: Simulation;
-      scene: THREE.Scene;
-      camera: THREE.Camera;
-      output: THREE.Mesh;
+      simulation!: Simulation;
+      scene!: THREE.Scene;
+      camera!: THREE.Camera;
+      output!: THREE.Mesh;
 
       constructor() {
         this.init();

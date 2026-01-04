@@ -121,7 +121,7 @@ export default function ServicesGrid() {
             <div 
               key={service.id} 
               className={`service-card ${isEven ? 'service-card-left' : 'service-card-right'}`}
-              ref={(el) => (cardsRef.current[index] = el)}
+              ref={(el) => { cardsRef.current[index] = el; }}
               onClick={handleCardClick}
             >
               <div className="service-content">

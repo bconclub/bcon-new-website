@@ -23,7 +23,7 @@
 
 .bento-heading {
   font-family: 'Anybody', sans-serif;
-  font-size: 3rem;
+  font-size: 65px;
   font-weight: 700;
   color: #ffffff;
   margin: 0;
@@ -40,7 +40,308 @@
   contain: layout; /* Contain layout to prevent interference */
 }
 
-/* Business Apps Grid - Custom layout: 2 columns on desktop */
+/* Business Apps Carousel */
+.business-apps-carousel {
+  max-width: 1400px;
+  margin: 0 auto;
+  isolation: isolate;
+  contain: layout;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0 100px;
+}
+
+.business-apps-carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 412px;
+  height: 915px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(204, 255, 0, 0.2);
+}
+
+.business-apps-slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.business-apps-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-apps-slide-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  gap: 0;
+  width: 100%;
+}
+
+.business-apps-media {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.business-apps-media .bento-item {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  max-width: 100%;
+}
+
+.business-apps-media .bento-item-inner {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 9 / 16;
+  max-width: 392px;
+  max-height: 696px;
+  margin: 0 auto;
+}
+
+.business-apps-media .bento-media,
+.business-apps-media video,
+.business-apps-media iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.business-apps-details {
+  padding: 15px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(204, 255, 0, 0.2);
+  flex-shrink: 0;
+  height: auto;
+  overflow-y: auto;
+  max-height: calc(915px - 696px - 20px);
+}
+
+.business-apps-details-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #CCFF00;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.business-apps-details-description {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 15px 0;
+}
+
+.business-apps-highlights {
+  margin-top: 15px;
+}
+
+.business-apps-highlights-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.business-apps-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.business-apps-highlight-item {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-highlight-item:last-child {
+  border-bottom: none;
+}
+
+.business-apps-highlight-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #CCFF00;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.business-apps-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #CCFF00;
+  color: #CCFF00;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 10;
+}
+
+.business-apps-nav-prev {
+  left: 20px;
+}
+
+.business-apps-nav-next {
+  right: 20px;
+}
+
+.business-apps-nav-button:hover {
+  background: #CCFF00;
+  color: #000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.business-apps-nav-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.business-apps-dots {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  z-index: 10;
+}
+
+.business-apps-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.business-apps-dot:hover {
+  border-color: #CCFF00;
+  background: rgba(204, 255, 0, 0.3);
+}
+
+.business-apps-dot.active {
+  background: #CCFF00;
+  border-color: #CCFF00;
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive styles for Business Apps Carousel */
+@media (max-width: 1199px) {
+  .business-apps-slide-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .business-apps-details-title {
+    font-size: 2rem;
+  }
+  
+  .business-apps-details-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .business-apps-slide-content {
+    padding: 10px;
+    gap: 20px;
+  }
+  
+  .business-apps-details {
+    padding: 15px;
+  }
+  
+  .business-apps-details-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .business-apps-details-description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  
+  .business-apps-highlights-title {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .business-apps-highlight-item {
+    font-size: 0.9rem;
+    padding: 10px 0;
+    padding-left: 25px;
+  }
+  
+  .business-apps-nav-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .business-apps-nav-prev {
+    left: 10px;
+  }
+
+  .business-apps-nav-next {
+    right: 10px;
+  }
+  
+  .business-apps-dots {
+    right: 50px;
+    gap: 8px;
+  }
+  
+  .business-apps-dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .business-apps-dot.active {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Business Apps Grid - Custom layout: 2 columns on desktop (kept for reference, not used in carousel) */
 .business-apps-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -54,7 +355,7 @@
 /* Desktop: 3 columns - left: 2x 16:9 stacked, middle: 1x 9:16, right: 1x 9:16 */
 @media (min-width: 1200px) {
   .business-apps-grid {
-    grid-template-columns: 1fr 0.7fr 0.7fr; /* 9:16 columns are 30% smaller (0.7 = 70% of original) */
+    grid-template-columns: 1fr 0.56fr 0.56fr; /* 9:16 columns are 80% of previous width (0.56 = 80% of 0.7) */
     gap: 20px;
   }
   

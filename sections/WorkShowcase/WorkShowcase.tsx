@@ -91,7 +91,7 @@ export default function WorkShowcase({
               <div
                 key={item.id}
                 className="work-showcase-media-item"
-                ref={(el) => (itemsRef.current[index] = el)}
+                 ref={(el) => { itemsRef.current[index] = el; }}
                 onClick={() => handleItemClick(item)}
                 style={{ cursor: item.link ? 'pointer' : 'default' }}
               >

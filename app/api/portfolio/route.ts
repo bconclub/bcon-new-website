@@ -4,7 +4,7 @@ import { createServerSupabaseClient } from '@/lib/supabase/server';
 // GET - Fetch portfolio items
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = await createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     
     const category = searchParams.get('category');
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
 // POST - Create new portfolio item (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { session } } = await supabase.auth.getSession();

@@ -248,6 +248,44 @@
   flex: 1;
 }
 
+/* ========== VIDEO SIDE ========== */
+.service-card-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.service-video-wrapper {
+  width: 100%;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(204, 255, 0, 0.05);
+  border: 2px solid rgba(204, 255, 0, 0.15);
+  aspect-ratio: 16 / 9;
+}
+
+.service-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card-video-layout {
+  /* For Business Apps: swap order so video is on left, content on right */
+}
+
+.service-card-video-layout .service-card-content {
+  grid-column: 2;
+}
+
+.service-card-video-layout .service-card-video {
+  grid-column: 1;
+}
+
 /* ========== VISUAL CARD SIDE ========== */
 .service-card-visual {
   display: flex;
@@ -514,11 +552,23 @@
   }
 
   .service-card-content {
-    order: 1;
+    order: 2;
   }
 
   .service-card-visual {
+    order: 1;
+  }
+
+  .service-card-video-layout .service-card-video {
+    order: 1;
+  }
+
+  .service-card-video-layout .service-card-content {
     order: 2;
+  }
+
+  .service-video-wrapper {
+    border-radius: 16px;
   }
 
   .service-number {
@@ -737,6 +787,128 @@
 
   .services-cta-copy {
     font-size: 1rem;
+  }
+}
+
+/* ==================== SCROLL NAVIGATION ==================== */
+.service-scroll-navigation {
+  max-width: 1400px;
+  margin: 80px auto 0 auto;
+  padding: 0 40px;
+}
+
+.scroll-nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.scroll-nav-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 8px;
+}
+
+.scroll-nav-dot::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(204, 255, 0, 0.3);
+  border: 2px solid rgba(204, 255, 0, 0.5);
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.scroll-nav-dot:hover,
+.scroll-nav-dot:focus {
+  color: #CCFF00;
+  transform: translateY(-2px);
+}
+
+.scroll-nav-dot:hover::before,
+.scroll-nav-dot:focus::before {
+  background: #CCFF00;
+  border-color: #CCFF00;
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+  transform: scale(1.2);
+}
+
+.scroll-nav-label {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.scroll-nav-dot:hover .scroll-nav-label,
+.scroll-nav-dot:focus .scroll-nav-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Active state when section is in view */
+.scroll-nav-dot.active {
+  color: #CCFF00;
+}
+
+.scroll-nav-dot.active::before {
+  background: #CCFF00;
+  border-color: #CCFF00;
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+}
+
+/* ========== SCROLL NAVIGATION MOBILE ========== */
+@media (max-width: 768px) {
+  .service-scroll-navigation {
+    margin: 60px auto 0 auto;
+    padding: 0 20px;
+  }
+
+  .scroll-nav-container {
+    gap: 24px;
+  }
+
+  .scroll-nav-dot {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .scroll-nav-dot::before {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scroll-nav-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-scroll-navigation {
+    margin: 50px auto 0 auto;
+    padding: 0 16px;
+  }
+
+  .scroll-nav-container {
+    gap: 20px;
+  }
+
+  .scroll-nav-label {
+    font-size: 0.7rem;
   }
 }
 
