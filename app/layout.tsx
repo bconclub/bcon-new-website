@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import TrackingProvider from '@/components/Tracking/TrackingProvider';
 
 export const metadata: Metadata = {
   title: 'BCON Club - Human × AI Business Solutions',
@@ -20,7 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <TrackingProvider>
+          {children}
+        </TrackingProvider>
+      </body>
     </html>
   );
 }

@@ -9,6 +9,12 @@ import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Helper function to properly encode image paths with spaces
+// encodeURI preserves slashes but encodes spaces and special characters
+const encodeImagePath = (path: string): string => {
+  return encodeURI(path);
+};
+
 interface PortfolioItem {
   id: string | number;
   type: 'vimeo' | 'video' | 'image';
@@ -832,7 +838,7 @@ export default function LiquidBentoPortfolio({
                 <>
                   {sectionVimeoThumbnails[item.src] ? (
                     <img
-                      src={sectionVimeoThumbnails[item.src]}
+                      src={encodeImagePath(sectionVimeoThumbnails[item.src])}
                       alt={item.title}
                       className="bento-media"
                       style={{
@@ -845,10 +851,28 @@ export default function LiquidBentoPortfolio({
                       }}
                       onError={(e) => {
                         console.warn(`Thumbnail failed to load for ${item.src}`);
-                        (e.target as HTMLImageElement).style.display = 'none';
+                        const imgElement = e.target as HTMLImageElement;
+                        // Try alternative path if original fails
+                        const originalSrc = imgElement.src;
+                        const decodedSrc = decodeURI(originalSrc);
+                        if (decodedSrc !== originalSrc) {
+                          const altSrc = sectionVimeoThumbnails[item.src].replace(/\s+/g, '%20');
+                          if (altSrc !== originalSrc) {
+                            imgElement.src = altSrc;
+                            return;
+                          }
+                        }
+                        imgElement.style.display = 'none';
                         const placeholder = (e.target as HTMLElement).parentElement?.querySelector('.vimeo-placeholder') as HTMLElement;
                         if (placeholder) {
                           placeholder.style.display = 'flex';
+                        }
+                      }}
+                      onLoad={() => {
+                        // Hide placeholder when thumbnail loads successfully
+                        const placeholder = document.querySelector(`[data-item-id="${item.id}"] .vimeo-placeholder`) as HTMLElement;
+                        if (placeholder) {
+                          placeholder.style.display = 'none';
                         }
                       }}
                     />
@@ -1032,7 +1056,7 @@ export default function LiquidBentoPortfolio({
           ) : (
             <>
               <img
-                src={item.src}
+                src={encodeImagePath(item.src)}
                 alt=""
                 style={{
                   width: '100%',
@@ -1048,7 +1072,7 @@ export default function LiquidBentoPortfolio({
                 }}
               />
               <img
-                src={item.src}
+                src={encodeImagePath(item.src)}
                 alt={item.title}
                 loading="lazy"
                 className="bento-media"
@@ -1062,10 +1086,30 @@ export default function LiquidBentoPortfolio({
                 }}
                 onError={(e) => {
                   console.error(`Image failed to load: ${item.src}`, e);
-                  (e.target as HTMLImageElement).style.display = 'none';
+                  const imgElement = e.target as HTMLImageElement;
+                  // Try alternative path if original fails
+                  const originalSrc = imgElement.src;
+                  const decodedSrc = decodeURI(originalSrc);
+                  if (decodedSrc !== originalSrc) {
+                    // Already tried encoded, try with spaces replaced
+                    const altSrc = item.src.replace(/\s+/g, '%20');
+                    if (altSrc !== originalSrc) {
+                      imgElement.src = altSrc;
+                      return;
+                    }
+                  }
+                  // Hide image and show placeholder only after all retries fail
+                  imgElement.style.display = 'none';
                   const placeholder = (e.target as HTMLElement).parentElement?.querySelector('.image-placeholder') as HTMLElement;
                   if (placeholder) {
-                    placeholder.style.display = 'block';
+                    placeholder.style.display = 'flex';
+                  }
+                }}
+                onLoad={() => {
+                  // Hide placeholder when image loads successfully
+                  const placeholder = document.querySelector(`[data-item-id="${item.id}"] .image-placeholder`) as HTMLElement;
+                  if (placeholder) {
+                    placeholder.style.display = 'none';
                   }
                 }}
               />

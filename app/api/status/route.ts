@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
   const timestamp = new Date().toISOString();
   
   // Get version - update this with each production push
-  const version = 'v1.01';
+  const version = 'v1.02';
   
   // Get Git information
   let gitInfo = {
