@@ -1119,13 +1119,6 @@ export default function LiquidBentoPortfolio({
                     placeholder.style.display = 'none';
                   }
                 }}
-                onLoad={() => {
-                  // Hide placeholder when image loads successfully
-                  const placeholder = document.querySelector(`[data-item-id="${item.id}"] .image-placeholder`) as HTMLElement;
-                  if (placeholder) {
-                    placeholder.style.display = 'none';
-                  }
-                }}
               />
               <div 
                 className="bento-media image-placeholder"
