@@ -1200,31 +1200,7 @@ export default function LiquidBentoPortfolio({
 
         {!isBusinessApps && (
         <div style={{ textAlign: 'center', marginTop: '40px' }}>
-          <Link 
-            href="/work"
-            className="view-work-button"
-            style={{
-              display: 'inline-block',
-              padding: '14px 28px',
-              borderRadius: '999px',
-              border: '1px solid #CCFF00',
-              color: '#CCFF00',
-              textDecoration: 'none',
-              fontFamily: 'Anybody, sans-serif',
-              fontSize: '15px',
-              fontWeight: 600,
-              letterSpacing: '0.5px',
-              transition: 'all 0.25s ease'
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = '#CCFF00';
-              (e.target as HTMLElement).style.color = '#000';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.backgroundColor = 'transparent';
-              (e.target as HTMLElement).style.color = '#CCFF00';
-            }}
-          >
+          <Link href="/work" className="view-work-button">
             View All Work
           </Link>
         </div>

@@ -822,23 +822,23 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: rgba(204, 255, 0, 0.3);
-  border: 2px solid rgba(204, 255, 0, 0.5);
+  background: rgba(107, 47, 232, 0.28);
+  border: 2px solid rgba(107, 47, 232, 0.5);
   transition: all 0.3s ease;
   display: block;
 }
 
 .scroll-nav-dot:hover,
 .scroll-nav-dot:focus {
-  color: #CCFF00;
+  color: #6B2FE8;
   transform: translateY(-2px);
 }
 
 .scroll-nav-dot:hover::before,
 .scroll-nav-dot:focus::before {
-  background: #CCFF00;
-  border-color: #CCFF00;
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+  background: #6B2FE8;
+  border-color: #6B2FE8;
+  box-shadow: 0 0 20px rgba(107, 47, 232, 0.38);
   transform: scale(1.2);
 }
 
@@ -862,13 +862,13 @@
 
 /* Active state when section is in view */
 .scroll-nav-dot.active {
-  color: #CCFF00;
+  color: #6B2FE8;
 }
 
 .scroll-nav-dot.active::before {
-  background: #CCFF00;
-  border-color: #CCFF00;
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+  background: #6B2FE8;
+  border-color: #6B2FE8;
+  box-shadow: 0 0 20px rgba(107, 47, 232, 0.38);
 }
 
 /* ========== SCROLL NAVIGATION MOBILE ========== */

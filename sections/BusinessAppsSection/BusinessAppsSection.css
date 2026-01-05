@@ -16,6 +16,16 @@ image.png/* ==================== BUSINESS APPS SECTION ==================== */
   margin-bottom: 60px;
 }
 
+.business-apps-eyebrow {
+  font-family: 'Anybody', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B6B6B;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 16px 0;
+}
+
 .business-apps-title {
   font-family: 'Anybody', sans-serif;
   font-size: 3rem;

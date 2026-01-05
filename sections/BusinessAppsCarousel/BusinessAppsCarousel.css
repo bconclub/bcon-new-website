@@ -460,20 +460,22 @@
   font-family: 'Anybody', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #000000;
+  color: #CDFC2E;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 16px 32px;
-  background: #CDFC2E;
-  border-radius: 50px;
+  background: transparent;
+  border: 2px solid #CDFC2E;
+  border-radius: 25px;
   transition: all 0.3s ease;
 }
 
 .business-apps-cta-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(205, 252, 46, 0.3);
+  box-shadow: 0 8px 24px rgba(205, 252, 46, 0.18);
+  background: rgba(205,252,46,0.04);
 }
 
 .business-apps-cta-secondary {
@@ -979,7 +981,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3A3A3A;
+  background: #6B2FE8;
   border: none;
   cursor: pointer;
   padding: 0;
@@ -987,15 +989,15 @@
 }
 
 .business-apps-dot:hover {
-  background: #6B6B6B;
+  background: rgba(107, 47, 232, 0.9);
   transform: scale(1.2);
 }
 
 .business-apps-dot.active {
-  background: #CDFC2E;
+  background: #6B2FE8;
   width: 24px;
   border-radius: 4px;
-  box-shadow: 0 0 12px rgba(205, 252, 46, 0.5);
+  box-shadow: 0 0 12px rgba(107, 47, 232, 0.38);
 }
 
 /* Mobile Navigation Arrows */

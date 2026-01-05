@@ -1,7 +1,7 @@
 /* Desktop Business Apps Section - Split Screen Design */
 
 .business-apps-desktop-section {
-  background: #000000;
+  background: transparent;
   padding: 120px 24px;
   position: relative;
   overflow: hidden;
@@ -10,12 +10,24 @@
 .business-apps-desktop-container {
   max-width: 1400px;
   margin: 0 auto;
+  background: transparent;
 }
+
 
 /* Header */
 .business-apps-desktop-header {
   text-align: center;
   margin-bottom: 80px;
+}
+
+.business-apps-eyebrow {
+  font-family: 'Anybody', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B6B6B;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 16px 0;
 }
 
 .business-apps-desktop-title {
@@ -63,14 +75,75 @@
   align-items: center;
 }
 
+.business-apps-device-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.95);
+  border: 1.5px solid #CDFC2E;
+  color: #CDFC2E;
+  opacity: 1;
+  cursor: pointer;
+  z-index: 30;
+  transition: all 0.18s ease, box-shadow 0.18s ease;
+}
+
+.business-apps-device-arrow:hover {
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 10px 30px rgba(205,252,46,0.18), 0 0 0 6px rgba(205,252,46,0.04);
+}
+
+.business-apps-device-arrow:active,
+.business-apps-device-arrow:focus-visible {
+  transform: translateY(-50%) scale(0.98);
+  box-shadow: 0 6px 18px rgba(205,252,46,0.22), 0 0 0 4px rgba(205,252,46,0.06) inset;
+}
+
+/* Highlight state applied while section is in view */
+.business-apps-device-arrow.highlight {
+  background: rgba(205,252,46,0.06);
+  border-color: #CDFC2E;
+  color: #CDFC2E;
+  box-shadow: 0 10px 36px rgba(205,252,46,0.14), 0 0 0 4px rgba(205,252,46,0.04);
+  transform: translateY(-50%) scale(1.06);
+}
+
+/* Keep left arrow lime even when section highlight toggles */
+.business-apps-device-arrow-left {
+  border-color: #CDFC2E;
+  color: #CDFC2E;
+}
+
+.business-apps-device-arrow-left.highlight {
+  background: rgba(205,252,46,0.06);
+  border-color: #CDFC2E;
+  color: #CDFC2E;
+  box-shadow: 0 8px 24px rgba(205,252,46,0.14), 0 0 0 3px rgba(205,252,46,0.04);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.business-apps-device-arrow-left {
+  /* position arrow so its outer edge sits ~5px from the frame edge */
+  left: -61px;
+}
+
+.business-apps-device-arrow-right {
+  /* position arrow so its outer edge sits ~5px from the frame edge */
+  right: -61px;
+}
+
 .business-apps-device-frame {
   position: relative;
-  width: 320px;
-  height: 640px;
-  background: 
-    linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 25%, #1a1a1a 50%, #0f0f0f 75%, #1a1a1a 100%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%, rgba(255, 255, 255, 0.03) 100%);
-  border-radius: 52px;
+  width: 272px;
+  height: 604px;
+  background: url('/assets/pixel-412.svg') center/contain no-repeat;
+  border-radius: 45px;
   padding: 6px;
   box-shadow: 
     inset 0 0 0 2px rgba(255, 255, 255, 0.08),
@@ -83,39 +156,12 @@
   position: relative;
 }
 
-.business-apps-device-frame::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 126px;
-  height: 30px;
-  background: #000000;
-  border-radius: 0 0 18px 18px;
-  z-index: 3;
-  box-shadow: 
-    inset 0 3px 6px rgba(0, 0, 0, 0.6),
-    0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.business-apps-device-frame::after {
-  content: '';
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 134px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  z-index: 3;
-}
+/* using SVG device mockup as background; pseudo-elements removed to avoid duplication */
 
 .business-apps-device-screen {
   width: 100%;
   height: 100%;
-  border-radius: 46px;
+  border-radius: 39px;
   overflow: hidden;
   background: #000000;
   position: relative;
@@ -131,7 +177,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 40px;
+  border-radius: 34px;
   z-index: 1;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -153,7 +199,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 40px;
+  border-radius: 34px;
   z-index: 2;
 }
 
@@ -173,8 +219,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 420px;
-  height: 680px;
+  width: 356px;
+  height: 579px;
   background: radial-gradient(ellipse, rgba(205, 252, 46, 0.12) 0%, rgba(205, 252, 46, 0.06) 40%, transparent 75%);
   border-radius: 50%;
   z-index: 1;
@@ -182,43 +228,13 @@
   filter: blur(40px);
 }
 
-.business-apps-play-toggle {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(205, 252, 46, 0.4);
-  color: #CDFC2E;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(205, 252, 46, 0.1) inset;
-}
-
-.business-apps-play-toggle:hover {
-  background: rgba(205, 252, 46, 0.15);
-  border-color: #CDFC2E;
-  transform: scale(1.08);
-  box-shadow: 
-    0 6px 20px rgba(205, 252, 46, 0.2),
-    0 0 0 1px rgba(205, 252, 46, 0.2) inset;
-}
+/* play toggle removed - controlled via autoplay/timer */
 
 /* Timer Progress Bar */
 .business-apps-timer-container {
   position: relative;
   width: 100%;
-  max-width: 320px;
+  max-width: 272px;
   margin-top: 24px;
   padding: 0;
 }
@@ -386,7 +402,7 @@
   margin-top: 8px;
   padding: 20px;
   background: rgba(205, 252, 46, 0.05);
-  border-left: 3px solid #CDFC2E;
+  border-left: 3px solid #6B2FE8;
   border-radius: 8px;
 }
 
@@ -426,16 +442,17 @@
 }
 
 .business-apps-cta-primary {
-  background: #CDFC2E;
-  color: #000000;
+  background: transparent;
+  color: #CDFC2E;
   border: 2px solid #CDFC2E;
+  border-radius: 25px;
 }
 
 .business-apps-cta-primary:hover {
-  background: transparent;
+  background: rgba(205, 252, 46, 0.04);
   color: #CDFC2E;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(205, 252, 46, 0.3);
+  box-shadow: 0 4px 12px rgba(205, 252, 46, 0.18);
 }
 
 .business-apps-cta-secondary {
@@ -490,7 +507,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: #6B2FE8;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -498,12 +515,12 @@
 }
 
 .business-apps-dot:hover {
-  background: rgba(205, 252, 46, 0.5);
+  background: rgba(107, 47, 232, 0.9);
   transform: scale(1.2);
 }
 
 .business-apps-dot.active {
-  background: #CDFC2E;
+  background: #6B2FE8;
   width: 32px;
   border-radius: 6px;
 }

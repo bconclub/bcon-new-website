@@ -242,25 +242,71 @@
   z-index: 10;
 }
 
+/* View All Work neon CTA */
+.view-work-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 1px solid #CDFC2E;
+  color: #CDFC2E;
+  text-decoration: none;
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 30px rgba(205, 252, 46, 0.08);
+}
+
+.view-work-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 40px rgba(205, 252, 46, 0.18);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.view-work-button:hover,
+.view-work-button:focus {
+  background: #000;
+  color: #CDFC2E;
+  transform: translateY(-2px);
+}
+
+.view-work-button:active {
+  transform: translateY(0);
+}
+
+.view-work-button.glow {
+  background: transparent;
+}
+
+.view-work-button.glow::before {
+  opacity: 1;
+}
+
 .business-apps-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  background: transparent;
+  border: 2px solid rgba(107, 47, 232, 0.9);
+  background: #6B2FE8;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
 }
 
 .business-apps-dot:hover {
-  border-color: #CCFF00;
-  background: rgba(204, 255, 0, 0.3);
+  border-color: #6B2FE8;
+  background: rgba(107, 47, 232, 0.28);
 }
 
 .business-apps-dot.active {
-  background: #CCFF00;
-  border-color: #CCFF00;
+  background: #6B2FE8;
+  border-color: #6B2FE8;
   width: 14px;
   height: 14px;
 }

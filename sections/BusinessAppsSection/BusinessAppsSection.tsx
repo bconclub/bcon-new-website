@@ -108,13 +108,18 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
         {/* Video Container */}
         <div className="business-apps-modal-video-container">
           {app.vimeo_id ? (
-            <iframe
-              src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=1&loop=1&controls=1&title=0&byline=0&portrait=0&muted=0`}
-              className="business-apps-modal-video"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-            />
+            (() => {
+              const startFrag = app.vimeo_id === '1151206257' ? '#t=10s' : '';
+              return (
+                <iframe
+                  src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=1&loop=1&controls=1&title=0&byline=0&portrait=0&muted=0${startFrag}`}
+                  className="business-apps-modal-video"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                />
+              );
+            })()
           ) : app.video_url ? (
             <>
               <video
@@ -340,10 +345,8 @@ export default function BusinessAppsSection() {
       <div className="business-apps-container">
         {/* Header */}
         <div className="business-apps-header">
+          <p className="business-apps-eyebrow">OUR WORK</p>
           <h2 className="business-apps-title">Business Apps</h2>
-          <p className="business-apps-subtitle">
-            Platforms built to perform — intelligent, conversion-focused, and designed to scale.
-          </p>
         </div>
 
         {/* Mobile: Vertical Stack */}
@@ -360,13 +363,18 @@ export default function BusinessAppsSection() {
               onMouseLeave={() => handleMobileCardHover(index, false)}
             >
               {app.vimeo_id ? (
-                <iframe
-                  src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=0&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1`}
-                  className="business-apps-card-media"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
+                (() => {
+                  const startFrag = app.vimeo_id === '1151206257' ? '#t=10s' : '';
+                  return (
+                    <iframe
+                      src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=0&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1${startFrag}`}
+                      className="business-apps-card-media"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
+                  );
+                })()
               ) : app.video_url ? (
                 <video
                   ref={(el) => { 
@@ -429,13 +437,18 @@ export default function BusinessAppsSection() {
                 onMouseLeave={() => handleDesktopCardHover(index, false)}
               >
                 {app.vimeo_id ? (
-                  <iframe
-                    src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=0&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1`}
-                    className="business-apps-card-media"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                  />
+                  (() => {
+                    const startFrag = app.vimeo_id === '1151206257' ? '#t=10s' : '';
+                    return (
+                      <iframe
+                        src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=0&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1${startFrag}`}
+                        className="business-apps-card-media"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowFullScreen
+                      />
+                    );
+                  })()
                 ) : app.video_url ? (
                   <video
                     ref={(el) => { 

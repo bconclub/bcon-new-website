@@ -173,11 +173,13 @@ export default function DesktopBusinessApps() {
   const [timerProgress, setTimerProgress] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const deviceRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLIFrameElement | null)[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentApp = mockBusinessApps[currentIndex];
+  const currentVimeoStart = currentApp?.vimeo_id === '1151206257' ? '#t=10s' : '';
 
   // Fetch from API (optional - uncomment when ready)
   useEffect(() => {
@@ -239,12 +241,21 @@ export default function DesktopBusinessApps() {
           }
         );
       }
+      // Toggle arrow highlight when the section is in view
+      if (sectionRef.current) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleClass: { targets: '.business-apps-device-arrow', className: 'highlight' }
+        });
+      }
     }, sectionRef.current);
 
     return () => ctx.revert();
   }, []);
 
-  // Auto-advance timer (4 seconds)
+  // Auto-advance timer (6 seconds)
   useEffect(() => {
     // Reset timer when slide changes
     setTimerProgress(0);
@@ -255,7 +266,7 @@ export default function DesktopBusinessApps() {
     }
 
     // Start new timer
-    const duration = 4000; // 4 seconds
+    const duration = 10000; // 10 seconds
     const interval = 50; // Update every 50ms for smooth animation
     const steps = duration / interval;
     let step = 0;
@@ -294,8 +305,9 @@ export default function DesktopBusinessApps() {
       );
     }
 
-    if (deviceRef.current) {
-      gsap.to(deviceRef.current, {
+    // rotate only the visual frame so arrows remain stationary
+    if (frameRef.current) {
+      gsap.to(frameRef.current, {
         rotation: 2,
         duration: 0.3,
         yoyo: true,
@@ -354,10 +366,8 @@ export default function DesktopBusinessApps() {
       <div className="business-apps-desktop-container">
         {/* Header */}
         <div className="business-apps-desktop-header">
+          <p className="business-apps-eyebrow">OUR WORK</p>
           <h2 className="business-apps-desktop-title">Business Apps</h2>
-          <p className="business-apps-desktop-subtitle">
-            Platforms built to perform — intelligent, conversion-focused, and designed to scale.
-          </p>
         </div>
 
         {/* Main Content - Split Screen */}
@@ -365,7 +375,7 @@ export default function DesktopBusinessApps() {
           {/* Left Side - Device Mockup */}
           <div className="business-apps-left-column">
             <div ref={deviceRef} className="business-apps-device-container">
-              <div className="business-apps-device-frame">
+              <div ref={frameRef} className="business-apps-device-frame">
                 <div className="business-apps-device-screen">
                   {/* Loading Background Thumbnail */}
                   {currentApp.thumbnail_url && (
@@ -380,7 +390,7 @@ export default function DesktopBusinessApps() {
                   {currentApp.vimeo_id ? (
                     <iframe
                       ref={(el) => { videoRefs.current[currentIndex] = el; }}
-                      src={`https://player.vimeo.com/video/${currentApp.vimeo_id}?autoplay=${isPlaying ? 1 : 0}&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1`}
+                      src={`https://player.vimeo.com/video/${currentApp.vimeo_id}?autoplay=${isPlaying ? 1 : 0}&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1${currentVimeoStart}`}
                       className="business-apps-device-video"
                       frameBorder="0"
                       allow="autoplay; fullscreen; picture-in-picture"
@@ -396,15 +406,23 @@ export default function DesktopBusinessApps() {
                       autoPlay={isPlaying}
                     />
                   ) : null}
-                  <button
-                    className="business-apps-play-toggle"
-                    onClick={togglePlayPause}
-                    aria-label={isPlaying ? 'Pause' : 'Play'}
-                  >
-                    {isPlaying ? '⏸' : '▶'}
-                  </button>
+                  {/* play toggle removed: controlled via autoplay and timer */}
                 </div>
               </div>
+              <button
+                className="business-apps-device-arrow business-apps-device-arrow-left"
+                onClick={handlePrevious}
+                aria-label="Previous product"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button
+                className="business-apps-device-arrow business-apps-device-arrow-right"
+                onClick={handleNext}
+                aria-label="Next product"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
               <div className="business-apps-device-glow"></div>
             </div>
             
@@ -511,39 +529,7 @@ export default function DesktopBusinessApps() {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="business-apps-desktop-navigation">
-          <button
-            className="business-apps-nav-arrow business-apps-nav-prev"
-            onClick={handlePrevious}
-            aria-label="Previous product"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-
-          <div className="business-apps-dots">
-            {mockBusinessApps.map((_, index) => (
-              <button
-                key={index}
-                className={`business-apps-dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => handleDotClick(index)}
-                aria-label={`Go to product ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            className="business-apps-nav-arrow business-apps-nav-next"
-            onClick={handleNext}
-            aria-label="Next product"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
+        {/* bottom navigation removed */}
       </div>
     </section>
   );
