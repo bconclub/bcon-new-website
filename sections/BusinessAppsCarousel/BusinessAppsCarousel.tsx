@@ -633,29 +633,13 @@ export default function BusinessAppsCarousel() {
                   {/* 2. CONTENT SECTION */}
                   <div className="business-apps-mobile-content-section">
                     {/* Header - Clickable to open modal */}
-                    <div className="business-apps-mobile-header">
-                      <div 
-                        className="business-apps-mobile-header-content"
-                        onClick={() => setModalOpen(true)}
-                      >
-                        <h3 className="business-apps-mobile-product-name">
-                          {app.product_name}
-                          <svg 
-                            className="business-apps-mobile-lightning-icon"
-                            width="20" 
-                            height="20" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                          >
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                          </svg>
-                        </h3>
-                        <p className="business-apps-mobile-product-tagline">{app.tagline}</p>
-                      </div>
+                    <div 
+                      className="business-apps-mobile-header"
+                      onClick={() => setModalOpen(true)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <h3 className="business-apps-mobile-product-name">{app.product_name}</h3>
+                      <p className="business-apps-mobile-product-tagline">{app.tagline}</p>
                     </div>
                   </div>
                 </div>

@@ -78,3 +78,4 @@ export default function FeaturedWorkGrid({ projects, title = 'Featured Work' }: 
 }
 
 
+

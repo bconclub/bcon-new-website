@@ -129,3 +129,4 @@ export default function CategorySection({ title, projects, accentColor = '#CDFC2
 }
 
 
+

@@ -145,3 +145,4 @@ CREATE POLICY "Active story highlights are viewable by everyone"
 --   USING (auth.role() = 'authenticated' AND auth.jwt() ->> 'is_admin' = 'true');
 
 
+

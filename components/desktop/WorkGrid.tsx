@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import WorkCard, { WorkCardProps } from '@/sections/WorkCard/WorkCard';
-import './WorkGrid.css';
+import '@/sections/WorkGrid/WorkGrid.css';
 
 interface WorkItem {
   id: string;
@@ -16,12 +16,12 @@ interface WorkItem {
   featured?: boolean;
 }
 
-interface WorkGridProps {
+interface DesktopWorkGridProps {
   category: 'creative' | 'tech';
   onCardClick: (workItem: WorkItem) => void;
 }
 
-export default function WorkGrid({ category, onCardClick }: WorkGridProps) {
+export default function DesktopWorkGrid({ category, onCardClick }: DesktopWorkGridProps) {
   const [workItems, setWorkItems] = useState<WorkItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -64,7 +64,7 @@ export default function WorkGrid({ category, onCardClick }: WorkGridProps) {
   return (
     <div className="work-grid-container">
       <div className="work-grid">
-        {workItems.map((item, index) => (
+        {workItems.map((item) => (
           <WorkCard
             key={item.id}
             id={item.id}
@@ -83,6 +83,4 @@ export default function WorkGrid({ category, onCardClick }: WorkGridProps) {
     </div>
   );
 }
-
-
 
