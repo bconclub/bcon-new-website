@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 // PUT - Update media item (admin only)
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { mediaId: string } }
-) {
+export async function PUT(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const mediaId = parts[parts.length - 1];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -22,7 +22,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('work_media')
       .update(body)
-      .eq('id', params.mediaId)
+      .eq('id', mediaId)
       .select()
       .single();
 
@@ -43,10 +43,10 @@ export async function PUT(
 }
 
 // DELETE - Delete media item (admin only)
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { mediaId: string } }
-) {
+export async function DELETE(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const mediaId = parts[parts.length - 1];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -62,7 +62,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('work_media')
       .delete()
-      .eq('id', params.mediaId);
+      .eq('id', mediaId);
 
     if (error) {
       return NextResponse.json(

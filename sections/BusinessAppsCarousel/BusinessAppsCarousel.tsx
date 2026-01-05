@@ -157,7 +157,7 @@ const getIcon = (iconName: string) => {
       </svg>
     ),
   };
-  return icons[iconName] || icons['activity'];
+  return icons[iconName as keyof typeof icons] || icons['activity'];
 };
 
 // Mock data - replace with Supabase query

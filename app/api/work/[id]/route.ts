@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 // GET - Fetch single work item
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const id = parts[parts.length - 2];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -15,7 +15,7 @@ export async function GET(
         *,
         work_media (*)
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('status', 'published')
       .single();
 
@@ -43,10 +43,10 @@ export async function GET(
 }
 
 // PUT - Update work item (admin only)
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const id = parts[parts.length - 2];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -63,7 +63,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('work_items')
       .update(body)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -84,10 +84,10 @@ export async function PUT(
 }
 
 // DELETE - Delete work item (admin only)
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const id = parts[parts.length - 2];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -103,7 +103,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('work_items')
       .delete()
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) {
       return NextResponse.json(

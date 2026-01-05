@@ -2,17 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 // GET - Fetch media for a work item
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  // pathname = /api/work/[id]/media -> id is the second-to-last segment
+  const id = parts[parts.length - 2];
   try {
     const supabase = await createServerSupabaseClient();
     
     const { data, error } = await supabase
       .from('work_media')
       .select('*')
-      .eq('work_item_id', params.id)
+      .eq('work_item_id', id)
       .order('order_index', { ascending: true });
 
     if (error) {
@@ -32,10 +33,10 @@ export async function GET(
 }
 
 // POST - Add media to a work item (admin only)
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: NextRequest) {
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const id = parts[parts.length - 2];
   try {
     const supabase = await createServerSupabaseClient();
     
@@ -53,7 +54,7 @@ export async function POST(
     
     const itemsWithWorkId = mediaItems.map((item: any) => ({
       ...item,
-      work_item_id: params.id,
+      work_item_id: id,
     }));
 
     const { data, error } = await supabase

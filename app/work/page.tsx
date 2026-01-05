@@ -136,26 +136,23 @@ export default function Work() {
     return gradients[category.toLowerCase()] || gradients.featured;
   };
 
-  const handleCardClick = async (workItem: WorkItem) => {
-    // Fetch full work item details
-    try {
-      const response = await fetch(`/api/work/${workItem.id}`);
-      const result = await response.json();
-      
-      if (result.data) {
-        setSelectedWorkItem(result.data);
+  const handleCardClick = (workItem: any) => {
+    // Fetch full work item details (promise-based to keep handler synchronous)
+    fetch(`/api/work/${workItem.id}`)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.data) {
+          setSelectedWorkItem(result.data);
+        } else {
+          setSelectedWorkItem(workItem);
+        }
         setIsModalOpen(true);
-      } else {
-        // Use the work item we have
+      })
+      .catch((error) => {
+        console.error('Error fetching work item details:', error);
         setSelectedWorkItem(workItem);
         setIsModalOpen(true);
-      }
-    } catch (error) {
-      console.error('Error fetching work item details:', error);
-      // Use the work item we have
-      setSelectedWorkItem(workItem);
-      setIsModalOpen(true);
-    }
+      });
   };
 
   const handleCloseModal = () => {
