@@ -33,7 +33,7 @@ export default function ProjectCard({
   const [isHovered, setIsHovered] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
 
-  const imageSrc = videoThumbnail || featuredImage || '/portfolio/11PC Launch.jpg';
+  const imageSrc = videoThumbnail || featuredImage || '/portfolio/11PC-Launch.jpg';
 
   const handleMouseEnter = () => {
     setIsHovered(true);
