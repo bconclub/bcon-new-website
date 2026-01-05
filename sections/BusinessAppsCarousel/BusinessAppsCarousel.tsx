@@ -192,7 +192,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase', 'OpenAI', 'Claude', 'WhatsApp API'],
-    target_market: 'Growing businesses needing intelligent automation without aggressive hiring',
+    target_market: 'Growing businesses in retail, services, education, and real estate who need AI capabilities without enterprise complexity',
     cta_primary: '/work/proxe',
     cta_secondary: '/demo/proxe'
   },
@@ -226,7 +226,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['Next.js', 'React', 'Supabase', 'OpenAI', 'Stripe', 'Razorpay'],
-    target_market: 'Travel agencies and tour operators needing automated package creation and booking',
+    target_market: 'Travel agencies, tour operators, and travel planners who want to automate itinerary creation and bookings',
     cta_primary: '/work/turquoise-holidays'
   },
   {
@@ -259,7 +259,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['Next.js', 'React', 'Supabase', 'WhatsApp Business API'],
-    target_market: 'Restaurants wanting direct customer relationships without third-party platforms',
+    target_market: 'Restaurants and cloud kitchens who want direct customer orders without third-party commissions',
     cta_primary: '/work/adipoli-restaurant'
   },
   {
@@ -292,7 +292,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase', 'Custom Testing Engine', 'Meta Ads API'],
-    target_market: 'Aviation training institutes and pilot schools needing streamlined onboarding and conversion tracking',
+    target_market: 'Aviation training institutes and pilot schools needing streamlined student onboarding and conversion tracking',
     cta_primary: '/work/pilot-academy'
   }
 ];
@@ -888,7 +888,7 @@ export default function BusinessAppsCarousel() {
                 </motion.div>
               </div>
 
-              {/* Target Market (Optional) */}
+              {/* Designed For (Optional) */}
               {currentApp.target_market && (
                 <div className="business-apps-target-market">
                   <button
@@ -896,7 +896,7 @@ export default function BusinessAppsCarousel() {
                     onClick={() => toggleSection('target')}
                     aria-expanded={expandedSections.target}
                   >
-                    <h4 className="business-apps-target-title">Target Market</h4>
+                    <h4 className="business-apps-target-title">Designed For</h4>
                     <svg
                       className="business-apps-accordion-icon"
                       width="20"

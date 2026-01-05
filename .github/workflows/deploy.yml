@@ -1,8 +1,8 @@
-name: Deploy BCON to VPS
+name: Deploy to Production
 
 on:
   push:
-    branches: [ main ]
+    branches: [ production ]
   workflow_dispatch:
 
 jobs:

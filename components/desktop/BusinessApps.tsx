@@ -63,7 +63,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase', 'OpenAI API'],
-    target_market: 'Growing businesses needing intelligent automation and workflow management'
+    target_market: 'Growing businesses in retail, services, education, and real estate who need AI capabilities without enterprise complexity'
   },
   {
     id: '2',
@@ -96,7 +96,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase'],
-    target_market: 'Travel agencies and tour operators needing modern booking platforms'
+    target_market: 'Travel agencies, tour operators, and travel planners who want to automate itinerary creation and bookings'
   },
   {
     id: '3',
@@ -129,7 +129,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase'],
-    target_market: 'Aviation training institutes and pilot schools needing streamlined onboarding and conversion tracking'
+    target_market: 'Aviation training institutes and pilot schools needing streamlined student onboarding and conversion tracking'
   },
   {
     id: '4',
@@ -162,7 +162,7 @@ const mockBusinessApps: BusinessApp[] = [
       }
     ],
     tech_stack: ['React', 'Next.js', 'Supabase'],
-    target_market: 'Restaurants and food service businesses needing digital ordering and management'
+    target_market: 'Restaurants and cloud kitchens who want direct customer orders without third-party commissions'
   }
 ];
 
@@ -498,11 +498,11 @@ export default function DesktopBusinessApps() {
               </div>
             </div>
 
-            {/* Target Market (if available) */}
+            {/* Designed For (if available) */}
             {currentApp.target_market && (
               <div className="business-apps-target-section">
                 <p className="business-apps-target-text">
-                  <strong>Target Market:</strong> {currentApp.target_market}
+                  <strong>Designed For:</strong> {currentApp.target_market}
                 </p>
               </div>
             )}
