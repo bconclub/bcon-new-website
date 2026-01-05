@@ -48,7 +48,17 @@ interface CaseStudyModalProps {
 export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyModalProps) {
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const [expandedMediaIndex, setExpandedMediaIndex] = useState<number | null>(null);
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set());
+  const [brokenVideos, setBrokenVideos] = useState<Set<string>>(new Set());
   const modalRef = useRef<HTMLDivElement>(null);
+  
+  const handleImageError = (url: string) => {
+    setBrokenImages(prev => new Set(prev).add(url));
+  };
+  
+  const handleVideoError = (url: string) => {
+    setBrokenVideos(prev => new Set(prev).add(url));
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -133,7 +143,7 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
             {/* Content */}
             <div className="case-study-modal-content">
               {/* Hero Media */}
-              {workItem.hero_media_url && (
+              {workItem.hero_media_url && !brokenImages.has(workItem.hero_media_url) && !brokenVideos.has(workItem.hero_media_url) && (
                 <div className="case-study-hero">
                   {isVideo(workItem.hero_media_url) ? (
                     <video
@@ -143,6 +153,7 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       muted
                       loop
                       playsInline
+                      onError={() => handleVideoError(workItem.hero_media_url!)}
                     />
                   ) : (
                     <Image
@@ -152,6 +163,8 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       className="case-study-hero-image"
                       sizes="100vw"
                       priority
+                      onError={() => handleImageError(workItem.hero_media_url!)}
+                      unoptimized
                     />
                   )}
                 </div>
@@ -183,28 +196,39 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                 <div className="case-study-preview-section">
                   <div className="case-study-preview-scroll">
                     {allMedia.map((media, index) => (
-                      <div
-                        key={media.id}
-                        className="case-study-preview-card"
-                        onClick={() => setExpandedMediaIndex(index)}
-                      >
-                        {isVideo(media.media_url) ? (
-                          <video
-                            src={media.media_url}
-                            className="case-study-preview-media"
-                            muted
-                            playsInline
-                            preload="metadata"
-                          />
-                        ) : (
-                          <Image
-                            src={media.media_url}
-                            alt={media.caption || `Preview ${index + 1}`}
-                            fill
-                            className="case-study-preview-media"
-                            sizes="(max-width: 768px) 200px, 300px"
-                          />
-                        )}
+                      brokenImages.has(media.media_url) || brokenVideos.has(media.media_url) ? (
+                        <div
+                          key={media.id}
+                          className="case-study-preview-card case-study-preview-placeholder"
+                        >
+                          <span>{media.caption || `Preview ${index + 1}`}</span>
+                        </div>
+                      ) : (
+                        <div
+                          key={media.id}
+                          className="case-study-preview-card"
+                          onClick={() => setExpandedMediaIndex(index)}
+                        >
+                          {isVideo(media.media_url) ? (
+                            <video
+                              src={media.media_url}
+                              className="case-study-preview-media"
+                              muted
+                              playsInline
+                              preload="metadata"
+                              onError={() => handleVideoError(media.media_url)}
+                            />
+                          ) : (
+                            <Image
+                              src={media.media_url}
+                              alt={media.caption || `Preview ${index + 1}`}
+                              fill
+                              className="case-study-preview-media"
+                              sizes="(max-width: 768px) 200px, 300px"
+                              onError={() => handleImageError(media.media_url)}
+                              unoptimized
+                            />
+                          )}
                         {isVideo(media.media_url) && (
                           <div className="case-study-preview-play">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -213,10 +237,11 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                             </svg>
                           </div>
                         )}
-                        {media.caption && (
-                          <div className="case-study-preview-caption">{media.caption}</div>
-                        )}
-                      </div>
+                          {media.caption && (
+                            <div className="case-study-preview-caption">{media.caption}</div>
+                          )}
+                        </div>
+                      )
                     ))}
                   </div>
                 </div>
@@ -254,28 +279,37 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       <h2 className="case-study-showcase-title">Creative we're delivering</h2>
                       <div className="case-study-showcase-grid">
                         {creativeMedia.map((media) => (
-                          <div key={media.id} className="case-study-showcase-item">
-                            {isVideo(media.media_url) ? (
-                              <video
-                                src={media.media_url}
-                                className="case-study-showcase-media"
-                                muted
-                                loop
-                                playsInline
-                              />
-                            ) : (
-                              <Image
-                                src={media.media_url}
-                                alt={media.caption || 'Creative work'}
-                                fill
-                                className="case-study-showcase-media"
-                                sizes="(max-width: 768px) 50vw, 33vw"
-                              />
-                            )}
-                            {media.caption && (
-                              <div className="case-study-showcase-caption">{media.caption}</div>
-                            )}
-                          </div>
+                          brokenImages.has(media.media_url) || brokenVideos.has(media.media_url) ? (
+                            <div key={media.id} className="case-study-showcase-item case-study-showcase-placeholder">
+                              <span>{media.caption || 'Creative work'}</span>
+                            </div>
+                          ) : (
+                            <div key={media.id} className="case-study-showcase-item">
+                              {isVideo(media.media_url) ? (
+                                <video
+                                  src={media.media_url}
+                                  className="case-study-showcase-media"
+                                  muted
+                                  loop
+                                  playsInline
+                                  onError={() => handleVideoError(media.media_url)}
+                                />
+                              ) : (
+                                <Image
+                                  src={media.media_url}
+                                  alt={media.caption || 'Creative work'}
+                                  fill
+                                  className="case-study-showcase-media"
+                                  sizes="(max-width: 768px) 50vw, 33vw"
+                                  onError={() => handleImageError(media.media_url)}
+                                  unoptimized
+                                />
+                              )}
+                              {media.caption && (
+                                <div className="case-study-showcase-caption">{media.caption}</div>
+                              )}
+                            </div>
+                          )
                         ))}
                       </div>
                     </div>
@@ -285,28 +319,37 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       <h2 className="case-study-showcase-title">Tech we're delivering</h2>
                       <div className="case-study-showcase-grid">
                         {techMedia.map((media) => (
-                          <div key={media.id} className="case-study-showcase-item">
-                            {isVideo(media.media_url) ? (
-                              <video
-                                src={media.media_url}
-                                className="case-study-showcase-media"
-                                muted
-                                loop
-                                playsInline
-                              />
-                            ) : (
-                              <Image
-                                src={media.media_url}
-                                alt={media.caption || 'Tech work'}
-                                fill
-                                className="case-study-showcase-media"
-                                sizes="(max-width: 768px) 50vw, 33vw"
-                              />
-                            )}
-                            {media.caption && (
-                              <div className="case-study-showcase-caption">{media.caption}</div>
-                            )}
-                          </div>
+                          brokenImages.has(media.media_url) || brokenVideos.has(media.media_url) ? (
+                            <div key={media.id} className="case-study-showcase-item case-study-showcase-placeholder">
+                              <span>{media.caption || 'Tech work'}</span>
+                            </div>
+                          ) : (
+                            <div key={media.id} className="case-study-showcase-item">
+                              {isVideo(media.media_url) ? (
+                                <video
+                                  src={media.media_url}
+                                  className="case-study-showcase-media"
+                                  muted
+                                  loop
+                                  playsInline
+                                  onError={() => handleVideoError(media.media_url)}
+                                />
+                              ) : (
+                                <Image
+                                  src={media.media_url}
+                                  alt={media.caption || 'Tech work'}
+                                  fill
+                                  className="case-study-showcase-media"
+                                  sizes="(max-width: 768px) 50vw, 33vw"
+                                  onError={() => handleImageError(media.media_url)}
+                                  unoptimized
+                                />
+                              )}
+                              {media.caption && (
+                                <div className="case-study-showcase-caption">{media.caption}</div>
+                              )}
+                            </div>
+                          )
                         ))}
                       </div>
                     </div>
@@ -387,6 +430,10 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       controls
                       autoPlay
                     />
+                  ) : brokenImages.has(allMedia[expandedMediaIndex].media_url) ? (
+                    <div className="case-study-expanded-placeholder">
+                      <span>{allMedia[expandedMediaIndex].caption || 'Image unavailable'}</span>
+                    </div>
                   ) : (
                     <Image
                       src={allMedia[expandedMediaIndex].media_url}
@@ -394,6 +441,8 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
                       fill
                       className="case-study-expanded-image"
                       sizes="100vw"
+                      onError={() => handleImageError(allMedia[expandedMediaIndex].media_url)}
+                      unoptimized
                     />
                   )}
                 </motion.div>
