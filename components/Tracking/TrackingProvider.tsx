@@ -61,10 +61,39 @@ function TrackingComponent({ children }: { children: React.ReactNode }) {
     // Track form submissions
     const handleSubmit = (event: Event) => {
       const form = event.target as HTMLFormElement;
+      
+      // Collect all form field values
+      const formData: Record<string, any> = {};
+      const formElements = form.elements;
+      
+      for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i] as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        
+        // Skip submit buttons and hidden fields that aren't inputs
+        if (element.tagName === 'BUTTON' || element.type === 'submit' || element.type === 'button') {
+          continue;
+        }
+        
+        // Get field value
+        if ('name' in element && element.name) {
+          if (element.type === 'checkbox') {
+            formData[element.name] = (element as HTMLInputElement).checked;
+          } else if (element.type === 'radio') {
+            const radio = form.querySelector(`input[name="${element.name}"]:checked`) as HTMLInputElement;
+            if (radio) {
+              formData[element.name] = radio.value;
+            }
+          } else {
+            formData[element.name] = element.value;
+          }
+        }
+      }
+      
       const trackingData = getTrackingData('form_submit', {
         formId: form.id || undefined,
         formAction: form.action || undefined,
         formMethod: form.method || undefined,
+        formData: Object.keys(formData).length > 0 ? formData : undefined,
       });
 
       getTrackingQueue().add(trackingData);

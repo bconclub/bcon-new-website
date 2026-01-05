@@ -119,15 +119,20 @@ public/                Static assets
 - Logout button available in admin dashboard header
 
 ## Build truths / operational notes
-- This is a **Next.js 15** project using the **App Router** (not Create React App)
-- Uses TypeScript for type safety
+- This is a **Next.js 15.0.0** project using the **App Router** (not Create React App)
+- Uses TypeScript 5 for type safety
 - Environment variables must be prefixed with `NEXT_PUBLIC_` to be available on the client
 - Static assets in `public/` are served from the root path
 - App Router uses file-based routing in the `app/` directory
-- Supabase integration uses `@supabase/ssr` for proper Next.js SSR support
-- React version: 19.2.0 (latest)
-- Webpack configuration includes fallbacks for Three.js and GLSL shader support
-- Image optimization configured for Supabase storage and Vimeo
+- Supabase integration uses `@supabase/ssr` v0.8.0 and `@supabase/supabase-js` v2.89.0 for proper Next.js SSR support
+- React version: 19.2.0 (React DOM 19.2.0)
+- Webpack configuration includes fallbacks for Three.js (fs, path, crypto) and GLSL shader support (.glsl, .vs, .fs, .vert, .frag files)
+- Image optimization configured for Supabase storage (`**.supabase.co`) and Vimeo (`player.vimeo.com`, `i.vimeocdn.com`)
+- ESLint 9.39.2 with `eslint-config-next` v16.1.1
+- Key dependencies: GSAP 3.13.0, Three.js 0.180.0, motion 12.23.24, mathjs 15.0.0, ogl 1.0.11
+- UI components: @radix-ui/react-accordion for accordion components
+- Testing: React Testing Library v16.3.0, Jest DOM v6.9.1
+- Project version: 1.0.2
 
 ## API Routes
 - `/api/portfolio` - GET (list), POST (create)

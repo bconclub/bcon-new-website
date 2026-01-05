@@ -35,18 +35,18 @@ const rawAllItems: PortfolioItem[] = [
   { id: 'comet-ai', type: 'video', src: '/portfolio/Comet Ai Video.mp4', ratio: '1:1', title: 'Comet AI' },
   { id: 'campa-cola', type: 'video', src: '/portfolio/Campa Cola.mp4', ratio: '9:16', title: 'Campa Cola' },
   { id: 2, type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
-  { id: 3, type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
-  { id: 4, type: 'video', src: '/portfolio/WOW VFX.mp4', ratio: '16:9', title: 'Event Launch' },
+  { id: 3, type: 'image', src: '/portfolio/Come-to-Dubai.png', ratio: '1:1', title: 'Instagram Post' },
+  { id: 4, type: 'video', src: '/portfolio/WOW-VFX.mp4', ratio: '16:9', title: 'Event Launch' },
   { id: 5, type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Brand Offer' },
   { id: 6, type: 'image', src: '/portfolio/Laptopstore-Product-Ad.jpg', ratio: '1:1', title: 'Product Ad' },
-  { id: 7, type: 'video', src: '/portfolio/Mini Chopper.mp4', ratio: '9:16', title: 'Product Ads' },
-  { id: 8, type: 'video', src: '/portfolio/Nexus Algo Intro.mp4', ratio: '16:9', title: 'YouTube Content' },
-  { id: 9, type: 'video', src: '/portfolio/OR Move With.mp4', ratio: '9:16', title: 'Brand Video' },
-  { id: 10, type: 'video', src: '/portfolio/Portable Juicer.mp4', ratio: '1:1', title: 'Product Ads' },
+  { id: 7, type: 'video', src: '/portfolio/Mini-Chopper.mp4', ratio: '9:16', title: 'Product Ads' },
+  { id: 8, type: 'video', src: '/portfolio/Nexus-Algo-Intro.mp4', ratio: '16:9', title: 'YouTube Content' },
+  { id: 9, type: 'video', src: '/portfolio/OR-Move-With.mp4', ratio: '9:16', title: 'Brand Video' },
+  { id: 10, type: 'video', src: '/portfolio/Portable-Juicer.mp4', ratio: '1:1', title: 'Product Ads' },
   { id: 11, type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Website Video' },
-  { id: 12, type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'Event Ads' },
-  { id: 13, type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', title: 'Brand Asset' },
-  { id: 14, type: 'video', src: '/portfolio/WOW VFX.mp4', ratio: '1:1', title: 'VFX Showreel' }
+  { id: 12, type: 'image', src: '/portfolio/WC-Event.jpg', ratio: '1:1', title: 'Event Ads' },
+  { id: 13, type: 'video', src: '/portfolio/WC-Facility.mp4', ratio: '16:9', title: 'Brand Asset' },
+  { id: 14, type: 'video', src: '/portfolio/WOW-VFX.mp4', ratio: '1:1', title: 'VFX Showreel' }
 ];
 
 const rawMobileItems: PortfolioItem[] = [
@@ -54,10 +54,10 @@ const rawMobileItems: PortfolioItem[] = [
   { id: 'm-comet-ai', type: 'video', src: '/portfolio/Comet Ai Video.mp4', ratio: '1:1', title: 'Comet AI' },
   { id: 'm-campa-cola', type: 'video', src: '/portfolio/Campa Cola.mp4', ratio: '9:16', title: 'Campa Cola' },
   { id: 'm-2', type: 'video', src: '/portfolio/Vyjayanthi Movies.mp4', ratio: '16:9', title: 'Website Video' },
-  { id: 'm-3', type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Instagram Post' },
+  { id: 'm-3', type: 'image', src: '/portfolio/Come-to-Dubai.png', ratio: '1:1', title: 'Instagram Post' },
   { id: 'm-4', type: 'video', src: '/portfolio/Birdbox Reel.mp4', ratio: '9:16', title: 'Social Reel' },
   { id: 'm-5', type: 'video', src: '/portfolio/Laptopstore Offer.mp4', ratio: '1:1', title: 'Brand Offer' },
-  { id: 'm-6', type: 'video', src: '/portfolio/WC Facility.mp4', ratio: '16:9', title: 'Brand Asset' }
+  { id: 'm-6', type: 'video', src: '/portfolio/WC-Facility.mp4', ratio: '16:9', title: 'Brand Asset' }
 ];
 
 // Normalize aspect ratios - keep actual video ratios: 9:16, 1:1, 16:9, 4:3
@@ -190,6 +190,9 @@ export default function LiquidBentoPortfolio({
   headingText = 'Creative',
   isBusinessApps = false
 }: LiquidBentoPortfolioProps) {
+  // #region agent log
+  fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:192',message:'Component mounting',data:{eyebrowText,headingText,isBusinessApps},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+  // #endregion
   const [visibleCount, setVisibleCount] = useState(8);
   const [secondSectionVisibleCount, setSecondSectionVisibleCount] = useState(8);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -230,10 +233,10 @@ export default function LiquidBentoPortfolio({
       { id: 'birdbox-brand-video', type: 'vimeo', src: '1143892769', ratio: '9:16', title: 'Birdbox Brand Video' },
       { id: '11pc-launch', type: 'image', src: '/portfolio/11PC Launch.jpg', ratio: '1:1', title: '11PC Launch' },
       { id: '11pc-event', type: 'image', src: '/portfolio/11PC Event.jpg', ratio: '1:1', title: '11PC Event' },
-      { id: 'birdbox-launching-soon', type: 'image', src: '/portfolio/Birdbox Launching Soon.jpg', ratio: '1:1', title: 'Birdbox Launching Soon' },
-      { id: 'come-to-dubai', type: 'image', src: '/portfolio/Come to Dubai.png', ratio: '1:1', title: 'Come to Dubai' },
+      { id: 'birdbox-launching-soon', type: 'image', src: '/portfolio/Birdbox-Launching-Soon.jpg', ratio: '1:1', title: 'Birdbox Launching Soon' },
+      { id: 'come-to-dubai', type: 'image', src: '/portfolio/Come-to-Dubai.png', ratio: '1:1', title: 'Come to Dubai' },
       { id: 'laptopstore-product-ad', type: 'image', src: '/portfolio/Laptopstore-Product-Ad.jpg', ratio: '1:1', title: 'Laptopstore Product Ad' },
-      { id: 'wc-event', type: 'image', src: '/portfolio/WC Event.jpg', ratio: '1:1', title: 'WC Event' }
+      { id: 'wc-event', type: 'image', src: '/portfolio/WC-Event.jpg', ratio: '1:1', title: 'WC Event' }
     ];
     return normalizeItemRatios(rawItems);
   }, []);
@@ -529,6 +532,9 @@ export default function LiquidBentoPortfolio({
   }, [isBusinessApps]);
 
   const secondSectionItems = useMemo(() => {
+    // #region agent log
+    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:531',message:'secondSectionItems useMemo computing',data:{columnCount,allSecondSectionItemsCount:allSecondSectionItems.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+    // #endregion
     if (columnCount <= 2) {
       const mobileOrder = [
         'thar-ai-ad',
@@ -1092,23 +1098,42 @@ export default function LiquidBentoPortfolio({
                   objectFit: 'cover'
                 }}
                 onError={(e) => {
-                  const imgElement = e.target as HTMLImageElement;
-                  console.error(`Image failed to load: ${item.src}`, {
-                    attemptedSrc: imgElement.src,
-                    originalSrc: item.src,
-                    encodedSrc: encodeImagePath(item.src)
-                  });
-                  
-                  // Hide the failed image
-                  imgElement.style.display = 'none';
-                  
-                  // Show placeholder
-                  const itemContainer = (e.target as HTMLElement).closest('[data-item-id]');
-                  if (itemContainer) {
-                    const placeholder = itemContainer.querySelector('.image-placeholder') as HTMLElement;
-                    if (placeholder) {
-                      placeholder.style.display = 'flex';
+                  // #region agent log
+                  fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1094',message:'Image onError handler entered',data:{itemId:item.id,itemSrc:item.src},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                  // #endregion
+                  try {
+                    const imgElement = e.target as HTMLImageElement;
+                    // #region agent log
+                    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1097',message:'Image error details',data:{attemptedSrc:imgElement?.src,originalSrc:item.src,encodedSrc:encodeImagePath(item.src)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                    // #endregion
+                    console.error(`Image failed to load: ${item.src}`, {
+                      attemptedSrc: imgElement.src,
+                      originalSrc: item.src,
+                      encodedSrc: encodeImagePath(item.src)
+                    });
+                    
+                    // Hide the failed image
+                    if (imgElement) imgElement.style.display = 'none';
+                    
+                    // Show placeholder
+                    const itemContainer = (e.target as HTMLElement).closest('[data-item-id]');
+                    // #region agent log
+                    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1106',message:'Finding placeholder container',data:{foundContainer:!!itemContainer},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                    // #endregion
+                    if (itemContainer) {
+                      const placeholder = itemContainer.querySelector('.image-placeholder') as HTMLElement;
+                      // #region agent log
+                      fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1110',message:'Placeholder element found',data:{foundPlaceholder:!!placeholder},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                      // #endregion
+                      if (placeholder) {
+                        placeholder.style.display = 'flex';
+                      }
                     }
+                  } catch (error) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1113',message:'Error in onError handler',data:{errorMessage:error instanceof Error?error.message:String(error),errorStack:error instanceof Error?error.stack:undefined},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                    // #endregion
+                    console.error('Error in image onError handler:', error);
                   }
                 }}
                 onLoad={() => {
@@ -1151,6 +1176,9 @@ export default function LiquidBentoPortfolio({
 
   // Use business apps items if isBusinessApps is true, otherwise use secondSectionItems
   const displayItems = isBusinessApps ? businessAppsItems : secondSectionItems;
+  // #region agent log
+  fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LiquidBentoPortfolio.tsx:1178',message:'Before render',data:{isBusinessApps,displayItemsCount:displayItems.length,secondSectionItemsCount:secondSectionItems.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+  // #endregion
 
   return (
     <>

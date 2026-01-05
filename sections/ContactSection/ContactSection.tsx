@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { sendToWebhook } from '@/lib/tracking/webhook';
+import { getTrackingData } from '@/lib/tracking/utm';
 import './ContactSection.css';
 
 interface FormData {
@@ -38,7 +40,7 @@ export default function ContactSection() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
@@ -59,7 +61,24 @@ export default function ContactSection() {
 
     if (Object.keys(newErrors).length > 0) return;
 
-    // TODO: submit formData to backend endpoint
+    // Send form data to webhook
+    try {
+      const trackingData = getTrackingData('form_submit', {
+        formType: 'contact',
+        formData: {
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          service: formData.service,
+        },
+      });
+
+      await sendToWebhook(trackingData);
+    } catch (error) {
+      console.error('Error sending form data to webhook:', error);
+      // Continue even if webhook fails - don't block user experience
+    }
+
     setSuccessMessage("Thanks! We'll be in touch soon.");
 
     // Clear form after 2 seconds
