@@ -221,6 +221,32 @@ export default function LiquidBentoPortfolio({
   
   // PHASE 2: Coming Soon modal state
   const [showComingSoon, setShowComingSoon] = useState(false);
+  
+  // Mobile modal state for business apps
+  const [mobileModalOpen, setMobileModalOpen] = useState(false);
+  const [selectedMobileItem, setSelectedMobileItem] = useState<PortfolioItem | null>(null);
+
+  // Lock body scroll when modal is open and handle ESC key
+  useEffect(() => {
+    if (mobileModalOpen && deviceType === 'mobile') {
+      document.body.style.overflow = 'hidden';
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setMobileModalOpen(false);
+        }
+      };
+      window.addEventListener('keydown', handleEsc);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleEsc);
+      };
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileModalOpen, deviceType]);
 
   // Second section items
   const allSecondSectionItems = useMemo(() => {
@@ -1176,79 +1202,162 @@ export default function LiquidBentoPortfolio({
         )}
 
         {isBusinessApps ? (
-          <div className="business-apps-carousel">
-            {/* Left Arrow - Positioned on left side */}
-            <button
-              className="business-apps-nav-button business-apps-nav-prev"
-              onClick={() => setCurrentSlide((prev) => (prev > 0 ? prev - 1 : displayItems.length - 1))}
-              aria-label="Previous project"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6"/>
-              </svg>
-            </button>
+          <>
+            <div className={`business-apps-carousel ${deviceType === 'mobile' ? 'business-apps-carousel-mobile' : ''}`}>
+              {/* Desktop/Tablet: Original carousel with arrows and dots */}
+              {deviceType !== 'mobile' && (
+                <>
+                  {/* Left Arrow - Positioned on left side */}
+                  <button
+                    className="business-apps-nav-button business-apps-nav-prev"
+                    onClick={() => setCurrentSlide((prev) => (prev > 0 ? prev - 1 : displayItems.length - 1))}
+                    aria-label="Previous project"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                  </button>
 
-            <div className="business-apps-carousel-container">
-              <div 
-                className="business-apps-slides"
-                style={{
-                  transform: `translateX(-${currentSlide * 100}%)`,
-                  transition: 'transform 0.5s ease-in-out'
-                }}
-              >
-                {displayItems.map((item, index) => (
-                  <div key={item.id} className="business-apps-slide">
-                    <div className="business-apps-slide-content">
-                      <div className="business-apps-media">
-                        {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
-                      </div>
-                      <div className="business-apps-details">
-                        <h3 className="business-apps-details-title">{item.title}</h3>
-                        {item.description && (
-                          <p className="business-apps-details-description">{item.description}</p>
-                        )}
-                        {item.highlights && item.highlights.length > 0 && (
-                          <div className="business-apps-highlights">
-                            <h4 className="business-apps-highlights-title">Key Features</h4>
-                            <ul className="business-apps-highlights-list">
-                              {item.highlights.map((highlight, idx) => (
-                                <li key={idx} className="business-apps-highlight-item">
-                                  {highlight}
-                                </li>
-                              ))}
-                            </ul>
+                  <div className="business-apps-carousel-container">
+                    <div 
+                      className="business-apps-slides"
+                      style={{
+                        transform: `translateX(-${currentSlide * 100}%)`,
+                        transition: 'transform 0.5s ease-in-out'
+                      }}
+                    >
+                      {displayItems.map((item, index) => (
+                        <div key={item.id} className="business-apps-slide">
+                          <div className="business-apps-slide-content">
+                            <div className="business-apps-media">
+                              {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                            </div>
+                            <div className="business-apps-details">
+                              <h3 className="business-apps-details-title">{item.title}</h3>
+                              {item.description && (
+                                <p className="business-apps-details-description">{item.description}</p>
+                              )}
+                              {item.highlights && item.highlights.length > 0 && (
+                                <div className="business-apps-highlights">
+                                  <h4 className="business-apps-highlights-title">Key Features</h4>
+                                  <ul className="business-apps-highlights-list">
+                                    {item.highlights.map((highlight, idx) => (
+                                      <li key={idx} className="business-apps-highlight-item">
+                                        {highlight}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
+
+                  {/* Right Arrow - Positioned on right side */}
+                  <button
+                    className="business-apps-nav-button business-apps-nav-next"
+                    onClick={() => setCurrentSlide((prev) => (prev < displayItems.length - 1 ? prev + 1 : 0))}
+                    aria-label="Next project"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                  </button>
+
+                  {/* Dots - Positioned on right side vertically */}
+                  <div className="business-apps-dots">
+                    {displayItems.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`business-apps-dot ${index === currentSlide ? 'active' : ''}`}
+                        onClick={() => setCurrentSlide(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Mobile: Horizontal scrolling carousel */}
+              {deviceType === 'mobile' && (
+                <div className="business-apps-carousel-mobile-container">
+                  <div className="business-apps-carousel-mobile-scroll">
+                    {displayItems.map((item, index) => (
+                      <div 
+                        key={item.id} 
+                        className="business-apps-carousel-mobile-item"
+                        onClick={(e) => {
+                          // Don't open modal if clicking on play button
+                          if ((e.target as HTMLElement).closest('.bento-play-button')) {
+                            return;
+                          }
+                          // Pause any playing videos before opening modal
+                          Object.keys(secondSectionVideoRefs.current).forEach((videoId) => {
+                            const vid = secondSectionVideoRefs.current[videoId];
+                            if (vid && !vid.paused) {
+                              vid.pause();
+                            }
+                          });
+                          setSecondSectionPlayedMap({});
+                          setSelectedMobileItem(item);
+                          setMobileModalOpen(true);
+                        }}
+                      >
+                        {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Modal */}
+            {deviceType === 'mobile' && mobileModalOpen && selectedMobileItem && (
+              <div 
+                className="business-apps-mobile-modal-overlay"
+                onClick={() => setMobileModalOpen(false)}
+              >
+                <div 
+                  className="business-apps-mobile-modal"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    className="business-apps-mobile-modal-close"
+                    onClick={() => setMobileModalOpen(false)}
+                    aria-label="Close modal"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                  </button>
+                  <div className="business-apps-mobile-modal-content">
+                    {renderPortfolioItem(selectedMobileItem, 0, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                  </div>
+                  <div className="business-apps-mobile-modal-details">
+                    <h3 className="business-apps-mobile-modal-title">{selectedMobileItem.title}</h3>
+                    {selectedMobileItem.description && (
+                      <p className="business-apps-mobile-modal-description">{selectedMobileItem.description}</p>
+                    )}
+                    {selectedMobileItem.highlights && selectedMobileItem.highlights.length > 0 && (
+                      <div className="business-apps-mobile-modal-highlights">
+                        <h4 className="business-apps-mobile-modal-highlights-title">Key Features</h4>
+                        <ul className="business-apps-mobile-modal-highlights-list">
+                          {selectedMobileItem.highlights.map((highlight, idx) => (
+                            <li key={idx} className="business-apps-mobile-modal-highlight-item">
+                              {highlight}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* Right Arrow - Positioned on right side */}
-            <button
-              className="business-apps-nav-button business-apps-nav-next"
-              onClick={() => setCurrentSlide((prev) => (prev < displayItems.length - 1 ? prev + 1 : 0))}
-              aria-label="Next project"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </button>
-
-            {/* Dots - Positioned on right side vertically */}
-            <div className="business-apps-dots">
-              {displayItems.map((_, index) => (
-                <button
-                  key={index}
-                  className={`business-apps-dot ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => setCurrentSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
+            )}
+          </>
         ) : (
         <div className="liquid-bento-grid">
             {displayItems.map((item, index) => 

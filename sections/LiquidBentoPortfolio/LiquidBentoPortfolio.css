@@ -387,6 +387,199 @@
     width: 12px;
     height: 12px;
   }
+
+  /* Mobile Carousel Styles */
+  .business-apps-carousel-mobile {
+    padding: 0;
+  }
+
+  /* Hide desktop carousel elements on mobile */
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-carousel-container,
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-nav-button,
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-dots {
+    display: none;
+  }
+
+  .business-apps-carousel-mobile-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  .business-apps-carousel-mobile-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .business-apps-carousel-mobile-scroll {
+    display: flex;
+    gap: 16px;
+    padding: 0 20px;
+    width: max-content;
+  }
+
+  .business-apps-carousel-mobile-item {
+    flex-shrink: 0;
+    width: 280px;
+    scroll-snap-align: start;
+    cursor: pointer;
+  }
+
+  .business-apps-carousel-mobile-item .bento-item {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Mobile Modal Styles */
+  .business-apps-mobile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .business-apps-mobile-modal {
+    width: 100%;
+    max-width: 100%;
+    height: 70vh;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(204, 255, 0, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .business-apps-mobile-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(204, 255, 0, 0.5);
+    border-radius: 50%;
+    color: #CCFF00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .business-apps-mobile-modal-close:hover {
+    background: #CCFF00;
+    color: #000;
+    transform: scale(1.1);
+  }
+
+  .business-apps-mobile-modal-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 20px;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .business-apps-mobile-modal-content .bento-item {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 0;
+  }
+
+  .business-apps-mobile-modal-content .bento-item-inner {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: calc(70vh - 200px);
+  }
+
+  .business-apps-mobile-modal-details {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(204, 255, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .business-apps-mobile-modal-title {
+    font-family: 'Anybody', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #CCFF00;
+    margin: 0 0 10px 0;
+    letter-spacing: 0.5px;
+  }
+
+  .business-apps-mobile-modal-description {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 15px 0;
+  }
+
+  .business-apps-mobile-modal-highlights {
+    margin-top: 10px;
+  }
+
+  .business-apps-mobile-modal-highlights-title {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .business-apps-mobile-modal-highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .business-apps-mobile-modal-highlight-item {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 5px 0;
+    padding-left: 18px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .business-apps-mobile-modal-highlight-item:last-child {
+    border-bottom: none;
+  }
+
+  .business-apps-mobile-modal-highlight-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #CCFF00;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
 }
 
 /* Business Apps Grid - Custom layout: 2 columns on desktop (kept for reference, not used in carousel) */

@@ -240,6 +240,7 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
 export default function MobileBusinessApps() {
   const [selectedApp, setSelectedApp] = useState<BusinessApp | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleCardClick = (app: BusinessApp) => {
     setSelectedApp(app);
@@ -251,6 +252,9 @@ export default function MobileBusinessApps() {
     setSelectedApp(null);
   };
 
+  const handlePrev = () => setCurrentIndex(prev => prev === 0 ? mockBusinessApps.length - 1 : prev - 1);
+  const handleNext = () => setCurrentIndex(prev => (prev + 1) % mockBusinessApps.length);
+
 
   return (
     <section className="business-apps-section">
@@ -260,20 +264,45 @@ export default function MobileBusinessApps() {
           <h2 className="business-apps-title">Business Apps</h2>
         </div>
 
-        {/* Mobile: Vertical Stack */}
-        <div className="business-apps-mobile-grid">
-          {mockBusinessApps.map((app, index) => (
-            <div
-              key={`mobile-${app.id}`}
-              className="business-apps-card business-apps-card-mobile"
-              onClick={() => handleCardClick(app)}
-            >
-              <div className="business-apps-card-details business-apps-card-details-mobile">
-                <h3 className="business-apps-card-name">{app.product_name}</h3>
-                <p className="business-apps-card-tagline">{app.tagline}</p>
+        {/* Mobile: Horizontal Scrolling Carousel */}
+        <div className="business-apps-mobile-carousel-container">
+          <div 
+            className="business-apps-mobile-carousel-scroll"
+            style={{ transform: `translateX(-${currentIndex * 100}%)`, transition: 'transform 0.3s ease' }}
+          >
+            {mockBusinessApps.map((app, index) => (
+              <div
+                key={`mobile-${app.id}`}
+                className="business-apps-card business-apps-card-mobile"
+                onClick={() => handleCardClick(app)}
+              >
+                {/* ADD VIDEO SECTION */}
+                <div className="business-apps-card-phone-mockup">
+                  <div className="business-apps-card-phone-frame">
+                    <div className="business-apps-card-phone-screen">
+                      {app.vimeo_id ? (
+                        <iframe
+                          src={`https://player.vimeo.com/video/${app.vimeo_id}?autoplay=0&loop=1&controls=0&title=0&byline=0&portrait=0&muted=1&background=1${app.vimeo_id === '1151206257' ? '#t=10s' : ''}`}
+                          className="business-apps-card-video"
+                          frameBorder="0"
+                          allow="autoplay; fullscreen; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* KEEP EXISTING DETAILS */}
+                <div className="business-apps-card-details business-apps-card-details-mobile">
+                  <h3 className="business-apps-card-name">{app.product_name}</h3>
+                  <p className="business-apps-card-tagline">{app.tagline}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button className="business-apps-mobile-nav-arrow business-apps-mobile-nav-arrow-left" onClick={handlePrev}>←</button>
+          <button className="business-apps-mobile-nav-arrow business-apps-mobile-nav-arrow-right" onClick={handleNext}>→</button>
         </div>
       </div>
 

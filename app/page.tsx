@@ -9,6 +9,7 @@ import GradualBlur from '@/effects/GradualBlur/GradualBlur';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
 import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import ContactSection from '@/sections/ContactSection/ContactSection';
+import Footer from '@/sections/Footer/Footer';
 import { ResponsiveSection } from '@/components/ResponsiveSection';
 import * as Mobile from '@/components/mobile';
 import * as Desktop from '@/components/desktop';
@@ -131,6 +132,9 @@ export default function Home() {
 
       {/* ==================== SECTION 6: Contact ==================== */}
       <ContactSection />
+
+      {/* ==================== FOOTER ==================== */}
+      <Footer />
 
       {/* ==================== FIXED FOOTER BLUR ==================== */}
       <GradualBlur 

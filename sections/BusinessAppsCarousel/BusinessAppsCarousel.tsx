@@ -468,9 +468,12 @@ export default function BusinessAppsCarousel() {
     };
   }, [mobileCurrentIndex, businessApps.length]);
 
-  // Center modal when opened
+  // Center modal when opened and handle body scroll lock
   useEffect(() => {
     if (modalOpen && modalRef.current) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      
       const rect = modalRef.current.getBoundingClientRect();
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
@@ -479,9 +482,32 @@ export default function BusinessAppsCarousel() {
         y: (windowHeight - rect.height) / 2
       });
     } else {
+      // Unlock body scroll
+      document.body.style.overflow = '';
       // Reset position when closed
       setModalPosition({ x: 0, y: 0 });
     }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [modalOpen]);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modalOpen) {
+        setModalOpen(false);
+      }
+    };
+    
+    if (modalOpen) {
+      window.addEventListener('keydown', handleEsc);
+    }
+    
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
   }, [modalOpen]);
 
   // Handle modal drag
@@ -596,6 +622,8 @@ export default function BusinessAppsCarousel() {
                     mobileCardRefs.current[index] = el;
                   }}
                   className={`business-apps-mobile-card ${isActive ? 'active' : 'inactive'}`}
+                  onClick={() => setModalOpen(true)}
+                  style={{ cursor: 'pointer' }}
                 >
                   {/* 1. VIDEO SECTION */}
                   <div className="business-apps-mobile-video-section">
@@ -1011,6 +1039,67 @@ export default function BusinessAppsCarousel() {
 
       {/* PHASE 2: Coming Soon Modal */}
       <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
+
+      {/* Mobile Modal - 70vh with centered product */}
+      {modalOpen && businessApps[mobileCurrentIndex] && (
+        <div 
+          className="business-apps-mobile-modal-overlay"
+          onClick={() => setModalOpen(false)}
+        >
+          <div 
+            className="business-apps-mobile-modal"
+            ref={modalRef}
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleModalTouchStart}
+            onTouchMove={handleModalTouchMove}
+            onTouchEnd={handleModalTouchEnd}
+            style={{
+              transform: `translate(${modalPosition.x}px, ${modalPosition.y}px)`,
+              transition: isDragging ? 'none' : 'transform 0.2s ease'
+            }}
+          >
+            <button
+              className="business-apps-mobile-modal-close"
+              onClick={() => setModalOpen(false)}
+              aria-label="Close modal"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+            
+            <div className="business-apps-mobile-modal-content">
+              {businessApps[mobileCurrentIndex].vimeo_id ? (
+                <iframe
+                  src={`https://player.vimeo.com/video/${businessApps[mobileCurrentIndex].vimeo_id}?autoplay=1&loop=1&controls=1&title=0&byline=0&portrait=0&muted=0`}
+                  className="business-apps-mobile-modal-video"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : businessApps[mobileCurrentIndex].video_url ? (
+                <video
+                  src={businessApps[mobileCurrentIndex].video_url}
+                  className="business-apps-mobile-modal-video"
+                  autoPlay
+                  loop
+                  controls
+                  playsInline
+                />
+              ) : null}
+            </div>
+
+            <div className="business-apps-mobile-modal-details">
+              <h3 className="business-apps-mobile-modal-title">
+                {businessApps[mobileCurrentIndex].product_name}
+              </h3>
+              <p className="business-apps-mobile-modal-tagline">
+                {businessApps[mobileCurrentIndex].tagline}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

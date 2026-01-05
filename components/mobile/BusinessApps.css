@@ -59,13 +59,18 @@ image.png/* ==================== BUSINESS APPS SECTION ==================== */
 /* Mobile Card - 3:4 aspect ratio, centered top */
 .business-apps-card-mobile {
   aspect-ratio: 3 / 4;
-  max-width: 300px;
+  width: 280px;
+  min-width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
   justify-content: flex-start;
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
 }
 
 .business-apps-card-details-mobile {
@@ -147,11 +152,30 @@ iframe.business-apps-card-media {
 
 /* ==================== MOBILE LAYOUT (<768px) ==================== */
 .business-apps-mobile-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: none; /* Hide vertical stack */
+}
+
+.business-apps-mobile-carousel-container {
   width: 100%;
-  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 0 20px;
+  margin: 0 -20px;
+}
+
+.business-apps-mobile-carousel-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.business-apps-mobile-carousel-scroll {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 0 20px;
 }
 
 .business-apps-desktop-carousel {
@@ -439,68 +463,124 @@ iframe.business-apps-modal-video {
 /* ==================== MOBILE MODAL ==================== */
 .business-apps-modal-mobile {
   max-width: 100vw;
-  height: 85vh;
-  max-height: 90vh;
-  border-radius: 16px 16px 0 0;
+  height: 70vh;
+  max-height: 70vh;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .business-apps-modal-video-container-mobile {
-  height: 70vh;
-  min-height: 70vh;
-  max-height: 75vh;
-  flex-shrink: 0;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.business-apps-modal-video-container-mobile iframe,
+.business-apps-modal-video-container-mobile video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
 }
 
 @media (max-width: 768px) {
   .business-apps-modal {
     max-width: 100vw;
-    max-height: 100vh;
-    border-radius: 0;
-    height: 100vh;
+    height: 70vh;
+    max-height: 70vh;
+    border-radius: 16px;
   }
 
   .business-apps-modal-mobile {
-    height: 85vh;
-    max-height: 90vh;
-    border-radius: 16px 16px 0 0;
+    height: 70vh;
+    max-height: 70vh;
+    border-radius: 16px;
   }
 
   .business-apps-modal-backdrop {
-    padding: 0;
-    align-items: flex-end;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
   }
 
   .business-apps-modal-header {
-    padding: 16px 20px;
+    padding: 12px 16px;
     flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
   }
 
   .business-apps-modal-title {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .business-apps-modal-video-container {
     flex: 1;
     min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .business-apps-modal-video-container-mobile {
-    height: 70vh;
-    min-height: 70vh;
-    max-height: 75vh;
-    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px 60px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .business-apps-modal-video-container-mobile iframe,
+  .business-apps-modal-video-container-mobile video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin: auto;
   }
 
   .business-apps-modal-footer {
-    padding: 20px;
+    padding: 12px 16px;
     flex-shrink: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
   }
 
   .business-apps-modal-cta {
-    padding: 14px 20px;
-    font-size: 14px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .business-apps-modal-description-section {
+    display: none; /* Hide description section on mobile to keep modal at 70vh */
   }
 }
 
