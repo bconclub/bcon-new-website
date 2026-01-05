@@ -1,7 +1,7 @@
 /* ==================== CONTACT SECTION ==================== */
-.contact-section {
+  .contact-section {
     min-height: 100vh;
-    background: #00000000;
+    background: #1C1C1C;
     padding: 100px 40px;
     display: flex;
     align-items: center;
@@ -36,7 +36,7 @@
   }
   
   .highlight {
-    color: #CCFF00;
+    color: #CDFC2E;
   }
   
   /* Process Steps */
@@ -110,8 +110,8 @@
   .contact-form {
     width: 100%;
     max-width: 500px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(204, 255, 0, 0.2);
+    background: #1C1C1C;
+    border: 2px solid rgba(205, 252, 46, 0.12);
     border-radius: 32px;
     padding: 50px 40px;
     backdrop-filter: blur(50px);
@@ -139,12 +139,13 @@
   }
   
   .form-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.45);
   }
   
   .form-input:focus {
-    border-color: #CCFF00;
-    background: rgba(255, 255, 255, 0.08);
+    border-color: #CDFC2E;
+    box-shadow: 0 0 0 4px rgba(205,252,46,0.06);
+    background: #222222;
   }
   
   .form-select {
@@ -157,7 +158,7 @@
   }
   
   .form-select option {
-    background: #000000;
+    background: #1C1C1C;
     color: #ffffff;
   }
   
@@ -168,20 +169,35 @@
     font-size: 1rem;
     font-weight: 600;
     color: #000000;
-    background: #CCFF00;
+    background: #CDFC2E;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: all 0.3s ease;
+    transition: all 0.18s ease;
     margin-top: 8px;
   }
   
   .submit-button:hover {
-    background: #ffffff;
+    filter: brightness(1.05);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(204, 255, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(205,252,46,0.18);
+  }
+
+  .form-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    font-family: 'Anybody', sans-serif;
+  }
+
+  .form-success {
+    color: #CDFC2E;
+    font-size: 0.95rem;
+    margin-top: 6px;
+    font-family: 'Anybody', sans-serif;
+    text-align: center;
   }
   
   .privacy-text {

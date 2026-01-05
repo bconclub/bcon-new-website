@@ -20,13 +20,16 @@ export default function ContactSection() {
   });
 
   const services = [
-    'AI Strategy Consulting',
-    'Human X AI Marketing',
-    'AI-Powered Content',
-    'Smart Webistes',
-    'AI-Driven Ads',
-    'Conversation AI - PROXe'
+    { value: '', label: 'Select a service' },
+    { value: 'ai-in-business', label: 'AI in Business' },
+    { value: 'brand-marketing', label: 'Brand Marketing' },
+    { value: 'business-apps', label: 'Business Apps' },
+    { value: 'general', label: 'General Inquiry' },
+    { value: 'not-sure', label: 'Not sure yet / Want to discuss' }
   ];
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [successMessage, setSuccessMessage] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -37,8 +40,33 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add form submission logic here
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Please enter your name';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+
+    if (!formData.service) {
+      newErrors.service = 'Please select a service';
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
+
+    // TODO: submit formData to backend endpoint
+    setSuccessMessage("Thanks! We'll be in touch soon.");
+
+    // Clear form after 2 seconds
+    setTimeout(() => {
+      setFormData({ name: '', phone: '', email: '', service: '' });
+      setSuccessMessage('');
+    }, 2000);
   };
 
   return (
@@ -99,7 +127,6 @@ export default function ContactSection() {
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
-                required
                 className="form-input"
               />
             </div>
@@ -121,21 +148,24 @@ export default function ContactSection() {
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
-                required
                 className="form-input form-select"
               >
-                <option value="">Select Service</option>
-                {services.map((service, index) => (
-                  <option key={index} value={service}>
-                    {service}
+                {services.map((s) => (
+                  <option key={s.value} value={s.value}>
+                    {s.label}
                   </option>
                 ))}
               </select>
+              {errors.service && <div className="form-error">{errors.service}</div>}
             </div>
 
             <button type="submit" className="submit-button">
               Submit
             </button>
+
+            {errors.name && <div className="form-error">{errors.name}</div>}
+            {errors.email && <div className="form-error">{errors.email}</div>}
+            {successMessage && <div className="form-success">{successMessage}</div>}
 
             <p className="privacy-text">
               By submitting this form, you agree to our{' '}
