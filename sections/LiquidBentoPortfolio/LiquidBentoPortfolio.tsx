@@ -546,14 +546,21 @@ export default function LiquidBentoPortfolio({
       return combined.slice(0, 6);
     }
 
-    const mixed = shuffleArray(allSecondSectionItems);
-    const arranged = arrangeItemsIntelligently(mixed, columnCount);
-
+    // For desktop/tablet: Always include all images, then add videos to fill remaining slots
+    const imageItems = allSecondSectionItems.filter(item => item.type === 'image');
+    const videoItems = allSecondSectionItems.filter(item => item.type !== 'image');
+    
     const maxVisible =
       columnCount >= 5 ? 12 :
       columnCount >= 3 ? 9 :
       6;
 
+    // Always include all images, then add shuffled videos to fill remaining slots
+    const shuffledVideos = shuffleArray(videoItems);
+    const videosToInclude = shuffledVideos.slice(0, Math.max(0, maxVisible - imageItems.length));
+    const combined = [...imageItems, ...videosToInclude];
+    
+    const arranged = arrangeItemsIntelligently(combined, columnCount);
     return arranged.slice(0, maxVisible);
   }, [allSecondSectionItems, columnCount]);
 
@@ -1087,22 +1094,17 @@ export default function LiquidBentoPortfolio({
                 onError={(e) => {
                   console.error(`Image failed to load: ${item.src}`, e);
                   const imgElement = e.target as HTMLImageElement;
-                  // Try alternative path if original fails
-                  const originalSrc = imgElement.src;
-                  const decodedSrc = decodeURI(originalSrc);
-                  if (decodedSrc !== originalSrc) {
-                    // Already tried encoded, try with spaces replaced
-                    const altSrc = item.src.replace(/\s+/g, '%20');
-                    if (altSrc !== originalSrc) {
-                      imgElement.src = altSrc;
-                      return;
-                    }
-                  }
-                  // Hide image and show placeholder only after all retries fail
+                  
+                  // Hide the failed image
                   imgElement.style.display = 'none';
-                  const placeholder = (e.target as HTMLElement).parentElement?.querySelector('.image-placeholder') as HTMLElement;
-                  if (placeholder) {
-                    placeholder.style.display = 'flex';
+                  
+                  // Show placeholder
+                  const itemContainer = (e.target as HTMLElement).closest('[data-item-id]');
+                  if (itemContainer) {
+                    const placeholder = itemContainer.querySelector('.image-placeholder') as HTMLElement;
+                    if (placeholder) {
+                      placeholder.style.display = 'flex';
+                    }
                   }
                 }}
                 onLoad={() => {
