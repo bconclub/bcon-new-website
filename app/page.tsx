@@ -1,26 +1,17 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import RotatingText from '@/sections/RotatingText/RotatingText';
 import Loader from '@/effects/Loader/Loader';
 import ScrollReveal from '@/sections/ScrollReveal/ScrollReveal';
 import ServicesGrid from '@/sections/ServicesGrid/ServicesGrid';
 import LiquidBentoPortfolio from '@/sections/LiquidBentoPortfolio/LiquidBentoPortfolio';
-import BusinessAppsCarousel from '@/sections/BusinessAppsCarousel/BusinessAppsCarousel';
-import ShowReel from '@/sections/ShowReel/ShowReel';
 import GradualBlur from '@/effects/GradualBlur/GradualBlur';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
 import ContactSection from '@/sections/ContactSection/ContactSection';
-
-// Dynamically import LiquidEther to avoid SSR issues with Three.js
-const DynamicLiquidEther = dynamic(
-  () => import('@/effects/LiquidEther/LiquidEther'),
-  { ssr: false }
-);
+import { ResponsiveSection } from '@/components/ResponsiveSection';
+import * as Mobile from '@/components/mobile';
+import * as Desktop from '@/components/desktop';
 
 export default function Home() {
-  const rotatingWords = ['Thinks', 'Learns', 'Scales'];
-  
   // Menu configuration
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
@@ -51,33 +42,11 @@ export default function Home() {
       {/* Loader Animation */}
       <Loader />
 
-      {/* Hero Section */}
-      <div className="container">
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
-          <DynamicLiquidEther
-            colors={['#CCFF00', '#CCFF00', '#CCFF00']}
-            mouseForce={20}
-            cursorSize={100}
-            resolution={0.3}
-            autoDemo={true}
-            autoSpeed={0.2}
-            autoIntensity={2.2}
-            dt={0.04}
-            iterationsPoisson={16}
-            iterationsViscous={16}
-          />
-        </div>
-        <div className="content">
-          <p className="tagline">HUMAN <span style={{color: '#CCFF00'}}>X</span> AI</p>
-          <h1>
-            Business <RotatingText words={rotatingWords} interval={2000} />
-          </h1>
-          <p className="description">
-            We build intelligent business systems powered by AI and human creativity.
-          </p>
-          <ShowReel />
-        </div>
-      </div>
+      {/* Hero Section - Responsive */}
+      <ResponsiveSection
+        mobile={<Mobile.Hero />}
+        desktop={<Desktop.Hero />}
+      />
 
       {/* ==================== SECTION 2: SCROLL REVEAL ==================== */}
       <section className="section-two">
@@ -131,8 +100,11 @@ export default function Home() {
       {/* ==================== SECTION 4: PORTFOLIO DUPLICATE ==================== */}
       <LiquidBentoPortfolio />
 
-      {/* ==================== SECTION 5: BUSINESS APPS CAROUSEL ==================== */}
-      <BusinessAppsCarousel />
+      {/* ==================== SECTION 5: BUSINESS APPS SECTION ==================== */}
+      <ResponsiveSection
+        mobile={<Mobile.BusinessApps />}
+        desktop={<Desktop.BusinessApps />}
+      />
 
       {/* ==================== SECTION 6: Contact ==================== */}
       <ContactSection />

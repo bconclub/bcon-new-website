@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
 import StoryHighlights, { StoryHighlight } from '@/sections/StoryHighlights/StoryHighlights';
 import CategoryToggle from '@/sections/CategoryToggle/CategoryToggle';
-import WorkGrid from '@/sections/WorkGrid/WorkGrid';
 import CaseStudyModal from '@/sections/CaseStudyModal/CaseStudyModal';
+import { ResponsiveSection } from '@/components/ResponsiveSection';
+import * as Mobile from '@/components/mobile';
+import * as Desktop from '@/components/desktop';
 import './work.css';
 
 interface WorkItem {
@@ -231,10 +233,10 @@ export default function Work() {
           onToggle={setActiveCategory}
         />
 
-        {/* Work Grid */}
-        <WorkGrid
-          category={activeCategory}
-          onCardClick={handleCardClick}
+        {/* Work Grid - Responsive */}
+        <ResponsiveSection
+          mobile={<Mobile.WorkGrid category={activeCategory} onCardClick={handleCardClick} />}
+          desktop={<Desktop.WorkGrid category={activeCategory} onCardClick={handleCardClick} />}
         />
 
         {/* Case Study Modal */}
