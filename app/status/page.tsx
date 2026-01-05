@@ -38,15 +38,45 @@ export default function StatusPage() {
 
   const fetchStatus = async () => {
     try {
-      const response = await fetch('/api/status');
+      setLoading(true);
+      const response = await fetch('/api/status', {
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
+      
       const data = await response.json();
       setStatusData(data);
       setError(null);
     } catch (err: any) {
+      console.error('Status fetch error:', err);
       setError(err.message || 'Failed to fetch status');
+      // Set minimal status data even on error
+      setStatusData({
+        timestamp: new Date().toISOString(),
+        git: {
+          commitHash: 'unknown',
+          commitMessage: 'unknown',
+          author: 'unknown',
+          authorEmail: 'unknown',
+          commitDate: new Date().toISOString(),
+          branch: 'unknown',
+          remoteUrl: 'unknown',
+        },
+        database: {
+          connected: false,
+          status: 'error',
+          error: err.message || 'Failed to fetch status',
+        },
+        errors: [err.message || 'Failed to fetch status'],
+        version: 'v1.01',
+      });
     } finally {
       setLoading(false);
     }
@@ -80,7 +110,7 @@ export default function StatusPage() {
     }
   };
 
-  if (loading) {
+  if (loading && !statusData) {
     return (
       <div className="status-container">
         <div className="status-loading">Loading status...</div>
@@ -88,18 +118,51 @@ export default function StatusPage() {
     );
   }
 
-  if (error) {
+  // Show error but still try to display data if available
+  if (error && !statusData) {
     return (
       <div className="status-container">
-        <div className="status-error">Error: {error}</div>
+        <div className="status-error">
+          <h2>Error Loading Status</h2>
+          <p>{error}</p>
+          <button onClick={fetchStatus} className="refresh-button" style={{ marginTop: '1rem' }}>
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
+  // If no data at all, show minimal status
   if (!statusData) {
     return (
       <div className="status-container">
-        <div className="status-error">No status data available</div>
+        <div className="status-header">
+          <h1>System Status</h1>
+          <div className="status-timestamp">
+            Last updated: {new Date().toLocaleString()}
+          </div>
+        </div>
+        <div className="status-grid">
+          <div className="status-card">
+            <h2>Status</h2>
+            <div className="status-item">
+              <span className="status-label">Status:</span>
+              <span className="status-badge error">Unable to load status data</span>
+            </div>
+            {error && (
+              <div className="status-item">
+                <span className="status-label">Error:</span>
+                <span className="status-error-text">{error}</span>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="status-footer">
+          <button onClick={fetchStatus} className="refresh-button">
+            Refresh Status
+          </button>
+        </div>
       </div>
     );
   }

@@ -47,51 +47,79 @@ export async function GET(request: NextRequest) {
   try {
     // Get commit hash
     try {
-      gitInfo.commitHash = execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git commit hash');
+      gitInfo.commitHash = execSync('git rev-parse HEAD', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git commit hash: ${e.message || 'Unknown error'}`);
     }
 
     // Get commit message
     try {
-      gitInfo.commitMessage = execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git commit message');
+      gitInfo.commitMessage = execSync('git log -1 --pretty=%s', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git commit message: ${e.message || 'Unknown error'}`);
     }
 
     // Get author
     try {
-      gitInfo.author = execSync('git log -1 --pretty=%an', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git author');
+      gitInfo.author = execSync('git log -1 --pretty=%an', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git author: ${e.message || 'Unknown error'}`);
     }
 
     // Get author email
     try {
-      gitInfo.authorEmail = execSync('git log -1 --pretty=%ae', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git author email');
+      gitInfo.authorEmail = execSync('git log -1 --pretty=%ae', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git author email: ${e.message || 'Unknown error'}`);
     }
 
     // Get commit date
     try {
-      gitInfo.commitDate = execSync('git log -1 --pretty=%aI', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git commit date');
+      gitInfo.commitDate = execSync('git log -1 --pretty=%aI', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git commit date: ${e.message || 'Unknown error'}`);
     }
 
     // Get current branch
     try {
-      gitInfo.branch = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git branch');
+      gitInfo.branch = execSync('git branch --show-current', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git branch: ${e.message || 'Unknown error'}`);
     }
 
     // Get remote URL
     try {
-      gitInfo.remoteUrl = execSync('git config --get remote.origin.url', { encoding: 'utf-8' }).trim();
-    } catch (e) {
-      errors.push('Failed to get git remote URL');
+      gitInfo.remoteUrl = execSync('git config --get remote.origin.url', { 
+        encoding: 'utf-8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 5000
+      }).trim();
+    } catch (e: any) {
+      errors.push(`Failed to get git remote URL: ${e.message || 'Unknown error'}`);
     }
   } catch (error: any) {
     errors.push(`Git information error: ${error.message}`);
