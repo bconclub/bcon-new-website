@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { featureIcons } from '@/components/shared/Icons';
+import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import './BusinessApps.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -171,6 +172,8 @@ export default function DesktopBusinessApps() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [timerProgress, setTimerProgress] = useState(0);
+  // PHASE 2: Coming Soon modal state
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const deviceRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -509,12 +512,20 @@ export default function DesktopBusinessApps() {
 
             {/* CTAs */}
             <div className="business-apps-cta-section">
-              <a
+              {/* PHASE 2: Show Coming Soon modal instead of navigating */}
+              {/* <a
                 href={currentApp.case_study_url}
                 className="business-apps-cta-primary"
               >
                 View Full Case Study →
-              </a>
+              </a> */}
+              <button
+                onClick={() => setShowComingSoon(true)}
+                className="business-apps-cta-primary"
+                type="button"
+              >
+                View Full Case Study →
+              </button>
               {currentApp.live_demo_url && (
                 <a
                   href={currentApp.live_demo_url}
@@ -531,6 +542,9 @@ export default function DesktopBusinessApps() {
 
         {/* bottom navigation removed */}
       </div>
+
+      {/* PHASE 2: Coming Soon Modal */}
+      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
     </section>
   );
 }

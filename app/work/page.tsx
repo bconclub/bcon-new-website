@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
-import StoryHighlights, { StoryHighlight } from '@/sections/StoryHighlights/StoryHighlights';
-import CategoryToggle from '@/sections/CategoryToggle/CategoryToggle';
-import CaseStudyModal from '@/sections/CaseStudyModal/CaseStudyModal';
-import { ResponsiveSection } from '@/components/ResponsiveSection';
-import * as Mobile from '@/components/mobile';
-import * as Desktop from '@/components/desktop';
+import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
+// PHASE 2: Commented out - will show Coming Soon modal
+// import StoryHighlights, { StoryHighlight } from '@/sections/StoryHighlights/StoryHighlights';
+// import CategoryToggle from '@/sections/CategoryToggle/CategoryToggle';
+// import CaseStudyModal from '@/sections/CaseStudyModal/CaseStudyModal';
+// import { ResponsiveSection } from '@/components/ResponsiveSection';
+// import * as Mobile from '@/components/mobile';
+// import * as Desktop from '@/components/desktop';
 import './work.css';
 
 interface WorkItem {
@@ -40,125 +42,126 @@ interface WorkItem {
 }
 
 export default function Work() {
-  const [activeCategory, setActiveCategory] = useState<'creative' | 'tech'>('creative');
-  const [selectedWorkItem, setSelectedWorkItem] = useState<WorkItem | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [storyHighlights, setStoryHighlights] = useState<StoryHighlight[]>([]);
-  const [loading, setLoading] = useState(true);
+  // PHASE 2: Show Coming Soon modal instead of work page
+  const [showComingSoon, setShowComingSoon] = useState(true);
+  
+  // PHASE 2: Commented out - will be enabled in Phase 2
+  // const [activeCategory, setActiveCategory] = useState<'creative' | 'tech'>('creative');
+  // const [selectedWorkItem, setSelectedWorkItem] = useState<WorkItem | null>(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [storyHighlights, setStoryHighlights] = useState<StoryHighlight[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchStoryHighlights();
-  }, []);
+  // PHASE 2: Commented out
+  // useEffect(() => {
+  //   fetchStoryHighlights();
+  // }, []);
 
-  const fetchStoryHighlights = async () => {
-    try {
-      const response = await fetch('/api/story-highlights');
-      const result = await response.json();
-      
-      if (result.data) {
-        const highlights: StoryHighlight[] = result.data.map((item: any) => ({
-          id: item.id,
-          label: item.title,
-          thumbnail: item.thumbnail_url,
-          gradient: getGradientForCategory(item.category),
-          filterTag: item.filter_tag,
-          onClick: () => {
-            if (item.filter_tag) {
-              // Filter by tag or switch category
-              if (item.filter_tag === 'creative' || item.filter_tag === 'tech') {
-                setActiveCategory(item.filter_tag as 'creative' | 'tech');
-              }
-            }
-          },
-        }));
-        setStoryHighlights(highlights);
-      } else {
-        // Fallback highlights if API doesn't return data
-        setStoryHighlights(getDefaultHighlights());
-      }
-    } catch (error) {
-      console.error('Error fetching story highlights:', error);
-      setStoryHighlights(getDefaultHighlights());
-    } finally {
-      setLoading(false);
-    }
-  };
+  // PHASE 2: Commented out - will be enabled in Phase 2
+  // const fetchStoryHighlights = async () => {
+  //   try {
+  //     const response = await fetch('/api/story-highlights');
+  //     const result = await response.json();
+  //     
+  //     if (result.data) {
+  //       const highlights: StoryHighlight[] = result.data.map((item: any) => ({
+  //         id: item.id,
+  //         label: item.title,
+  //         thumbnail: item.thumbnail_url,
+  //         gradient: getGradientForCategory(item.category),
+  //         filterTag: item.filter_tag,
+  //         onClick: () => {
+  //           if (item.filter_tag) {
+  //             if (item.filter_tag === 'creative' || item.filter_tag === 'tech') {
+  //               setActiveCategory(item.filter_tag as 'creative' | 'tech');
+  //             }
+  //           }
+  //         },
+  //       }));
+  //       setStoryHighlights(highlights);
+  //     } else {
+  //       setStoryHighlights(getDefaultHighlights());
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching story highlights:', error);
+  //     setStoryHighlights(getDefaultHighlights());
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const getDefaultHighlights = (): StoryHighlight[] => {
-    return [
-      {
-        id: 'featured',
-        label: 'Featured',
-        gradient: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 100%)',
-        onClick: () => {
-          // Scroll to top or show featured
-        },
-      },
-      {
-        id: 'creative',
-        label: 'Creative',
-        gradient: 'linear-gradient(135deg, #CDFC2E 0%, #06B6D4 100%)',
-        onClick: () => setActiveCategory('creative'),
-      },
-      {
-        id: 'technology',
-        label: 'Technology',
-        gradient: 'linear-gradient(135deg, #6B2FE8 0%, #06B6D4 100%)',
-        onClick: () => setActiveCategory('tech'),
-      },
-      {
-        id: 'recent',
-        label: 'Recent',
-        gradient: 'linear-gradient(135deg, #06B6D4 0%, #CDFC2E 100%)',
-        onClick: () => {
-          // Show recent items
-        },
-      },
-      {
-        id: 'client-stories',
-        label: 'Client Stories',
-        gradient: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 50%, #06B6D4 100%)',
-        onClick: () => {
-          // Show client stories
-        },
-      },
-    ];
-  };
+  // PHASE 2: Commented out
+  // const getDefaultHighlights = (): StoryHighlight[] => {
+  //   return [
+  //     {
+  //       id: 'featured',
+  //       label: 'Featured',
+  //       gradient: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 100%)',
+  //       onClick: () => {},
+  //     },
+  //     {
+  //       id: 'creative',
+  //       label: 'Creative',
+  //       gradient: 'linear-gradient(135deg, #CDFC2E 0%, #06B6D4 100%)',
+  //       onClick: () => setActiveCategory('creative'),
+  //     },
+  //     {
+  //       id: 'technology',
+  //       label: 'Technology',
+  //       gradient: 'linear-gradient(135deg, #6B2FE8 0%, #06B6D4 100%)',
+  //       onClick: () => setActiveCategory('tech'),
+  //     },
+  //     {
+  //       id: 'recent',
+  //       label: 'Recent',
+  //       gradient: 'linear-gradient(135deg, #06B6D4 0%, #CDFC2E 100%)',
+  //       onClick: () => {},
+  //     },
+  //     {
+  //       id: 'client-stories',
+  //       label: 'Client Stories',
+  //       gradient: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 50%, #06B6D4 100%)',
+  //       onClick: () => {},
+  //     },
+  //   ];
+  // };
 
-  const getGradientForCategory = (category: string): string => {
-    const gradients: Record<string, string> = {
-      featured: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 100%)',
-      creative: 'linear-gradient(135deg, #CDFC2E 0%, #06B6D4 100%)',
-      technology: 'linear-gradient(135deg, #6B2FE8 0%, #06B6D4 100%)',
-      recent: 'linear-gradient(135deg, #06B6D4 0%, #CDFC2E 100%)',
-      'client-stories': 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 50%, #06B6D4 100%)',
-    };
-    return gradients[category.toLowerCase()] || gradients.featured;
-  };
+  // PHASE 2: Commented out
+  // const getGradientForCategory = (category: string): string => {
+  //   const gradients: Record<string, string> = {
+  //     featured: 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 100%)',
+  //     creative: 'linear-gradient(135deg, #CDFC2E 0%, #06B6D4 100%)',
+  //     technology: 'linear-gradient(135deg, #6B2FE8 0%, #06B6D4 100%)',
+  //     recent: 'linear-gradient(135deg, #06B6D4 0%, #CDFC2E 100%)',
+  //     'client-stories': 'linear-gradient(135deg, #CDFC2E 0%, #6B2FE8 50%, #06B6D4 100%)',
+  //   };
+  //   return gradients[category.toLowerCase()] || gradients.featured;
+  // };
 
-  const handleCardClick = (workItem: any) => {
-    // Fetch full work item details (promise-based to keep handler synchronous)
-    fetch(`/api/work/${workItem.id}`)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setSelectedWorkItem(result.data);
-        } else {
-          setSelectedWorkItem(workItem);
-        }
-        setIsModalOpen(true);
-      })
-      .catch((error) => {
-        console.error('Error fetching work item details:', error);
-        setSelectedWorkItem(workItem);
-        setIsModalOpen(true);
-      });
-  };
+  // PHASE 2: Commented out
+  // const handleCardClick = (workItem: any) => {
+  //   fetch(`/api/work/${workItem.id}`)
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       if (result.data) {
+  //         setSelectedWorkItem(result.data);
+  //       } else {
+  //         setSelectedWorkItem(workItem);
+  //       }
+  //       setIsModalOpen(true);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching work item details:', error);
+  //       setSelectedWorkItem(workItem);
+  //       setIsModalOpen(true);
+  //     });
+  // };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedWorkItem(null);
-  };
+  // PHASE 2: Commented out
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  //   setSelectedWorkItem(null);
+  // };
 
   // Menu configuration
   const menuItems = [
@@ -175,24 +178,32 @@ export default function Work() {
     { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' }
   ];
 
-  if (loading) {
-    return (
-      <>
-        <StaggeredMenu
-          position="right"
-          items={menuItems}
-          socialItems={socialItems}
-          displaySocials={true}
-          displayItemNumbering={false}
-          accentColor="#CCFF00"
-        />
-        <div className="work-page-loading">
-          <div className="work-loading-spinner" />
-          <p>Loading our work...</p>
-        </div>
-      </>
-    );
-  }
+  const handleMenuItemClick = (item: { label: string; ariaLabel: string; link: string }) => {
+    // PHASE 2: Show Coming Soon modal for non-homepage links
+    if (item.link !== '/') {
+      setShowComingSoon(true);
+    }
+  };
+
+  // PHASE 2: Commented out - will be enabled in Phase 2
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <StaggeredMenu
+  //         position="right"
+  //         items={menuItems}
+  //         socialItems={socialItems}
+  //         displaySocials={true}
+  //         displayItemNumbering={false}
+  //         accentColor="#CCFF00"
+  //       />
+  //       <div className="work-page-loading">
+  //         <div className="work-loading-spinner" />
+  //         <p>Loading our work...</p>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -203,10 +214,14 @@ export default function Work() {
         displaySocials={true}
         displayItemNumbering={false}
         accentColor="#CCFF00"
+        onItemClick={handleMenuItemClick}
       />
       
-      <div className="work-page">
-        {/* Header Section */}
+      {/* PHASE 2: Coming Soon Modal - shown when page is accessed directly */}
+      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
+
+      {/* PHASE 2: Commented out - will be enabled in Phase 2 */}
+      {/* <div className="work-page">
         <header className="work-page-header">
           <h1 className="work-page-title">Our Work</h1>
           <div className="work-page-header-actions">
@@ -219,30 +234,26 @@ export default function Work() {
           </div>
         </header>
 
-        {/* Story Highlights */}
         {storyHighlights.length > 0 && (
           <StoryHighlights highlights={storyHighlights} />
         )}
 
-        {/* Category Toggle */}
         <CategoryToggle
           activeCategory={activeCategory}
           onToggle={setActiveCategory}
         />
 
-        {/* Work Grid - Responsive */}
         <ResponsiveSection
           mobile={<Mobile.WorkGrid category={activeCategory} onCardClick={handleCardClick} />}
           desktop={<Desktop.WorkGrid category={activeCategory} onCardClick={handleCardClick} />}
         />
 
-        {/* Case Study Modal */}
         <CaseStudyModal
           workItem={selectedWorkItem}
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />
-      </div>
+      </div> */}
     </>
   );
 }

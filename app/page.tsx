@@ -1,25 +1,44 @@
 'use client';
 
+import { useState } from 'react';
 import Loader from '@/effects/Loader/Loader';
 import ScrollReveal from '@/sections/ScrollReveal/ScrollReveal';
 import ServicesGrid from '@/sections/ServicesGrid/ServicesGrid';
 import LiquidBentoPortfolio from '@/sections/LiquidBentoPortfolio/LiquidBentoPortfolio';
 import GradualBlur from '@/effects/GradualBlur/GradualBlur';
 import StaggeredMenu from '@/components/StaggeredMenu/StaggeredMenu';
+import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import ContactSection from '@/sections/ContactSection/ContactSection';
 import { ResponsiveSection } from '@/components/ResponsiveSection';
 import * as Mobile from '@/components/mobile';
 import * as Desktop from '@/components/desktop';
 
 export default function Home() {
+  const [showComingSoon, setShowComingSoon] = useState(false);
+
   // Menu configuration
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '/' },
+    // PHASE 2: Commented out - will show Coming Soon modal
+    // { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
+    // PHASE 2: Commented out - will show Coming Soon modal
+    // { label: 'Work', ariaLabel: 'View our work', link: '/work' },
     { label: 'Work', ariaLabel: 'View our work', link: '/work' },
+    // PHASE 2: Commented out - will show Coming Soon modal
+    // { label: 'Services', ariaLabel: 'View our services', link: '/services' },
     { label: 'Services', ariaLabel: 'View our services', link: '/services' },
-    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
+    // PHASE 2: Commented out - will show Coming Soon modal
+    // { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/contact' }
+    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/contact' }
   ];
+
+  const handleMenuItemClick = (item: { label: string; ariaLabel: string; link: string }) => {
+    // PHASE 2: Show Coming Soon modal for non-homepage links
+    if (item.link !== '/') {
+      setShowComingSoon(true);
+    }
+  };
 
   const socialItems = [
     { label: 'Instagram', link: 'https://www.instagram.com/bconclub/' },
@@ -37,7 +56,11 @@ export default function Home() {
         displaySocials={true}
         displayItemNumbering={false}
         accentColor="#CCFF00"
+        onItemClick={handleMenuItemClick}
       />
+
+      {/* PHASE 2: Coming Soon Modal */}
+      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
 
       {/* Loader Animation */}
       <Loader />

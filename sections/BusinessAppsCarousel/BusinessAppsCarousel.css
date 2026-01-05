@@ -470,6 +470,8 @@
   border: 2px solid #CDFC2E;
   border-radius: 25px;
   transition: all 0.3s ease;
+  cursor: pointer;
+  font: inherit;
 }
 
 .business-apps-cta-primary:hover {

@@ -29,6 +29,7 @@ interface StaggeredMenuProps {
   accentColor?: string;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  onItemClick?: (item: MenuItem) => void; // PHASE 2: Callback for menu item clicks
 }
 
 export default function StaggeredMenu({
@@ -39,7 +40,8 @@ export default function StaggeredMenu({
   displayItemNumbering = false,
   accentColor = '#CCFF00',
   onMenuOpen,
-  onMenuClose
+  onMenuClose,
+  onItemClick // PHASE 2: Callback for menu item clicks
 }: StaggeredMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -272,6 +274,18 @@ export default function StaggeredMenu({
                 <span className="sm-panel-itemLabel">{item.label}</span>
               );
 
+              // PHASE 2: Show Coming Soon modal for non-homepage internal links
+              const handleItemClick = (e: React.MouseEvent) => {
+                e.preventDefault();
+                closeMenu();
+                if (onItemClick) {
+                  onItemClick(item);
+                }
+              };
+
+              // Homepage link should work normally
+              const isHomepage = item.link === '/';
+
               return (
                 <li key={index} className="sm-panel-itemWrap">
                   {isExternal ? (
@@ -284,7 +298,7 @@ export default function StaggeredMenu({
                     >
                       {linkContent}
                     </a>
-                  ) : (
+                  ) : isHomepage ? (
                     <Link
                       href={item.link}
                       className="sm-panel-item"
@@ -294,6 +308,23 @@ export default function StaggeredMenu({
                     >
                       {linkContent}
                     </Link>
+                  ) : (
+                    <button
+                      className="sm-panel-item"
+                      aria-label={item.ariaLabel}
+                      ref={(el) => { itemsRef.current[index] = el; }}
+                      onClick={handleItemClick}
+                      style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        padding: 0, 
+                        cursor: 'pointer',
+                        width: '100%',
+                        textAlign: 'left'
+                      }}
+                    >
+                      {linkContent}
+                    </button>
                   )}
                 </li>
               );

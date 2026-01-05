@@ -439,6 +439,9 @@
   transition: all 0.3s ease;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
+  border: none;
+  font: inherit;
 }
 
 .business-apps-cta-primary {

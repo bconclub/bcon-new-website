@@ -257,6 +257,8 @@
   position: relative;
   transition: all 0.18s ease;
   box-shadow: 0 0 30px rgba(205, 252, 46, 0.08);
+  background: transparent;
+  cursor: pointer;
 }
 
 .view-work-button::before {

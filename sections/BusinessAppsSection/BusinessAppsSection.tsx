@@ -167,28 +167,11 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
 }
 
 export default function BusinessAppsSection() {
-  // #region agent log
-  fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:151',message:'Component render started',data:{timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
   const [selectedApp, setSelectedApp] = useState<BusinessApp | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const mobileVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const desktopVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  
-  // #region agent log
-  useEffect(() => {
-    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:159',message:'Component mounted, apps count',data:{appsCount:mockBusinessApps.length,mobileRefs:mobileVideoRefs.current.length,desktopRefs:desktopVideoRefs.current.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(()=>{});
-    
-    // Check video elements after mount
-    setTimeout(() => {
-      const allVideos = document.querySelectorAll('.business-apps-card-media');
-      const mobileVideos = document.querySelectorAll('.business-apps-mobile-grid .business-apps-card-media');
-      const desktopVideos = document.querySelectorAll('.business-apps-desktop-carousel .business-apps-card-media');
-      fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:164',message:'Video elements check',data:{totalVideos:allVideos.length,mobileVideos:mobileVideos.length,desktopVideos:desktopVideos.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
-    }, 500);
-  }, []);
-  // #endregion
 
   const handleCardClick = (app: BusinessApp) => {
     setSelectedApp(app);
@@ -203,16 +186,9 @@ export default function BusinessAppsSection() {
   // Video hover play/pause - mobile
   const handleMobileCardHover = (index: number, isHovering: boolean) => {
     const video = mobileVideoRefs.current[index];
-    // #region agent log
-    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:177',message:'Mobile hover',data:{index,isHovering,hasVideo:!!video},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
     if (video) {
       if (isHovering) {
-        video.play().catch((err) => {
-          // #region agent log
-          fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:182',message:'Mobile video play failed',data:{index,error:err.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'C'})}).catch(()=>{});
-          // #endregion
-        });
+        video.play().catch(() => {});
       } else {
         video.pause();
         video.currentTime = 0;
@@ -223,16 +199,9 @@ export default function BusinessAppsSection() {
   // Video hover play/pause - desktop
   const handleDesktopCardHover = (index: number, isHovering: boolean) => {
     const video = desktopVideoRefs.current[index];
-    // #region agent log
-    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:195',message:'Desktop hover',data:{index,isHovering,hasVideo:!!video},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
-    // #endregion
     if (video) {
       if (isHovering) {
-        video.play().catch((err) => {
-          // #region agent log
-          fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:200',message:'Desktop video play failed',data:{index,error:err.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
-          // #endregion
-        });
+        video.play().catch(() => {});
       } else {
         video.pause();
         video.currentTime = 0;
@@ -255,9 +224,6 @@ export default function BusinessAppsSection() {
               const isVisible = cardRect.left >= containerRect.left - 100 && cardRect.left < containerRect.right + 100;
               if (isVisible && video.paused) {
                 video.play().catch(() => {});
-                // #region agent log
-                fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:214',message:'Desktop autoplay visible video',data:{index,isVisible},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'H'})}).catch(()=>{});
-                // #endregion
               } else if (!isVisible && !video.paused) {
                 video.pause();
                 video.currentTime = 0;
@@ -300,7 +266,6 @@ export default function BusinessAppsSection() {
           const isVisible = rect.left >= containerRect.left && rect.left < containerRect.right;
           if (isVisible) visibleCards.push(idx);
         });
-        fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:250',message:'Desktop carousel cards check',data:{totalCards:cards.length,visibleCards:visibleCards.length,visibleIndices:visibleCards,containerWidth:containerRect.width},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'G'})}).catch(()=>{});
       }
     };
     const timer = setTimeout(checkCards, 500);
@@ -320,28 +285,9 @@ export default function BusinessAppsSection() {
     }
   };
 
-  // #region agent log
-  useEffect(() => {
-    const checkVisibility = () => {
-      const section = document.querySelector('.business-apps-section');
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        const styles = window.getComputedStyle(section);
-        fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:204',message:'Section DOM check',data:{exists:!!section,display:styles.display,visibility:styles.visibility,opacity:styles.opacity,height:rect.height,width:rect.width,top:rect.top},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      } else {
-        fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:204',message:'Section DOM not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-      }
-    };
-    const timer = setTimeout(checkVisibility, 100);
-    return () => clearTimeout(timer);
-  }, []);
-  // #endregion
 
   return (
     <section className="business-apps-section">
-      {/* #region agent log */}
-      {(() => { fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:220',message:'Rendering JSX',data:{appsCount:mockBusinessApps.length,isModalOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{}); return null; })()}
-      {/* #endregion */}
       <div className="business-apps-container">
         {/* Header */}
         <div className="business-apps-header">
@@ -351,9 +297,6 @@ export default function BusinessAppsSection() {
 
         {/* Mobile: Vertical Stack */}
         <div className="business-apps-mobile-grid">
-          {/* #region agent log */}
-          {(() => { fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:230',message:'Rendering mobile grid',data:{cardsCount:mockBusinessApps.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{}); return null; })()}
-          {/* #endregion */}
           {mockBusinessApps.map((app, index) => (
             <div
               key={`mobile-${app.id}`}
@@ -379,11 +322,6 @@ export default function BusinessAppsSection() {
                 <video
                   ref={(el) => { 
                     mobileVideoRefs.current[index] = el;
-                    // #region agent log
-                    if (el) {
-                      fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:250',message:'Mobile video ref set',data:{index,src:app.video_url},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
-                    }
-                    // #endregion
                   }}
                   src={app.video_url}
                   className="business-apps-card-media"
@@ -391,16 +329,8 @@ export default function BusinessAppsSection() {
                   muted
                   playsInline
                   preload="auto"
-                  onLoadedData={(e) => {
-                    // #region agent log
-                    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:320',message:'Mobile video loaded',data:{index,src:app.video_url,readyState:e.currentTarget.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
-                    // #endregion
-                  }}
-                  onError={(e) => {
-                    // #region agent log
-                    fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:326',message:'Mobile video error',data:{index,src:app.video_url,error:e.currentTarget.error?.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
-                    // #endregion
-                  }}
+                  onLoadedData={() => {}}
+                  onError={() => {}}
                 />
               ) : null}
 
@@ -414,9 +344,6 @@ export default function BusinessAppsSection() {
 
         {/* Desktop: Horizontal Carousel */}
         <div className="business-apps-desktop-carousel">
-          {/* #region agent log */}
-          {(() => { fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:250',message:'Rendering desktop carousel',data:{cardsCount:mockBusinessApps.length,windowWidth:typeof window !== 'undefined' ? window.innerWidth : 0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{}); return null; })()}
-          {/* #endregion */}
           <button
             className="business-apps-carousel-arrow business-apps-carousel-arrow-left"
             onClick={scrollLeft}
@@ -453,11 +380,6 @@ export default function BusinessAppsSection() {
                   <video
                     ref={(el) => { 
                       desktopVideoRefs.current[index] = el;
-                      // #region agent log
-                      if (el) {
-                        fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:296',message:'Desktop video ref set',data:{index,src:app.video_url},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
-                      }
-                      // #endregion
                     }}
                     src={app.video_url}
                     className="business-apps-card-media"
@@ -466,16 +388,8 @@ export default function BusinessAppsSection() {
                     playsInline
                     preload="auto"
                     autoPlay={false}
-                    onLoadedData={(e) => {
-                      // #region agent log
-                      fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:375',message:'Desktop video loaded',data:{index,src:app.video_url,readyState:e.currentTarget.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
-                      // #endregion
-                    }}
-                    onError={(e) => {
-                      // #region agent log
-                      fetch('http://127.0.0.1:7248/ingest/37e602c8-dcec-4b1f-8959-e43954ca6fde',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BusinessAppsSection.tsx:381',message:'Desktop video error',data:{index,src:app.video_url,error:e.currentTarget.error?.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
-                      // #endregion
-                    }}
+                    onLoadedData={() => {}}
+                    onError={() => {}}
                   />
                 ) : null}
 

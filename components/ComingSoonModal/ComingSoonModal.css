@@ -1,0 +1,123 @@
+.coming-soon-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.coming-soon-modal {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(0, 0, 0, 0.98));
+  border: 1px solid rgba(204, 255, 0, 0.2);
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(204, 255, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.coming-soon-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+}
+
+.coming-soon-modal-close:hover {
+  color: #CCFF00;
+  background: rgba(204, 255, 0, 0.1);
+  transform: rotate(90deg);
+}
+
+.coming-soon-modal-content {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.coming-soon-modal-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #CCFF00;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.coming-soon-modal-message {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.coming-soon-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.coming-soon-modal-button {
+  background: #CCFF00;
+  color: #000;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coming-soon-modal-button:hover {
+  background: #B8E600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(204, 255, 0, 0.3);
+}
+
+.coming-soon-modal-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .coming-soon-modal {
+    padding: 36px 24px;
+    max-width: 90%;
+  }
+
+  .coming-soon-modal-title {
+    font-size: 32px;
+  }
+
+  .coming-soon-modal-message {
+    font-size: 16px;
+  }
+}
+

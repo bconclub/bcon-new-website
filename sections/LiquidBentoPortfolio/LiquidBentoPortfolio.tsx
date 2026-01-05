@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import WorkHeroVideo from '@/sections/WorkHeroVideo/WorkHeroVideo';
+import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -217,6 +218,9 @@ export default function LiquidBentoPortfolio({
   const secondSectionItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondSectionVideoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const secondSectionVimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
+  
+  // PHASE 2: Coming Soon modal state
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   // Second section items
   const allSecondSectionItems = useMemo(() => {
@@ -1255,11 +1259,22 @@ export default function LiquidBentoPortfolio({
 
         {!isBusinessApps && (
         <div style={{ textAlign: 'center', marginTop: '40px' }}>
-          <Link href="/work" className="view-work-button">
+          {/* PHASE 2: Show Coming Soon modal instead of navigating to /work */}
+          {/* <Link href="/work" className="view-work-button">
             View All Work
-          </Link>
+          </Link> */}
+          <button 
+            className="view-work-button"
+            onClick={() => setShowComingSoon(true)}
+            type="button"
+          >
+            View All Work
+          </button>
         </div>
         )}
+
+        {/* PHASE 2: Coming Soon Modal */}
+        <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
       </section>
     </>
   );

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView } from 'motion/react';
+import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import './BusinessAppsCarousel.css';
 
 interface Feature {
@@ -310,6 +311,8 @@ export default function BusinessAppsCarousel() {
   const [expandedMobileSections, setExpandedMobileSections] = useState<Record<string, Record<string, boolean>>>({});
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+  // PHASE 2: Coming Soon modal state
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const modalRef = useRef<HTMLDivElement>(null);
@@ -933,9 +936,17 @@ export default function BusinessAppsCarousel() {
               {/* CTAs */}
               <div className="business-apps-ctas">
                 {currentApp.cta_primary && (
-                  <a href={currentApp.cta_primary} className="business-apps-cta-primary">
+                  // PHASE 2: Show Coming Soon modal instead of navigating
+                  // <a href={currentApp.cta_primary} className="business-apps-cta-primary">
+                  //   View Full Case Study →
+                  // </a>
+                  <button 
+                    onClick={() => setShowComingSoon(true)}
+                    className="business-apps-cta-primary"
+                    type="button"
+                  >
                     View Full Case Study →
-                  </a>
+                  </button>
                 )}
                 {currentApp.cta_secondary && (
                   <a href={currentApp.cta_secondary} className="business-apps-cta-secondary">
@@ -997,6 +1008,9 @@ export default function BusinessAppsCarousel() {
         </motion.div>
         </div>
       </div>
+
+      {/* PHASE 2: Coming Soon Modal */}
+      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
     </section>
   );
 }
