@@ -10,10 +10,16 @@ export const createSupabaseClient = () => {
 };
 
 // Direct client creation (alternative approach)
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Avoid creating a direct Supabase client during server-side builds where
+// `NEXT_PUBLIC_SUPABASE_URL` may be undefined. Initialize only in the
+// browser when the env vars are available.
+export const supabase =
+  typeof window !== 'undefined' && process.env.NEXT_PUBLIC_SUPABASE_URL
+    ? createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+      )
+    : null;
 
 // Type definitions for database
 export type Database = {
