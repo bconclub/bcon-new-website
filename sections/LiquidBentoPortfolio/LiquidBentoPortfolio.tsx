@@ -1092,8 +1092,12 @@ export default function LiquidBentoPortfolio({
                   objectFit: 'cover'
                 }}
                 onError={(e) => {
-                  console.error(`Image failed to load: ${item.src}`, e);
                   const imgElement = e.target as HTMLImageElement;
+                  console.error(`Image failed to load: ${item.src}`, {
+                    attemptedSrc: imgElement.src,
+                    originalSrc: item.src,
+                    encodedSrc: encodeImagePath(item.src)
+                  });
                   
                   // Hide the failed image
                   imgElement.style.display = 'none';
@@ -1105,6 +1109,14 @@ export default function LiquidBentoPortfolio({
                     if (placeholder) {
                       placeholder.style.display = 'flex';
                     }
+                  }
+                }}
+                onLoad={() => {
+                  console.log(`Image loaded successfully: ${item.src}`);
+                  // Hide placeholder when image loads successfully
+                  const placeholder = document.querySelector(`[data-item-id="${item.id}"] .image-placeholder`) as HTMLElement;
+                  if (placeholder) {
+                    placeholder.style.display = 'none';
                   }
                 }}
                 onLoad={() => {
