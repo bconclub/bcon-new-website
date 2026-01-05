@@ -14,7 +14,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 24px;
     align-items: center;
   }
   
@@ -244,7 +244,7 @@
   /* ========== TABLET ========== */
   @media (max-width: 1024px) {
     .contact-container {
-      gap: 40px;
+      gap: 24px;
     }
   
     .contact-heading {
@@ -264,7 +264,7 @@
 
     .contact-container {
       grid-template-columns: 1fr;
-      gap: 30px;
+      gap: 20px;
     }
   
     .contact-heading {
