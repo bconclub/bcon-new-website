@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { InstagramIcon, LinkedInIcon, YouTubeIcon, XIcon } from '@/components/shared/Icons';
 import './Footer.css';
 
 export default function Footer() {
@@ -28,8 +29,10 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/bconclub' },
-    { label: 'X', href: 'https://twitter.com/bconclub' },
+    { label: 'Instagram', href: 'https://www.instagram.com/bconclub', icon: InstagramIcon },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/bconclub', icon: LinkedInIcon },
+    { label: 'YouTube', href: 'https://www.youtube.com/@bconclub', icon: YouTubeIcon },
+    { label: 'X', href: 'https://twitter.com/bconclub', icon: XIcon },
   ];
 
   return (
@@ -120,20 +123,21 @@ export default function Footer() {
           </div>
 
           <div className="footer-social">
-            {socialLinks.map((social, index) => (
-              <span key={social.href}>
+            {socialLinks.map((social) => {
+              const IconComponent = social.icon;
+              return (
                 <a
+                  key={social.href}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-link"
                   aria-label={social.label}
                 >
-                  {social.label}
+                  <IconComponent size={20} color="currentColor" />
                 </a>
-                {index < socialLinks.length - 1 && <span className="link-separator"> / </span>}
-              </span>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

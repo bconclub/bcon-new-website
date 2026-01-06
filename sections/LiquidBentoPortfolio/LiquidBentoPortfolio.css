@@ -13,7 +13,7 @@
 
 .bento-eyebrow {
   font-family: 'Anybody', sans-serif;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
   margin: 0 0 0.5rem 0;
@@ -23,7 +23,7 @@
 
 .bento-heading {
   font-family: 'Anybody', sans-serif;
-  font-size: 65px;
+  font-size: 32px;
   font-weight: 700;
   color: #ffffff;
   margin: 0;
@@ -857,6 +857,18 @@
     margin-bottom: 10px;
   }
 }
+
+/* ========== DESKTOP (>1024px) ========== */
+@media (min-width: 1024px) {
+  .bento-eyebrow {
+    font-size: 16px;
+  }
+
+  .bento-heading {
+    font-size: 65px;
+  }
+}
+
 .view-work-button {
   display: block;
   width: fit-content;

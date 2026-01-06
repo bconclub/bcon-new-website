@@ -19,7 +19,7 @@
 
 .business-apps-eyebrow {
   font-family: 'Anybody', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: #6B6B6B;
   text-transform: uppercase;
@@ -29,7 +29,7 @@
 
 .business-apps-title {
   font-family: 'Anybody', sans-serif;
-  font-size: 65px;
+  font-size: 32px;
   font-weight: 700;
   color: #FFFFFF;
   margin: 0 0 24px 0;
@@ -1147,7 +1147,7 @@
   }
 
   .business-apps-title {
-    font-size: 64px;
+    font-size: 32px;
   }
 
   .business-apps-subtitle {
@@ -1218,12 +1218,12 @@
   }
 
   .business-apps-eyebrow {
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: 1.5px;
   }
 
   .business-apps-title {
-    font-size: 48px;
+    font-size: 32px;
     margin-bottom: 20px;
   }
 
@@ -1354,7 +1354,7 @@
   }
 
   .business-apps-title {
-    font-size: 40px;
+    font-size: 32px;
   }
 
   .business-apps-mobile-product-name {
@@ -1537,5 +1537,16 @@
 @media (min-width: 768px) {
   .business-apps-mobile-modal-overlay {
     display: none;
+  }
+}
+
+/* ==================== DESKTOP (>1024px) ==================== */
+@media (min-width: 1024px) {
+  .business-apps-eyebrow {
+    font-size: 16px;
+  }
+
+  .business-apps-title {
+    font-size: 65px;
   }
 }

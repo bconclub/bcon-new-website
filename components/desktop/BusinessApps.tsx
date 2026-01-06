@@ -134,12 +134,12 @@ const mockBusinessApps: BusinessApp[] = [
   },
   {
     id: '4',
-    product_name: 'Adipoo Kitchen',
+    product_name: 'Adiploi Kitchen',
     tagline: 'Smart restaurant platform with WhatsApp ordering',
     description: 'Complete restaurant management solution with table reservations, menu management, order tracking, and customer loyalty programs.',
     vimeo_id: '1151324148',
     thumbnail_url: '/product thumbnail/Adipoli Thumbnail.webp',
-    case_study_url: '/work/adipoo-kitchen',
+    case_study_url: '/work/adiploi-kitchen',
     features: [
       {
         icon: 'restaurant',
@@ -510,33 +510,6 @@ export default function DesktopBusinessApps() {
               </div>
             )}
 
-            {/* CTAs */}
-            <div className="business-apps-cta-section">
-              {/* PHASE 2: Show Coming Soon modal instead of navigating */}
-              {/* <a
-                href={currentApp.case_study_url}
-                className="business-apps-cta-primary"
-              >
-                View Full Case Study →
-              </a> */}
-              <button
-                onClick={() => setShowComingSoon(true)}
-                className="business-apps-cta-primary"
-                type="button"
-              >
-                View Full Case Study →
-              </button>
-              {currentApp.live_demo_url && (
-                <a
-                  href={currentApp.live_demo_url}
-                  className="business-apps-cta-secondary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  See Live Demo →
-                </a>
-              )}
-            </div>
           </div>
         </div>
 
