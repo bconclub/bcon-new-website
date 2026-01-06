@@ -206,6 +206,7 @@ export default function LiquidBentoPortfolio({
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const vimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
+  const progressIntervals = useRef<Record<string, ReturnType<typeof setInterval>>>({});
   
   // Second section state
   const [secondSectionPlayedMap, setSecondSectionPlayedMap] = useState<Record<string, boolean>>({});
@@ -218,6 +219,7 @@ export default function LiquidBentoPortfolio({
   const secondSectionItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondSectionVideoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const secondSectionVimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
+  const secondSectionProgressIntervals = useRef<Record<string, ReturnType<typeof setInterval>>>({});
   
   // PHASE 2: Coming Soon modal state
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -413,27 +415,32 @@ export default function LiquidBentoPortfolio({
       setVimeoLoadingMap((prev) => ({ ...prev, [idStr]: true }));
       setVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
       
+      // Clear any existing interval for this video
+      if (progressIntervals.current[idStr]) {
+        clearInterval(progressIntervals.current[idStr]);
+      }
+      
+      // Slower progress animation: 5% every 200ms (takes ~3.6s to reach 90%)
       const progressInterval = setInterval(() => {
         setVimeoLoadingProgress((prev) => {
           const current = prev[idStr] || 0;
-          if (current >= 90) {
+          if (current >= 85) {
+            // Stop at 85% and wait for iframe to load
             clearInterval(progressInterval);
+            delete progressIntervals.current[idStr];
             return prev;
           }
-          return { ...prev, [idStr]: current + 10 };
+          return { ...prev, [idStr]: current + 5 };
         });
-      }, 100);
+      }, 200);
+      
+      progressIntervals.current[idStr] = progressInterval;
       
       await fetchVimeoThumbnail(src, setVimeoThumbnails);
       setVimeoLoadedMap((prev) => ({ ...prev, [idStr]: true }));
       
-      setTimeout(() => {
-        setVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 100 }));
-        setTimeout(() => {
-          setVimeoLoadingMap((prev) => ({ ...prev, [idStr]: false }));
-          setVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
-        }, 200);
-      }, 500);
+      // Don't complete progress bar here - wait for iframe onLoad event
+      // The iframe's onLoad handler will complete the progress bar
       return;
     }
     
@@ -480,6 +487,12 @@ export default function LiquidBentoPortfolio({
     const item = visibleItems.find(i => String(i.id) === idStr);
     const isVimeo = item?.type === 'vimeo';
     
+    // Clear progress interval if video is paused
+    if (isVimeo && progressIntervals.current[idStr]) {
+      clearInterval(progressIntervals.current[idStr]);
+      delete progressIntervals.current[idStr];
+    }
+    
     if (!isVimeo) {
       const vid = videoRefs.current[idStr];
       if (vid && vid.pause && !vid.paused) {
@@ -491,6 +504,8 @@ export default function LiquidBentoPortfolio({
     }
     
     setPlayedMap((prev) => ({ ...prev, [idStr]: false }));
+    setVimeoLoadingMap((prev) => ({ ...prev, [idStr]: false }));
+    setVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
   };
 
   // Business Apps specific items - 16:9 and 9:16 videos
@@ -633,27 +648,32 @@ export default function LiquidBentoPortfolio({
       setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [idStr]: true }));
       setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
       
+      // Clear any existing interval for this video
+      if (secondSectionProgressIntervals.current[idStr]) {
+        clearInterval(secondSectionProgressIntervals.current[idStr]);
+      }
+      
+      // Slower progress animation: 5% every 200ms (takes ~3.4s to reach 85%)
       const progressInterval = setInterval(() => {
         setSecondSectionVimeoLoadingProgress((prev) => {
           const current = prev[idStr] || 0;
-          if (current >= 90) {
+          if (current >= 85) {
+            // Stop at 85% and wait for iframe to load
             clearInterval(progressInterval);
+            delete secondSectionProgressIntervals.current[idStr];
             return prev;
           }
-          return { ...prev, [idStr]: current + 10 };
+          return { ...prev, [idStr]: current + 5 };
         });
-      }, 100);
+      }, 200);
+      
+      secondSectionProgressIntervals.current[idStr] = progressInterval;
       
       await fetchVimeoThumbnail(src, setSecondSectionVimeoThumbnails);
       setSecondSectionVimeoLoadedMap((prev) => ({ ...prev, [idStr]: true }));
       
-      setTimeout(() => {
-        setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 100 }));
-        setTimeout(() => {
-          setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [idStr]: false }));
-          setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
-        }, 200);
-      }, 500);
+      // Don't complete progress bar here - wait for iframe onLoad event
+      // The iframe's onLoad handler will complete the progress bar
       return;
     }
     
@@ -700,6 +720,12 @@ export default function LiquidBentoPortfolio({
     const item = secondSectionItems.find(i => String(i.id) === idStr);
     const isVimeo = item?.type === 'vimeo';
     
+    // Clear progress interval if video is paused
+    if (isVimeo && secondSectionProgressIntervals.current[idStr]) {
+      clearInterval(secondSectionProgressIntervals.current[idStr]);
+      delete secondSectionProgressIntervals.current[idStr];
+    }
+    
     if (!isVimeo) {
       const vid = secondSectionVideoRefs.current[idStr];
       if (vid && vid.pause && !vid.paused) {
@@ -711,6 +737,8 @@ export default function LiquidBentoPortfolio({
     }
     
     setSecondSectionPlayedMap((prev) => ({ ...prev, [idStr]: false }));
+    setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [idStr]: false }));
+    setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
   };
 
   // IntersectionObserver for lazy loading (second section)
@@ -995,11 +1023,26 @@ export default function LiquidBentoPortfolio({
                   allowFullScreen
                   loading="lazy"
                   onLoad={() => {
-                    if (sectionVimeoLoadingMap === vimeoLoadingMap) {
-                      setVimeoLoadingMap((prev) => ({ ...prev, [String(item.id)]: false }));
+                    const itemIdStr = String(item.id);
+                    const isFirstSection = sectionVimeoLoadingMap === vimeoLoadingMap;
+                    
+                    // Complete the progress bar to 100%
+                    if (isFirstSection) {
+                      setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
                     } else {
-                      setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [String(item.id)]: false }));
+                      setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
                     }
+                    
+                    // Hide loading bar after a brief delay to show 100%
+                    setTimeout(() => {
+                      if (isFirstSection) {
+                        setVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                        setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                      } else {
+                        setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                        setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                      }
+                    }, 300);
                   }}
                   onError={(e) => {
                     console.error(`Vimeo iframe error for ${item.id} (${item.src}):`, e);
