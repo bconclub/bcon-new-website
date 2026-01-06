@@ -174,11 +174,12 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isDetailsRevealed, setIsDetailsRevealed] = useState(false); // Start hidden
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true); // Start playing immediately
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false); // Track when video is loaded
 
   useEffect(() => {
     if (isOpen && videoRef.current && !app?.vimeo_id) {
-      videoRef.current.play().catch(() => {});
+      // Preload video but don't play yet
+      videoRef.current.load();
     }
   }, [isOpen, app]);
 
@@ -186,11 +187,11 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       setIsDetailsRevealed(false); // Start with details hidden
-      setIsVideoPlaying(true); // Start playing video immediately
+      setIsVideoLoaded(false); // Reset video loaded state when modal opens
     } else {
       document.body.style.overflow = '';
       setIsDetailsRevealed(false);
-      setIsVideoPlaying(true);
+      setIsVideoLoaded(false);
     }
     return () => {
       document.body.style.overflow = '';
@@ -312,6 +313,21 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
           style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}
         >
           <div style={{ position: 'relative', flex: 1, minHeight: 0, width: '100%' }}>
+            {/* Thumbnail - shown initially, hidden when video loads */}
+            {app.thumbnail_url && (
+              <div className={`business-apps-modal-video-thumbnail-container ${isVideoLoaded ? 'video-loaded' : ''}`}>
+                <Image
+                  src={app.thumbnail_url}
+                  alt={app.product_name}
+                  fill
+                  className="business-apps-modal-video-thumbnail"
+                  priority
+                  sizes="100vw"
+                />
+              </div>
+            )}
+            
+            {/* Video - loaded in background, shown when ready */}
             {app.vimeo_id ? (
               (() => {
                 const startFrag = app.vimeo_id === '1151206257' ? '#t=10s' : '';
@@ -323,7 +339,17 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
-                    style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 1 }}
+                    onLoad={() => setIsVideoLoaded(true)}
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      position: 'absolute', 
+                      top: 0, 
+                      left: 0, 
+                      zIndex: isVideoLoaded ? 2 : 0,
+                      opacity: isVideoLoaded ? 1 : 0,
+                      transition: 'opacity 0.5s ease'
+                    }}
                   />
                 );
               })()
@@ -337,9 +363,24 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
                   muted={isMuted}
                   playsInline
                   controls
-                  style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 1 }}
+                  onLoadedData={() => {
+                    setIsVideoLoaded(true);
+                    if (videoRef.current) {
+                      videoRef.current.play().catch(() => {});
+                    }
+                  }}
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    zIndex: isVideoLoaded ? 2 : 0,
+                    opacity: isVideoLoaded ? 1 : 0,
+                    transition: 'opacity 0.5s ease'
+                  }}
                 />
-                {isMuted && (
+                {isMuted && isVideoLoaded && (
                   <button
                     className="business-apps-modal-unmute"
                     onClick={() => {
