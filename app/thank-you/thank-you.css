@@ -1,0 +1,113 @@
+.thank-you-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.thank-you-content {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.thank-you-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #CDFC2E;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.thank-you-message {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
+
+.thank-you-submessage {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.thank-you-instagram {
+  margin: 0 0 40px 0;
+}
+
+.thank-you-instagram-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.thank-you-instagram-link {
+  color: #CDFC2E;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.thank-you-instagram-link:hover {
+  color: #B8E600;
+  text-decoration: underline;
+}
+
+.thank-you-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.thank-you-button {
+  display: inline-block;
+  padding: 16px 32px;
+  background: #CDFC2E;
+  color: #000000;
+  text-decoration: none;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.thank-you-button:hover {
+  background: #B8E600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(205, 252, 46, 0.3);
+}
+
+@media (max-width: 768px) {
+  .thank-you-title {
+    font-size: 36px;
+  }
+
+  .thank-you-message {
+    font-size: 18px;
+  }
+
+  .thank-you-submessage {
+    font-size: 14px;
+  }
+
+  .thank-you-button {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+}

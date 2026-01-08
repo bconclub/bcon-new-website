@@ -1,0 +1,830 @@
+image.png/* ==================== BUSINESS APPS SECTION ==================== */
+.business-apps-section {
+  background: #000000;
+  padding: 100px 16px;
+  position: relative;
+}
+
+.business-apps-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==================== HEADER ==================== */
+.business-apps-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.business-apps-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+}
+
+.business-apps-subtitle {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: #A3A3A3;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==================== CARD ==================== */
+.business-apps-card {
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 32px);
+  max-width: 400px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.business-apps-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(205, 252, 46, 0.2);
+}
+
+/* Mobile Card - 3:4 aspect ratio, centered top */
+.business-apps-card-mobile {
+  aspect-ratio: 3 / 4;
+  width: 280px;
+  min-width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+}
+
+.business-apps-card-details-mobile {
+  width: 100%;
+  padding: 24px 20px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* ==================== MEDIA ==================== */
+.business-apps-card-media {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  background: #000000;
+}
+
+.business-apps-card-media iframe,
+iframe.business-apps-card-media {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
+/* Hide media on mobile cards */
+.business-apps-card-mobile .business-apps-card-media {
+  display: none;
+}
+
+/* ==================== DETAILS ==================== */
+.business-apps-card-details {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 0 16px 16px;
+}
+
+.business-apps-card-name {
+  font-family: 'Anybody', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.business-apps-card-tagline {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #CDFC2E;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Mobile card text styling */
+.business-apps-card-details-mobile .business-apps-card-name {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.business-apps-card-details-mobile .business-apps-card-tagline {
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+/* ==================== MOBILE LAYOUT (<768px) ==================== */
+.business-apps-mobile-grid {
+  display: none; /* Hide vertical stack */
+}
+
+.business-apps-mobile-carousel-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 0 20px;
+  margin: 0 -20px;
+}
+
+.business-apps-mobile-carousel-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.business-apps-mobile-carousel-scroll {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 0 20px;
+}
+
+.business-apps-desktop-carousel {
+  display: none;
+}
+
+/* ==================== DESKTOP LAYOUT (>1024px) ==================== */
+@media (min-width: 1024px) {
+  .business-apps-section {
+    padding: 120px 40px;
+  }
+
+  .business-apps-title {
+    font-size: 4rem;
+  }
+
+  .business-apps-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .business-apps-mobile-grid {
+    display: none;
+  }
+
+  .business-apps-desktop-carousel {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    width: 100%;
+  }
+
+  .business-apps-carousel-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 40px;
+    margin: -40px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .business-apps-carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .business-apps-card {
+    flex: 0 0 360px;
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+    scroll-snap-align: start;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .business-apps-desktop-carousel .business-apps-card-media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .business-apps-carousel-arrow {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  .business-apps-carousel-arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+  }
+
+  .business-apps-carousel-arrow:active {
+    transform: scale(0.95);
+  }
+
+  .business-apps-carousel-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ==================== TABLET (768px - 1024px) ==================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .business-apps-section {
+    padding: 80px 30px;
+  }
+
+  .business-apps-title {
+    font-size: 3.5rem;
+  }
+
+  .business-apps-card {
+    max-width: 400px;
+  }
+}
+
+/* ==================== MODAL ==================== */
+.business-apps-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.business-apps-modal {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: #000000;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.business-apps-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-modal-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.business-apps-modal-close {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.business-apps-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-modal-close svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Modal Video Container */
+.business-apps-modal-video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.business-apps-modal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.business-apps-modal-video iframe,
+iframe.business-apps-modal-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.business-apps-modal-unmute {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.business-apps-modal-unmute:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.business-apps-modal-unmute svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Modal Footer */
+.business-apps-modal-footer {
+  padding: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-modal-cta {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  background: #CDFC2E;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.business-apps-modal-cta:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(205, 252, 46, 0.3);
+}
+
+/* ==================== MOBILE MODAL ==================== */
+.business-apps-modal-mobile {
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+}
+
+.business-apps-modal-video-container-mobile {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+  transition: height 0.3s ease;
+}
+
+.business-apps-modal-video-container-mobile.details-revealed {
+  height: 60%;
+  min-height: 60%;
+}
+
+.business-apps-modal-video-container-mobile iframe,
+.business-apps-modal-video-container-mobile video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .business-apps-modal {
+    max-width: 100vw;
+    height: 70vh;
+    max-height: 70vh;
+    border-radius: 16px;
+  }
+
+  .business-apps-modal-mobile {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 16px;
+  }
+
+  .business-apps-modal-backdrop {
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .business-apps-modal-header {
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+  }
+
+  .business-apps-modal-title {
+    font-size: 14px;
+  }
+
+  .business-apps-modal-video-container {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .business-apps-modal-video-container-mobile {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    flex-shrink: 0;
+    transition: height 0.3s ease;
+  }
+
+  .business-apps-modal-video-container-mobile.details-revealed {
+    height: 60%;
+    min-height: 60%;
+  }
+
+  .business-apps-modal-video-container-mobile iframe,
+  .business-apps-modal-video-container-mobile video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    margin: auto;
+  }
+
+  .business-apps-modal-footer {
+    padding: 12px 16px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+  }
+
+  .business-apps-modal-cta {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .business-apps-modal-description-section {
+    height: 40%;
+    width: 100%;
+    flex-shrink: 0;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    transition: height 0.3s ease;
+  }
+
+  .business-apps-modal-description-section.hidden {
+    display: none;
+  }
+
+  .business-apps-modal-description-section.revealed {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+  }
+
+  .business-apps-modal-reveal-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 16px 20px;
+    background: #CDFC2E;
+    color: #000000;
+    border: none;
+    font-family: 'Anybody', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 100;
+    transition: background 0.2s ease;
+    border-radius: 0;
+  }
+
+  .business-apps-modal-reveal-button:hover {
+    background: #B8E62A;
+  }
+
+  .business-apps-modal-reveal-button:active {
+    background: #A3D014;
+  }
+
+  /* Product Header in Description Section - Mobile */
+  .business-apps-modal-description-content .business-apps-modal-product-header {
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .business-apps-modal-description-content .business-apps-modal-product-name {
+    font-family: 'Anybody', sans-serif !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .business-apps-modal-description-content .business-apps-modal-product-tagline {
+    font-family: 'Anybody', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: #CDFC2E !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* ==================== EXPANDABLE DESCRIPTION ==================== */
+.business-apps-modal-description-section {
+  height: 40%;
+  width: 100%;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+  transition: height 0.3s ease;
+}
+
+.business-apps-modal-description-section.hidden {
+  display: none;
+}
+
+.business-apps-modal-description-section.revealed {
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+}
+
+.business-apps-modal-description-toggle {
+  width: 100%;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  color: #CDFC2E;
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s ease;
+}
+
+.business-apps-modal-description-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.business-apps-modal-description-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.business-apps-modal-description-toggle svg.expanded {
+  transform: rotate(180deg);
+}
+
+.business-apps-modal-description-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.business-apps-modal-description-content.expanded {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.business-apps-modal-description-inner {
+  padding: 0;
+}
+
+/* Ensure consistent padding with product header */
+.business-apps-modal-description-content .business-apps-modal-description-inner {
+  padding: 0 !important;
+}
+
+.business-apps-modal-description-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.business-apps-modal-description-text {
+  padding: 0;
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.business-apps-modal-tech-stack,
+.business-apps-modal-features {
+  padding: 0 20px 16px;
+}
+
+.business-apps-modal-tech-title,
+.business-apps-modal-features-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #CDFC2E;
+  margin: 0 0 12px 0;
+}
+
+.business-apps-modal-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.business-apps-modal-tech-badge {
+  padding: 6px 12px;
+  background: rgba(205, 252, 46, 0.1);
+  border: 1px solid rgba(205, 252, 46, 0.3);
+  border-radius: 6px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #CDFC2E;
+}
+
+.business-apps-modal-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.business-apps-modal-feature-item {
+  font-family: 'Anybody', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  padding-left: 0;
+}
+
+.business-apps-modal-feature-item strong {
+  color: #CDFC2E;
+  font-weight: 600;
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.business-apps-card:focus,
+.business-apps-carousel-arrow:focus,
+.business-apps-modal-close:focus,
+.business-apps-modal-cta:focus {
+  outline: 2px solid #CDFC2E;
+  outline-offset: 4px;
+}
+
+/* ==================== SMOOTH SCROLLING ==================== */
+@media (prefers-reduced-motion: no-preference) {
+  .business-apps-carousel-container {
+    scroll-behavior: smooth;
+  }
+}
+

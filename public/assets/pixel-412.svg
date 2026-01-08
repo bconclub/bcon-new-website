@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="412" height="915" viewBox="0 0 412 915" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .frame { fill: none; stroke: #0f0f0f; stroke-width:6; }
+      .inner { fill: rgba(0,0,0,0.02); }
+    </style>
+  </defs>
+  <rect x="3" y="3" width="406" height="909" rx="68" ry="68" class="frame" />
+  <!-- screen area left intentionally transparent so children sit on top -->
+  <!-- optional shadow / subtle bezel -->
+  <rect x="18" y="22" width="376" height="871" rx="59" ry="59" class="inner" />
+</svg>

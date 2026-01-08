@@ -1,0 +1,982 @@
+/* ==================== LIQUID BENTO PORTFOLIO - VERTICAL MASONRY ==================== */
+.liquid-bento-section {
+  min-height: 100vh;
+  background: #00000000;
+  padding: 80px 40px;
+  position: relative;
+}
+
+.bento-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.bento-eyebrow {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.bento-heading {
+  font-family: 'Anybody', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* Masonry Grid - 5 Columns Desktop, 3 Tablet, 2 Mobile */
+.liquid-bento-grid {
+  column-count: 5;
+  column-gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  isolation: isolate; /* Isolate from other elements */
+  contain: layout; /* Contain layout to prevent interference */
+}
+
+/* Business Apps Carousel */
+.business-apps-carousel {
+  max-width: 1400px;
+  margin: 0 auto;
+  isolation: isolate;
+  contain: layout;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0 100px;
+}
+
+.business-apps-carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 412px;
+  height: 915px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(204, 255, 0, 0.2);
+}
+
+.business-apps-slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.business-apps-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-apps-slide-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  gap: 0;
+  width: 100%;
+}
+
+.business-apps-media {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.business-apps-media .bento-item {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  max-width: 100%;
+}
+
+.business-apps-media .bento-item-inner {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 9 / 16;
+  max-width: 392px;
+  max-height: 696px;
+  margin: 0 auto;
+}
+
+.business-apps-media .bento-media,
+.business-apps-media video,
+.business-apps-media iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.business-apps-details {
+  padding: 15px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(204, 255, 0, 0.2);
+  flex-shrink: 0;
+  height: auto;
+  overflow-y: auto;
+  max-height: calc(915px - 696px - 20px);
+}
+
+.business-apps-details-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #CCFF00;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.business-apps-details-description {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 15px 0;
+}
+
+.business-apps-highlights {
+  margin-top: 15px;
+}
+
+.business-apps-highlights-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.business-apps-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.business-apps-highlight-item {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-highlight-item:last-child {
+  border-bottom: none;
+}
+
+.business-apps-highlight-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #CCFF00;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.business-apps-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #CCFF00;
+  color: #CCFF00;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 10;
+}
+
+.business-apps-nav-prev {
+  left: 20px;
+}
+
+.business-apps-nav-next {
+  right: 20px;
+}
+
+.business-apps-nav-button:hover {
+  background: #CCFF00;
+  color: #000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.business-apps-nav-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.business-apps-dots {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  z-index: 10;
+}
+
+/* View All Work neon CTA */
+.view-work-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 1px solid #CDFC2E;
+  color: #CDFC2E;
+  text-decoration: none;
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.18s ease;
+  box-shadow: 0 0 30px rgba(205, 252, 46, 0.08);
+  background: transparent;
+  cursor: pointer;
+}
+
+.view-work-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 40px rgba(205, 252, 46, 0.18);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.view-work-button:hover,
+.view-work-button:focus {
+  background: #000;
+  color: #CDFC2E;
+  transform: translateY(-2px);
+}
+
+.view-work-button:active {
+  transform: translateY(0);
+}
+
+.view-work-button.glow {
+  background: transparent;
+}
+
+.view-work-button.glow::before {
+  opacity: 1;
+}
+
+.business-apps-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(107, 47, 232, 0.9);
+  background: #6B2FE8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.business-apps-dot:hover {
+  border-color: #6B2FE8;
+  background: rgba(107, 47, 232, 0.28);
+}
+
+.business-apps-dot.active {
+  background: #6B2FE8;
+  border-color: #6B2FE8;
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive styles for Business Apps Carousel */
+@media (max-width: 1199px) {
+  .business-apps-slide-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .business-apps-details-title {
+    font-size: 2rem;
+  }
+  
+  .business-apps-details-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .business-apps-slide-content {
+    padding: 10px;
+    gap: 20px;
+  }
+  
+  .business-apps-details {
+    padding: 15px;
+  }
+  
+  .business-apps-details-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .business-apps-details-description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  
+  .business-apps-highlights-title {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .business-apps-highlight-item {
+    font-size: 0.9rem;
+    padding: 10px 0;
+    padding-left: 25px;
+  }
+  
+  .business-apps-nav-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .business-apps-nav-prev {
+    left: 10px;
+  }
+
+  .business-apps-nav-next {
+    right: 10px;
+  }
+  
+  .business-apps-dots {
+    right: 50px;
+    gap: 8px;
+  }
+  
+  .business-apps-dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .business-apps-dot.active {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Mobile Carousel Styles */
+  .business-apps-carousel-mobile {
+    padding: 0;
+  }
+
+  /* Hide desktop carousel elements on mobile */
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-carousel-container,
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-nav-button,
+  .business-apps-carousel:not(.business-apps-carousel-mobile) .business-apps-dots {
+    display: none;
+  }
+
+  .business-apps-carousel-mobile-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  .business-apps-carousel-mobile-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .business-apps-carousel-mobile-scroll {
+    display: flex;
+    gap: 16px;
+    padding: 0 20px;
+    width: max-content;
+  }
+
+  .business-apps-carousel-mobile-item {
+    flex-shrink: 0;
+    width: 280px;
+    scroll-snap-align: start;
+    cursor: pointer;
+  }
+
+  .business-apps-carousel-mobile-item .bento-item {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Mobile Modal Styles */
+  .business-apps-mobile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .business-apps-mobile-modal {
+    width: 100%;
+    max-width: 100%;
+    height: 70vh;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(204, 255, 0, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .business-apps-mobile-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(204, 255, 0, 0.5);
+    border-radius: 50%;
+    color: #CCFF00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .business-apps-mobile-modal-close:hover {
+    background: #CCFF00;
+    color: #000;
+    transform: scale(1.1);
+  }
+
+  .business-apps-mobile-modal-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 20px;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .business-apps-mobile-modal-content .bento-item {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 0;
+  }
+
+  .business-apps-mobile-modal-content .bento-item-inner {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: calc(70vh - 200px);
+  }
+
+  .business-apps-mobile-modal-details {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(204, 255, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .business-apps-mobile-modal-title {
+    font-family: 'Anybody', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #CCFF00;
+    margin: 0 0 10px 0;
+    letter-spacing: 0.5px;
+  }
+
+  .business-apps-mobile-modal-description {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 15px 0;
+  }
+
+  .business-apps-mobile-modal-highlights {
+    margin-top: 10px;
+  }
+
+  .business-apps-mobile-modal-highlights-title {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .business-apps-mobile-modal-highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .business-apps-mobile-modal-highlight-item {
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 5px 0;
+    padding-left: 18px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .business-apps-mobile-modal-highlight-item:last-child {
+    border-bottom: none;
+  }
+
+  .business-apps-mobile-modal-highlight-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #CCFF00;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+}
+
+/* Business Apps Grid - Custom layout: 2 columns on desktop (kept for reference, not used in carousel) */
+.business-apps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  isolation: isolate;
+  contain: layout;
+}
+
+/* Desktop: 3 columns - left: 2x 16:9 stacked, middle: 1x 9:16, right: 1x 9:16 */
+@media (min-width: 1200px) {
+  .business-apps-grid {
+    grid-template-columns: 1fr 0.56fr 0.56fr; /* 9:16 columns are 80% of previous width (0.56 = 80% of 0.7) */
+    gap: 20px;
+  }
+  
+  /* Column containers for desktop layout */
+  .business-apps-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Ensure items don't break */
+  .business-apps-column .bento-item {
+    margin-bottom: 0;
+  }
+  
+  /* 9:16 items in middle and right columns are 30% smaller via grid columns */
+  .business-apps-column-middle .bento-item,
+  .business-apps-column-right .bento-item {
+    width: 100%;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .business-apps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+/* Container for paired 9:16 videos - hidden on desktop/tablet, shown on mobile */
+.business-apps-pair {
+  display: none;
+  break-inside: avoid;
+}
+
+/* Mobile: 1 column with paired 9:16 videos side by side */
+@media (max-width: 767px) {
+  .business-apps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Show paired container on mobile only */
+  .business-apps-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Ensure paired items don't break */
+  .business-apps-pair .bento-item {
+    margin-bottom: 0;
+  }
+}
+
+.bento-item {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.bento-item-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  background: transparent;
+  border: 2px solid rgba(204, 255, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+/* Aspect ratios based on ratio classes */
+.ratio-stories .bento-item-inner { aspect-ratio: 9 / 16; }
+.ratio-square .bento-item-inner { aspect-ratio: 1 / 1; }
+.ratio-standard .bento-item-inner { aspect-ratio: 4 / 3; }
+.ratio-landscape .bento-item-inner { aspect-ratio: 16 / 9; }
+
+/* First image sets container aspect ratio */
+.bento-item-inner > img:first-of-type {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Thumbnail overlay - fills container */
+.bento-item-inner > img.bento-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Media - Fill container (respect aspect ratio via container) */
+.bento-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.6s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 14px;
+}
+
+/* 9:16 videos should fill container completely */
+.ratio-stories .bento-media,
+.ratio-stories video,
+.ratio-stories iframe {
+  object-fit: cover;
+}
+
+/* Video elements fill container */
+.bento-item-inner > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+  display: block;
+}
+
+/* 9:16 videos fill container completely */
+.ratio-stories .bento-item-inner > video {
+  object-fit: cover;
+}
+
+/* Vimeo iframe specific styling - Fill container completely */
+.bento-item-inner iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  overflow: hidden !important;
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 14px;
+  display: block;
+  object-fit: contain;
+}
+
+/* 9:16 Vimeo iframes fill container completely */
+.ratio-stories .bento-item-inner iframe {
+  object-fit: cover;
+}
+
+/* Hover Effects */
+.bento-item:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.bento-item:hover .bento-item-inner {
+  border-color: #CCFF00;
+  box-shadow: 0 10px 40px rgba(204, 255, 0, 0.3);
+}
+
+.bento-item:hover .bento-media {
+  transform: scale(1.05);
+}
+
+.bento-item:hover .bento-overlay {
+  opacity: 1;
+}
+
+/* Overlay */
+.bento-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.bento-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========== TABLET: 3 COLUMNS ========== */
+@media (max-width: 1199px) {
+  .liquid-bento-grid {
+    column-count: 3;
+    column-gap: 16px;
+  }
+
+  .bento-item {
+    margin-bottom: 16px;
+  }
+}
+
+/* ========== MOBILE: 2 COLUMNS ========== */
+@media (max-width: 767px) {
+  .liquid-bento-section {
+    padding: 60px 30px;
+  }
+
+  .liquid-bento-grid {
+    column-count: 2;
+    column-gap: 12px;
+    margin-top: 0; /* Ensure no top margin that could cause overlap */
+    clear: both; /* Clear any floated elements above */
+  }
+
+  .bento-item {
+    margin-bottom: 12px;
+  }
+
+  .bento-header {
+    margin-bottom: 40px;
+  }
+}
+
+/* ========== EXTRA SMALL MOBILE ========== */
+@media (max-width: 480px) {
+  .liquid-bento-grid {
+    column-count: 2;
+    column-gap: 10px;
+  }
+
+  .bento-item {
+    margin-bottom: 10px;
+  }
+}
+
+/* ========== DESKTOP (>1024px) ========== */
+@media (min-width: 1024px) {
+  .bento-eyebrow {
+    font-size: 15px;
+  }
+
+  .bento-heading {
+    font-size: 65px;
+  }
+}
+
+.view-work-button {
+  display: block;
+  width: fit-content;
+  margin: 60px auto 0;
+  font-family: 'Anybody', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #CCFF00 !important;
+  background: transparent;
+  padding: 16px 40px;
+  border-radius: 50px;
+  border: 1px solid #CCFF00;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
+}
+
+.view-work-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(204, 255, 0, 0.5);
+  background: #CCFF00;
+  color: #000000 !important;
+}
+
+.bento-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgba(204, 255, 0, 0.5);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2;
+}
+
+.bento-play-button:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 8px 24px rgba(204, 255, 0, 0.35);
+  background: rgba(204, 255, 0, 0.08);
+}
+
+.bento-play-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(204, 255, 0, 0.85);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.load-more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 60px auto 0;
+  color: #CCFF00;
+  background: rgba(204, 255, 0, 0.05);
+  border: 2px solid rgba(204, 255, 0, 0.3);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Anybody', sans-serif;
+}
+
+.load-more-button:hover {
+  background: rgba(204, 255, 0, 0.15);
+  border-color: #CCFF00;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
+}
+
+.load-more-button:active {
+  transform: translateY(0) scale(1);
+}
+
+.load-more-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Loading Spinner Animation */
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.bento-loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+
+

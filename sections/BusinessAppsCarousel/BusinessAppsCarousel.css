@@ -1,0 +1,1577 @@
+/* ==================== BUSINESS APPS SECTION ==================== */
+.business-apps-section {
+  background: transparent;
+  padding: 120px 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.business-apps-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==================== HEADER ==================== */
+.business-apps-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.business-apps-eyebrow {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B6B6B;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 24px 0;
+}
+
+.business-apps-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  letter-spacing: 2px;
+}
+
+.business-apps-subtitle {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: #A3A3A3;
+  margin: 0 auto;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* ==================== CARD CONTAINER ==================== */
+.business-apps-card-wrapper {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.business-apps-card {
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 80px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.business-apps-card-content {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 50px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== DEVICE MOCKUP ==================== */
+.business-apps-mockup-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  overflow: visible;
+  margin: 0 auto;
+}
+
+.business-apps-phone-frame {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 19.5;
+  background: #000000;
+  border-radius: 32px;
+  padding: 8px;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(205, 252, 46, 0.1);
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Notch (iPhone style) */
+.business-apps-phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 24px;
+  background: #000000;
+  border-radius: 0 0 16px 16px;
+  z-index: 3;
+}
+
+  .business-apps-phone-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #000000;
+    position: relative;
+    touch-action: pan-y pinch-zoom;
+  }
+
+.business-apps-screen-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Mockup Navigation Arrows */
+.business-apps-mockup-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.business-apps-mockup-nav-arrow-left {
+  left: -24px;
+}
+
+.business-apps-mockup-nav-arrow-right {
+  right: -24px;
+}
+
+.business-apps-mockup-nav-arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(205, 252, 46, 0.5);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(205, 252, 46, 0.2);
+}
+
+.business-apps-mockup-nav-arrow:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.business-apps-mockup-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.business-apps-mockup-nav-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Glow Effect */
+.business-apps-mockup-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 350px;
+  max-height: 600px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(205, 252, 46, 0.1) 0%,
+    rgba(107, 47, 232, 0.05) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* ==================== PRODUCT INFO ==================== */
+.business-apps-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.business-apps-product-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.business-apps-product-name {
+  font-family: 'Anybody', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.business-apps-product-tagline {
+  font-family: 'Anybody', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #CDFC2E;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.business-apps-product-description {
+  font-family: 'Anybody', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================== DESCRIPTION SECTION ==================== */
+.business-apps-description-section {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.business-apps-description-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.business-apps-description-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================== FEATURES SECTION ==================== */
+.business-apps-features-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.business-apps-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.business-apps-accordion-header:hover {
+  opacity: 0.8;
+}
+
+.business-apps-accordion-icon {
+  color: #CDFC2E;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.business-apps-accordion-content {
+  overflow: hidden;
+}
+
+.business-apps-features-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.business-apps-features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.business-apps-feature-item {
+  background: rgba(28, 28, 28, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  transition: all 0.3s ease;
+  flex: 0 0 auto;
+}
+
+.business-apps-feature-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(205, 252, 46, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.business-apps-feature-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(205, 252, 46, 0.1);
+  border-radius: 8px;
+  color: #CDFC2E;
+}
+
+.business-apps-feature-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.business-apps-feature-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-apps-feature-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* ==================== TECH STACK ==================== */
+.business-apps-tech-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.business-apps-tech-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.business-apps-target-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #CDFC2E;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.business-apps-tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.business-apps-tech-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  min-height: 40px;
+}
+
+.business-apps-tech-badge:hover {
+  background: rgba(205, 252, 46, 0.1);
+  border-color: rgba(205, 252, 46, 0.3);
+}
+
+.business-apps-tech-image {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.business-apps-tech-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.business-apps-tech-badge:hover .business-apps-tech-text {
+  color: #CDFC2E;
+}
+
+/* ==================== DESIGNED FOR ==================== */
+.business-apps-target-market {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.business-apps-target-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #A3A3A3;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================== CTAs ==================== */
+.business-apps-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.business-apps-cta-primary {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #CDFC2E;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: transparent;
+  border: 2px solid #CDFC2E;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font: inherit;
+}
+
+.business-apps-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(205, 252, 46, 0.18);
+  background: rgba(205,252,46,0.04);
+}
+
+.business-apps-cta-secondary {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.business-apps-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==================== MOBILE CAROUSEL (Hidden on Desktop) ==================== */
+.business-apps-mobile-carousel-wrapper {
+  display: none;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-x;
+  padding: 0 16px;
+  margin-bottom: 40px;
+}
+
+.business-apps-mobile-carousel {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+  gap: 0;
+}
+
+.business-apps-mobile-card {
+  min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: #1C1C1C;
+  border: 1px solid #2D2D2D;
+  border-radius: 16px;
+  overflow: visible;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  scroll-margin-top: 0;
+}
+
+.business-apps-mobile-card.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.business-apps-mobile-card.inactive {
+  opacity: 0.6;
+  transform: scale(0.9);
+}
+
+/* 1. VIDEO SECTION */
+.business-apps-mobile-video-section {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  background: #000000;
+}
+
+.business-apps-mobile-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px 16px 0 0;
+}
+
+.business-apps-mobile-video-section iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px 16px 0 0;
+}
+
+/* 2. CONTENT SECTION */
+.business-apps-mobile-content-section {
+  padding: 24px;
+  background: #1C1C1C;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.business-apps-mobile-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.business-apps-mobile-product-name {
+  font-family: 'Anybody', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.business-apps-mobile-product-tagline {
+  font-family: 'Anybody', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #CDFC2E;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Make header clickable */
+.business-apps-mobile-header {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.business-apps-mobile-header:active {
+  opacity: 0.7;
+}
+
+/* Mobile Modal - Frosted Glass */
+.business-apps-mobile-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  background: rgba(28, 28, 28, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.business-apps-mobile-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: move;
+  touch-action: none;
+}
+
+.business-apps-mobile-modal-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.business-apps-mobile-modal-close {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  touch-action: manipulation;
+}
+
+.business-apps-mobile-modal-close:active {
+  opacity: 1;
+}
+
+.business-apps-mobile-modal-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+.business-apps-mobile-accordion-item {
+  width: 100%;
+}
+
+.business-apps-mobile-accordion-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 20px 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  color: #FFFFFF;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.business-apps-mobile-accordion-trigger:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.business-apps-mobile-accordion-trigger:focus {
+  outline: 2px solid #CDFC2E;
+  outline-offset: 4px;
+}
+
+.business-apps-mobile-accordion-trigger[data-state='open'] .business-apps-mobile-accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.business-apps-mobile-accordion-chevron {
+  color: #CDFC2E;
+  flex-shrink: 0;
+  margin-left: 16px;
+  transition: transform 0.3s ease-out;
+}
+
+.business-apps-mobile-accordion-content {
+  overflow: hidden;
+  transform-origin: top;
+}
+
+.business-apps-mobile-accordion-content[data-state='open'] {
+  animation: slideDown 0.3s ease-out;
+}
+
+.business-apps-mobile-accordion-content[data-state='closed'] {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.business-apps-mobile-accordion-inner {
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.business-apps-mobile-section-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 16px 0;
+}
+
+/* Features List */
+.business-apps-mobile-features-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.business-apps-mobile-feature-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.business-apps-mobile-feature-item.last {
+  border-bottom: none;
+}
+
+.business-apps-mobile-feature-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(205, 252, 46, 0.1);
+  border-radius: 8px;
+  color: #CDFC2E;
+}
+
+.business-apps-mobile-feature-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.business-apps-mobile-feature-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-apps-mobile-feature-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Tech Stack */
+.business-apps-mobile-tech-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.business-apps-mobile-tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.business-apps-mobile-tech-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  min-height: 36px;
+}
+
+.business-apps-mobile-tech-image {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.business-apps-mobile-tech-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+/* Designed For */
+.business-apps-mobile-target-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.business-apps-mobile-target-text {
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #CDFC2E;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* CTAs */
+.business-apps-mobile-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.business-apps-mobile-cta-primary,
+.business-apps-mobile-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.business-apps-mobile-cta-primary {
+  background: #CDFC2E;
+  color: #000000;
+}
+
+.business-apps-mobile-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(205, 252, 46, 0.3);
+}
+
+.business-apps-mobile-cta-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.business-apps-mobile-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==================== NAVIGATION ==================== */
+.business-apps-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 10;
+}
+
+.business-apps-nav-arrow-left {
+  left: -80px;
+}
+
+.business-apps-nav-arrow-right {
+  right: -80px;
+}
+
+.business-apps-nav-arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.business-apps-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.business-apps-dots-container {
+  display: none;
+}
+
+.business-apps-dots {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.business-apps-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6B2FE8;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.business-apps-dot:hover {
+  background: rgba(107, 47, 232, 0.9);
+  transform: scale(1.2);
+}
+
+.business-apps-dot.active {
+  background: #6B2FE8;
+  width: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(107, 47, 232, 0.38);
+}
+
+/* Mobile Navigation Arrows */
+.business-apps-mobile-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 100;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+}
+
+.business-apps-mobile-nav-arrow-left {
+  left: 12px;
+}
+
+.business-apps-mobile-nav-arrow-right {
+  right: 12px;
+}
+
+.business-apps-mobile-nav-arrow:hover:not(:disabled),
+.business-apps-mobile-nav-arrow:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.business-apps-mobile-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.business-apps-mobile-nav-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Dot Indicators */
+.business-apps-mobile-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Hide modal on desktop */
+@media (min-width: 769px) {
+  .business-apps-mobile-modal {
+    display: none !important;
+  }
+}
+
+.business-apps-mobile-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3A3A3A;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.business-apps-mobile-dot:hover {
+  background: #6B6B6B;
+  transform: scale(1.2);
+}
+
+.business-apps-mobile-dot.active {
+  background: #CDFC2E;
+  width: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(205, 252, 46, 0.5);
+}
+
+/* ==================== DESKTOP - Always show content ==================== */
+@media (min-width: 769px) {
+  .business-apps-accordion-header {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .business-apps-accordion-icon {
+    display: none;
+  }
+
+  .business-apps-accordion-content {
+    height: auto !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ==================== TABLET (768px - 1024px) ==================== */
+@media (max-width: 1024px) {
+  .business-apps-section {
+    padding: 80px 20px 60px;
+  }
+
+  .business-apps-card {
+    padding: 60px;
+  }
+
+  .business-apps-card-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .business-apps-mockup-container {
+    justify-content: center;
+    max-width: 100%;
+    padding: 0 60px;
+  }
+
+  .business-apps-mockup-nav-arrow {
+    display: flex;
+  }
+
+  .business-apps-mockup-nav-arrow-left {
+    left: 0;
+  }
+
+  .business-apps-mockup-nav-arrow-right {
+    right: 0;
+  }
+
+  .business-apps-product-info {
+    text-align: center;
+  }
+
+  .business-apps-title {
+    font-size: 32px;
+  }
+
+  .business-apps-subtitle {
+    font-size: 18px;
+  }
+
+  .business-apps-phone-frame {
+    max-width: 280px;
+  }
+
+  .business-apps-product-name {
+    font-size: 48px;
+  }
+
+  .business-apps-product-tagline {
+    font-size: 20px;
+  }
+
+  .business-apps-product-description {
+    font-size: 16px;
+  }
+}
+
+/* ==================== MOBILE (<768px) ==================== */
+@media (max-width: 768px) {
+  /* Hide desktop elements on mobile */
+  .business-apps-desktop-only {
+    display: none !important;
+  }
+
+  /* Hide mobile list */
+  .business-apps-mobile-list {
+    display: none !important;
+  }
+
+  /* Show mobile carousel */
+  .business-apps-mobile-carousel-wrapper {
+    display: block;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .business-apps-mobile-carousel {
+    display: flex;
+  }
+
+  .business-apps-mobile-card {
+    width: 100%;
+    min-width: 100%;
+  }
+
+
+  /* Accordion functionality - only on mobile */
+  .business-apps-accordion-header {
+    display: flex;
+  }
+
+  .business-apps-accordion-content {
+    display: block;
+  }
+  .business-apps-section {
+    padding: 80px 20px 60px;
+  }
+
+  .business-apps-header {
+    margin-bottom: 60px;
+  }
+
+  .business-apps-eyebrow {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+  }
+
+  .business-apps-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .business-apps-subtitle {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .business-apps-card {
+    padding: 48px 32px;
+  }
+
+  .business-apps-card-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .business-apps-mockup-container {
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 60px;
+  }
+
+  .business-apps-mockup-nav-arrow {
+    display: flex;
+    width: 44px;
+    height: 44px;
+  }
+
+  .business-apps-mockup-nav-arrow-left {
+    left: 8px;
+  }
+
+  .business-apps-mockup-nav-arrow-right {
+    right: 8px;
+  }
+
+  .business-apps-mockup-nav-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .business-apps-phone-frame {
+    max-width: 280px;
+    width: 100%;
+  }
+
+  .business-apps-product-info {
+    text-align: center;
+    gap: 24px;
+  }
+
+  .business-apps-mobile-product-name {
+    font-size: 28px;
+  }
+
+  .business-apps-mobile-product-tagline {
+    font-size: 16px;
+  }
+
+  .business-apps-features-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .business-apps-feature-item {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .business-apps-feature-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .business-apps-feature-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .business-apps-feature-title {
+    font-size: 15px;
+  }
+
+  .business-apps-ctas {
+    flex-direction: column;
+  }
+
+  .business-apps-cta-primary,
+  .business-apps-cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hide desktop navigation arrows on mobile */
+  .business-apps-nav-arrow {
+    display: none;
+  }
+
+  /* Show mobile navigation arrows */
+  .business-apps-mobile-nav-arrow {
+    display: flex !important;
+    z-index: 100;
+    pointer-events: auto;
+  }
+
+
+  .business-apps-dots {
+    gap: 10px;
+  }
+
+  .business-apps-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .business-apps-dot.active {
+    width: 20px;
+  }
+}
+
+/* ==================== SMALL MOBILE (<480px) ==================== */
+@media (max-width: 480px) {
+  .business-apps-section {
+    padding: 60px 16px 40px;
+  }
+
+  .business-apps-title {
+    font-size: 32px;
+  }
+
+  .business-apps-mobile-product-name {
+    font-size: 24px;
+  }
+
+  .business-apps-mobile-product-tagline {
+    font-size: 14px;
+  }
+
+  .business-apps-subtitle {
+    font-size: 16px;
+  }
+
+  .business-apps-card {
+    padding: 40px 28px;
+  }
+
+  .business-apps-card-content {
+    gap: 24px;
+  }
+
+  .business-apps-phone-frame {
+    max-width: 240px;
+  }
+
+  .business-apps-product-name {
+    font-size: 32px;
+  }
+
+  .business-apps-product-tagline {
+    font-size: 16px;
+  }
+
+  .business-apps-product-description {
+    font-size: 15px;
+  }
+
+  .business-apps-feature-item {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .business-apps-feature-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .business-apps-feature-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .business-apps-feature-title {
+    font-size: 14px;
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.business-apps-nav-arrow:focus,
+.business-apps-dot:focus,
+.business-apps-cta-primary:focus,
+.business-apps-cta-secondary:focus {
+  outline: 2px solid #CDFC2E;
+  outline-offset: 4px;
+}
+
+/* ==================== MOBILE MODAL (70vh) ==================== */
+.business-apps-mobile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.business-apps-mobile-modal {
+  width: 100%;
+  max-width: 100%;
+  height: 70vh;
+  max-height: 70vh;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(205, 252, 46, 0.3);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.business-apps-mobile-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(205, 252, 46, 0.5);
+  border-radius: 50%;
+  color: #CDFC2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10000;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.business-apps-mobile-modal-close:hover {
+  background: #CDFC2E;
+  color: #000;
+  transform: scale(1.1);
+}
+
+.business-apps-mobile-modal-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px 20px;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.business-apps-mobile-modal-video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+  border-radius: 12px;
+}
+
+.business-apps-mobile-modal-video iframe,
+.business-apps-mobile-modal-video video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.business-apps-mobile-modal-details {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid rgba(205, 252, 46, 0.2);
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.business-apps-mobile-modal-title {
+  font-family: 'Anybody', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #CDFC2E;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.business-apps-mobile-modal-tagline {
+  font-family: 'Anybody', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Mobile only - hide on desktop */
+@media (min-width: 768px) {
+  .business-apps-mobile-modal-overlay {
+    display: none;
+  }
+}
+
+/* ==================== DESKTOP (>1024px) ==================== */
+@media (min-width: 1024px) {
+  .business-apps-eyebrow {
+    font-size: 15px;
+  }
+
+  .business-apps-title {
+    font-size: 65px;
+  }
+}

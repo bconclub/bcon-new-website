@@ -1,0 +1,102 @@
+.scroll-reveal {
+    margin: 20px 0;
+    padding: 15px, 15px;
+  }
+  
+  .scroll-reveal-text {
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    line-height: 1.5;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .word {
+    display: inline-block;
+  }
+
+  /* Reveal Text Container for Section 2 */
+  .reveal-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  /* Line 1: Creative minds that code. */
+  .reveal-line-1 .scroll-reveal-text {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Override color animation for line 1 to keep white */
+  .reveal-line-1 .word {
+    color: #FFFFFF !important;
+  }
+
+  /* Line 2: Technical hands that design. */
+  .reveal-line-2 .scroll-reveal-text {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Override color animation for line 2 to keep white */
+  .reveal-line-2 .word {
+    color: #FFFFFF !important;
+  }
+
+  /* Line 3: That's rare. That's BCON. */
+  .reveal-line-3 .scroll-reveal-text {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    color: #CCFF00;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  /* Override color animation for line 3 to keep accent color */
+  .reveal-line-3 .word {
+    color: #CCFF00 !important;
+  }
+
+  /* Allow BCON word to animate from white to accent color - no !important so GSAP can override */
+  .reveal-line-3 .word-bcon {
+    color: #ffffff; /* Start white, GSAP will animate to #CCFF00 */
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .reveal-line-1 .scroll-reveal-text {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+    }
+
+    .reveal-line-2 .scroll-reveal-text {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+    }
+
+    .reveal-line-3 .scroll-reveal-text {
+      font-size: clamp(2rem, 8vw, 3.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .reveal-line-1 .scroll-reveal-text {
+      font-size: clamp(1rem, 5vw, 1.8rem);
+    }
+
+    .reveal-line-2 .scroll-reveal-text {
+      font-size: clamp(1rem, 5vw, 1.8rem);
+    }
+
+    .reveal-line-3 .scroll-reveal-text {
+      font-size: clamp(1.8rem, 10vw, 3rem);
+    }
+  }
+
+
+
