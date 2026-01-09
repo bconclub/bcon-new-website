@@ -4,14 +4,30 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
-import type { VimeoPlayer } from '@/types/vimeo';
 import WorkHeroVideo from '@/sections/WorkHeroVideo/WorkHeroVideo';
 import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Vimeo Player API types are defined in types/vimeo.d.ts
+// Vimeo Player API types
+declare global {
+  interface Window {
+    Vimeo: {
+      Player: new (element: HTMLIFrameElement) => VimeoPlayer;
+    };
+  }
+}
+
+interface VimeoPlayer {
+  on: (event: string, callback: (data?: any) => void) => void;
+  off: (event: string, callback?: (data?: any) => void) => void;
+  ready: () => Promise<void>;
+  getDuration: () => Promise<number>;
+  getPaused: () => Promise<boolean>;
+  getCurrentTime: () => Promise<number>;
+  play: () => Promise<void>;
+}
 
 // Helper function to properly encode image paths with spaces
 // encodeURI preserves slashes but encodes spaces and special characters
