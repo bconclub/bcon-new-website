@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { InstagramIcon, LinkedInIcon, YouTubeIcon } from '@/components/shared/Icons';
+import { sendToWebhook } from '@/lib/tracking/webhook';
+import { getTrackingData } from '@/lib/tracking/utm';
 import './Footer.css';
 
 interface FooterProps {
@@ -65,15 +67,30 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
     
     setIsSubmitting(true);
     try {
-      // TODO: Add newsletter subscription API call
-      // For now, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send newsletter subscription to webhook with all tracking info
+      const trackingData = getTrackingData('form_submit', {
+        formType: 'newsletter',
+        // Form data
+        email: email,
+        source: 'footer',
+        // Additional context
+        timestamp: new Date().toISOString(),
+        page: typeof window !== 'undefined' ? window.location.pathname : '',
+        fullUrl: typeof window !== 'undefined' ? window.location.href : '',
+      });
+
+      // Send to webhook - includes UTM params, referrer, userAgent, sessionId, etc.
+      await sendToWebhook(trackingData);
       
       // On success, hide form and show confirmation
       setIsSubscribed(true);
       setEmail('');
     } catch (error) {
-      console.error('Subscription error:', error);
+      console.error('Newsletter subscription error:', error);
+      // Still show success to user even if webhook fails
+      setIsSubscribed(true);
+      setEmail('');
+    } finally {
       setIsSubmitting(false);
     }
   };
