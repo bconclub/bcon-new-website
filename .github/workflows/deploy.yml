@@ -19,41 +19,7 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Create .env.local
-        run: |
-          echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env.local
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> .env.local
-
-      - name: Build project
-        run: npm run build
-
-      - name: Create deployment package
-        run: |
-          mkdir -p deploy
-          cp -r .next deploy/
-          cp -r public deploy/
-          cp package.json deploy/
-          cp package-lock.json deploy/
-          cp ecosystem.config.js deploy/
-          tar -czf deploy.tar.gz -C deploy .
-
-      - name: Copy files to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_DEPLOY_KEY }}
-          source: "deploy.tar.gz"
-          target: "/tmp/"
-          port: 22
-          timeout: 60s
-          command_timeout: 120s
-          debug: true
-
-      - name: Deploy on VPS
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -66,18 +32,17 @@ jobs:
           script: |
             cd /var/www/bconclub
             
-            # Extract deployment package
-            tar -xzf /tmp/deploy.tar.gz -C /var/www/bconclub/
-            rm /tmp/deploy.tar.gz
+            # Pull latest code (won't touch .env.local since it's gitignored)
+            git fetch origin production
+            git reset --hard origin/production
             
-            # Create .env.local
-            echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env.local
-            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> .env.local
+            # Install deps if package.json changed (using npm ci for clean install)
+            npm ci
             
-            # Install production dependencies
-            npm install --production
+            # Build (will use existing .env.local - DO NOT overwrite it)
+            npm run build
             
-            # Restart PM2 (or start if not running)
+            # Restart PM2
             if pm2 describe bconclub > /dev/null 2>&1; then
               pm2 restart bconclub
             else
