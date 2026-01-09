@@ -205,6 +205,7 @@ export default function LiquidBentoPortfolio({
   const [vimeoThumbnails, setVimeoThumbnails] = useState<Record<string, string>>({});
   const [clickedVideos, setClickedVideos] = useState<Record<string, boolean>>({});
   const [inViewMap, setInViewMap] = useState<Record<string, boolean>>({});
+  const [imageLoadReady, setImageLoadReady] = useState<Record<string, boolean>>({});
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const vimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
@@ -218,6 +219,7 @@ export default function LiquidBentoPortfolio({
   const [secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails] = useState<Record<string, string>>({});
   const [secondSectionClickedVideos, setSecondSectionClickedVideos] = useState<Record<string, boolean>>({});
   const [secondSectionInViewMap, setSecondSectionInViewMap] = useState<Record<string, boolean>>({});
+  const [secondSectionImageLoadReady, setSecondSectionImageLoadReady] = useState<Record<string, boolean>>({});
   const secondSectionItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondSectionVideoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const secondSectionVimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
@@ -759,7 +761,61 @@ export default function LiquidBentoPortfolio({
     setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [idStr]: 0 }));
   };
 
-  // IntersectionObserver for lazy loading (second section)
+  // Preload first few items immediately
+  useEffect(() => {
+    const initialLoadCount = Math.min(visibleItems.length, 6);
+    const initialLoadMap: Record<string, boolean> = {};
+    visibleItems.slice(0, initialLoadCount).forEach((item) => {
+      initialLoadMap[String(item.id)] = true;
+    });
+    setImageLoadReady((prev) => ({ ...prev, ...initialLoadMap }));
+  }, [visibleItems]);
+
+  // IntersectionObserver for lazy loading (first section) - preload images early
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const itemId = entry.target.getAttribute('data-item-id');
+          if (entry.isIntersecting && itemId) {
+            setInViewMap((prev) => ({ ...prev, [itemId]: true }));
+            setImageLoadReady((prev) => ({ ...prev, [itemId]: true }));
+          }
+        });
+      },
+      {
+        rootMargin: '400px', // Start loading 400px before entering viewport
+        threshold: 0.01
+      }
+    );
+
+    itemsRef.current.forEach((el) => {
+      if (el) {
+        observer.observe(el);
+      }
+    });
+
+    return () => {
+      itemsRef.current.forEach((el) => {
+        if (el) {
+          observer.unobserve(el);
+        }
+      });
+    };
+  }, [visibleItems]);
+
+  // Preload first few second section items immediately
+  useEffect(() => {
+    const itemsToPreload = isBusinessApps ? businessAppsItems : secondSectionItems;
+    const initialLoadCount = Math.min(itemsToPreload.length, 6);
+    const initialLoadMap: Record<string, boolean> = {};
+    itemsToPreload.slice(0, initialLoadCount).forEach((item) => {
+      initialLoadMap[String(item.id)] = true;
+    });
+    setSecondSectionImageLoadReady((prev) => ({ ...prev, ...initialLoadMap }));
+  }, [secondSectionItems, isBusinessApps, businessAppsItems]);
+
+  // IntersectionObserver for lazy loading (second section) - preload images early
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -767,6 +823,7 @@ export default function LiquidBentoPortfolio({
           const itemId = entry.target.getAttribute('data-item-id');
           if (entry.isIntersecting && itemId) {
             setSecondSectionInViewMap((prev) => ({ ...prev, [itemId]: true }));
+            setSecondSectionImageLoadReady((prev) => ({ ...prev, [itemId]: true }));
             // Check both secondSectionItems and businessAppsItems
             const item = secondSectionItems.find(i => String(i.id) === itemId) || 
                         (isBusinessApps ? businessAppsItems.find(i => String(i.id) === itemId) : null);
@@ -777,8 +834,8 @@ export default function LiquidBentoPortfolio({
         });
       },
       {
-        rootMargin: '50px',
-        threshold: 0.1
+        rootMargin: '400px', // Start loading 400px before entering viewport
+        threshold: 0.01
       }
     );
 
@@ -880,9 +937,11 @@ export default function LiquidBentoPortfolio({
     sectionVideoRefs: React.MutableRefObject<Record<string, HTMLVideoElement>>,
     sectionHandlePlay: (id: string | number, src: string) => Promise<void>,
     sectionHandlePause: (id: string | number) => void,
-    sectionInViewMap: Record<string, boolean>
+    sectionInViewMap: Record<string, boolean>,
+    sectionImageLoadReady: Record<string, boolean>
   ) => {
     const isInView = sectionInViewMap[String(item.id)] || false;
+    const shouldLoadImage = sectionImageLoadReady[String(item.id)] || false;
 
     return (
       <div
@@ -1039,7 +1098,7 @@ export default function LiquidBentoPortfolio({
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
-                  loading="lazy"
+                  loading={shouldLoadImage ? "eager" : "lazy"}
                   onLoad={() => {
                     const itemIdStr = String(item.id);
                     const isFirstSection = sectionVimeoLoadingMap === vimeoLoadingMap;
@@ -1169,19 +1228,20 @@ export default function LiquidBentoPortfolio({
                   console.warn(`Image failed to load for sizing: ${item.src}`);
                 }}
               />
-              <img
-                src={encodeImagePath(item.src)}
-                alt={item.title}
-                loading="lazy"
-                className="bento-media"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
+              {shouldLoadImage && (
+                <img
+                  src={encodeImagePath(item.src)}
+                  alt={item.title}
+                  loading="eager"
+                  className="bento-media"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
                 onError={(e) => {
                   try {
                     const imgElement = e.target as HTMLImageElement;
@@ -1215,6 +1275,7 @@ export default function LiquidBentoPortfolio({
                   }
                 }}
               />
+              )}
               <div 
                 className="bento-media image-placeholder"
                 style={{ 
@@ -1291,7 +1352,7 @@ export default function LiquidBentoPortfolio({
                         <div key={item.id} className="business-apps-slide">
                           <div className="business-apps-slide-content">
                             <div className="business-apps-media">
-                              {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                              {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap, secondSectionImageLoadReady)}
                             </div>
                             <div className="business-apps-details">
                               <h3 className="business-apps-details-title">{item.title}</h3>
@@ -1367,7 +1428,7 @@ export default function LiquidBentoPortfolio({
                           setMobileModalOpen(true);
                         }}
                       >
-                        {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                        {renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap, secondSectionImageLoadReady)}
                       </div>
                     ))}
                   </div>
@@ -1395,7 +1456,7 @@ export default function LiquidBentoPortfolio({
                     </svg>
                   </button>
                   <div className="business-apps-mobile-modal-content">
-                    {renderPortfolioItem(selectedMobileItem, 0, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)}
+                    {renderPortfolioItem(selectedMobileItem, 0, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap, secondSectionImageLoadReady)}
                   </div>
                   <div className="business-apps-mobile-modal-details">
                     <h3 className="business-apps-mobile-modal-title">{selectedMobileItem.title}</h3>
@@ -1422,7 +1483,7 @@ export default function LiquidBentoPortfolio({
         ) : (
         <div className="liquid-bento-grid">
             {displayItems.map((item, index) => 
-            renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap)
+            renderPortfolioItem(item, index, secondSectionPlayedMap, secondSectionVimeoLoadedMap, setSecondSectionVimeoLoadedMap, secondSectionVimeoLoadingMap, secondSectionVimeoThumbnails, setSecondSectionVimeoThumbnails, secondSectionItemsRef, secondSectionVideoRefs, handleSecondSectionPlay, handleSecondSectionPause, secondSectionInViewMap, secondSectionImageLoadReady)
           )}
         </div>
         )}
