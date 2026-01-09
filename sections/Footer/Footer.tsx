@@ -227,7 +227,7 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
       {/* Visitor Counter */}
       {visitorCount !== null && (
         <div className="footer-visitor-counter">
-          <p>You're visitor #{visitorCount.toLocaleString()}</p>
+          <p>You're visitor #<span className="visitor-count-number">{visitorCount.toLocaleString()}</span></p>
         </div>
       )}
     </footer>
