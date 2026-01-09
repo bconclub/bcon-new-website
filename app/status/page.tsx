@@ -22,6 +22,7 @@ interface StatusData {
   };
   errors: string[];
   version: string;
+  versionDate?: string;
 }
 
 export default function StatusPage() {
@@ -75,7 +76,8 @@ export default function StatusPage() {
           error: err.message || 'Failed to fetch status',
         },
         errors: [err.message || 'Failed to fetch status'],
-        version: 'v1.01',
+        version: 'v1.00',
+        versionDate: undefined,
       });
     } finally {
       setLoading(false);
@@ -184,6 +186,12 @@ export default function StatusPage() {
             <span className="status-label">Version:</span>
             <span className="status-value">{statusData.version}</span>
           </div>
+          {statusData.versionDate && (
+            <div className="status-item">
+              <span className="status-label">Release Date:</span>
+              <span className="status-value">{formatDate(statusData.versionDate)}</span>
+            </div>
+          )}
         </div>
 
         {/* Git Information */}

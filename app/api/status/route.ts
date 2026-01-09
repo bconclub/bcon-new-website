@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { execSync } from 'child_process';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 interface StatusResponse {
@@ -23,6 +23,7 @@ interface StatusResponse {
   };
   errors: string[];
   version: string;
+  versionDate?: string;
 }
 
 export async function GET(request: NextRequest) {
@@ -32,8 +33,51 @@ export async function GET(request: NextRequest) {
   // Get current timestamp
   const timestamp = new Date().toISOString();
   
-  // Get version - update this with each production push
-  const version = 'v1.02';
+  // Get version from git tags (latest tag)
+  let version = 'v1.00';
+  let versionDate = timestamp;
+  try {
+    if (gitAvailable) {
+      // Get the latest git tag
+      try {
+        const latestTag = execSync('git describe --tags --abbrev=0', { 
+          encoding: 'utf-8',
+          stdio: ['ignore', 'pipe', 'ignore'],
+          timeout: 5000
+        }).trim();
+        version = latestTag;
+        
+        // Get the date of the tag
+        try {
+          const tagDate = execSync(`git log -1 --format=%aI ${latestTag}`, { 
+            encoding: 'utf-8',
+            stdio: ['ignore', 'pipe', 'ignore'],
+            timeout: 5000
+          }).trim();
+          versionDate = tagDate;
+        } catch {
+          // If we can't get tag date, use current timestamp
+          versionDate = timestamp;
+        }
+      } catch {
+        // Fallback to package.json if git tags not available
+        const packageJsonPath = join(process.cwd(), 'package.json');
+        if (existsSync(packageJsonPath)) {
+          const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+          version = `v${packageJson.version}`;
+        }
+      }
+    } else {
+      // Git not available, use package.json
+      const packageJsonPath = join(process.cwd(), 'package.json');
+      if (existsSync(packageJsonPath)) {
+        const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+        version = `v${packageJson.version}`;
+      }
+    }
+  } catch (error: any) {
+    errors.push(`Failed to read version: ${error.message || 'Unknown error'}`);
+  }
   
   // Get Git information
   let gitInfo = {
@@ -231,6 +275,7 @@ export async function GET(request: NextRequest) {
     database: dbStatus,
     errors,
     version,
+    versionDate,
   };
 
   // Return 200 even if there are errors, so the status page can display them
