@@ -11,7 +11,8 @@ Authoritative notes for building and running the project, plus the high-level st
 - **Testing**: React Testing Library 16.3.0, Jest DOM 6.9.1, @testing-library/user-event 13.5.0
 - **UI Components**: @radix-ui/react-accordion 1.2.12
 - **Utilities**: mathjs 15.0.0, web-vitals 2.1.4
-- **Project Version**: 1.0.2
+- **Project Version**: 1.11.4
+- **Latest Git Tag**: v1.11.4
 - **Entry point**: `app/layout.tsx` → `app/page.tsx`
 
 ## Prerequisites
@@ -190,6 +191,8 @@ BCON2/
 │   │   │   └── route.ts          # List/Create portfolio
 │   │   ├── status/               # Status endpoint
 │   │   │   └── route.ts
+│   │   └── visitor-count/       # Visitor counter API
+│   │       └── route.ts
 │   │   ├── story-highlights/     # Story highlights API
 │   │   │   └── route.ts
 │   │   ├── upload/               # File upload API
@@ -208,7 +211,7 @@ BCON2/
 │   ├── services/                 # Services page
 │   │   └── page.tsx              # /services
 │   ├── status/                   # Status page
-│   │   ├── page.tsx              # /status
+│   │   ├── page.tsx              # /status (displays version from git tags, database status)
 │   │   └── status.css
 │   ├── work/                     # Work/portfolio page
 │   │   ├── page.tsx              # /work
@@ -286,8 +289,8 @@ BCON2/
 │   │   ├── FeaturedWorkGrid.tsx
 │   │   └── FeaturedWorkGrid.css
 │   ├── Footer/                   # Footer component
-│   │   ├── Footer.tsx
-│   │   └── Footer.css
+│   │   ├── Footer.tsx             # Includes visitor counter
+│   │   └── Footer.css             # Visitor counter styling (centered, accent color)
 │   ├── LiquidBentoPortfolio/     # Liquid bento portfolio
 │   │   ├── LiquidBentoPortfolio.tsx
 │   │   └── LiquidBentoPortfolio.css
@@ -358,9 +361,8 @@ BCON2/
 ├── package-lock.json             # Locked dependency versions
 ├── ARCHITECTURE.md               # Architecture documentation
 ├── DEPLOYMENT.md                 # Deployment guide
-├── MIGRATION_GUIDE.md            # Migration documentation
 ├── README.md                     # Project README
-└── supabase-schema.sql           # Supabase database schema
+└── supabase-complete-schema.sql  # Complete Supabase schema (all tables)
 ```
 
 ## API Routes
@@ -391,7 +393,11 @@ BCON2/
 - **GET** `/api/webhook` - Verify webhook endpoint is active
 
 ### Status API
-- **GET** `/api/status` - Application status endpoint
+- **GET** `/api/status` - Application status endpoint (includes version from git tags, database status, git info)
+
+### Visitor Count API
+- **GET** `/api/visitor-count` - Increment and fetch visitor count
+- **GET** `/api/visitor-count?fetchOnly=true` - Fetch current count without incrementing
 
 ### Story Highlights API
 - **GET** `/api/story-highlights` - Get story highlights
@@ -438,13 +444,11 @@ The project uses a **Component Switching** approach for responsive design:
 ## Tracking & Analytics
 
 ### Automatic Tracking
-The application includes comprehensive tracking via `TrackingProvider`:
-- **Page Views**: Every page navigation with full path and UTM parameters
-- **User Interactions**: Clicks on links, buttons, and interactive elements
-- **Scroll Depth**: Tracks when users scroll to 25%, 50%, 75%, and 100%
-- **Form Submissions**: All form submissions with form details
-- **Time on Page**: Session duration and exit tracking
+The application includes tracking via `TrackingProvider`:
+- **Form Submissions**: All form submissions with form details and full session context
 - **UTM Parameters**: Automatically captures and persists UTM parameters from URLs
+- **Session Tracking**: Session ID generation and persistence across page loads
+- **Form Data**: Captures all form fields, page context, viewport, language, timezone, and screen resolution
 
 ### UTM Parameter Tracking
 UTM parameters are automatically captured:
@@ -621,6 +625,16 @@ pm2 monit
 
 ### Supabase Configuration
 
+#### Database Tables
+Required tables (see `supabase-complete-schema.sql`):
+- **portfolio_items**: Portfolio/work items
+- **work_items**: Work showcase items
+- **categories**: Portfolio categories
+- **site_analytics**: Visitor counter and analytics
+- **business_apps**: Business applications
+- **contact_submissions**: Contact form submissions
+- **newsletter_subscriptions**: Newsletter signups
+
 #### Storage Buckets
 Required buckets:
 - **portfolio-images**: Public bucket for portfolio images
@@ -628,13 +642,22 @@ Required buckets:
 
 #### Row Level Security (RLS)
 - Public can read published portfolio/work items
+- Public can read site_analytics (visitor count)
+- Public can insert into contact_submissions and newsletter_subscriptions
 - Only authenticated admins can create/update/delete
+- Service role key required for visitor count increments
 - Configure RLS policies in Supabase Dashboard
 
 #### Authentication
 - Admin users created in Supabase Dashboard → Authentication → Users
 - Email/password authentication
 - Session management via Supabase Auth
+
+#### Visitor Counter
+- **Table**: `site_analytics` (single row with `id='main'`)
+- **API**: `/api/visitor-count` (increments on first visit per session)
+- **Session Tracking**: Uses `sessionStorage` to prevent double-counting
+- **Service Role Key**: Required for write operations (increment count)
 
 ## Troubleshooting
 
@@ -746,11 +769,41 @@ Required buckets:
 
 ## Version History
 
-- **1.0.2**: Current version
+### Recent Releases
+
+#### v1.11.3 (Current)
+- **Version Display**: Now reads from git tags instead of package.json
+- **Release Date Display**: Added formatted release date/time on status page
+- **Git Tag Integration**: Version automatically updates from latest git tag
+- **Status Page**: Enhanced with version date information
+
+#### v1.11.2
+- **Visitor Counter**: Centered layout on mobile and desktop
+- **Brand Accent Color**: Visitor count number displays in accent green (#CDFC2E)
+- **Responsive Design**: Updated styling for all breakpoints
+
+#### v1.11.1
+- **Hydration Fix**: Fixed React hydration mismatch in LiquidBentoPortfolio component
+- **Server/Client Consistency**: Portfolio items now render consistently on server and client
+- **Client-Side Shuffling**: Items shuffle after hydration (browser-only)
+
+#### v1.11.0
+- **Environment Setup**: Added comprehensive environment setup documentation
+- **Supabase Troubleshooting**: Added troubleshooting guide
+- **ShowReel Updates**: Updated ShowReel component and added media assets
+
+### Previous Versions
+- **v1.10.0**: Previous stable release
+- **v1.0.2**: Initial documented version
+
+### Version Information
+- **Current Package Version**: 1.11.3 (in `package.json`)
+- **Latest Git Tag**: v1.11.3
+- **Version Display**: Status page shows version from git tags with release date
 - See `package.json` for dependency versions
-- See git history for code changes
+- See git history for detailed code changes
 
 ---
 
-**Last Updated**: Based on current codebase state
+**Last Updated**: January 2026 (v1.11.3)
 **Maintained By**: BCON Club Development Team
