@@ -35,7 +35,7 @@ export default function DesktopHero() {
           Marketing <RotatingText words={rotatingWords} interval={2000} />
         </h1>
         <p className="description">
-          We build intelligent marketing systems powered by AI and human creativity
+          We build intelligent business systems powered by AI and human creativity.
         </p>
         <ShowReel />
       </div>

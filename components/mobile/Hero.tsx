@@ -35,7 +35,7 @@ export default function MobileHero() {
           Marketing <RotatingText words={rotatingWords} interval={2000} />
         </h1>
         <p className="description">
-          marketing systems
+          We build intelligent business systems powered by AI and human creativity.
         </p>
         <ShowReel />
       </div>
