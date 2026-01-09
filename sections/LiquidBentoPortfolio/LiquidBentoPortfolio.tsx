@@ -280,11 +280,18 @@ export default function LiquidBentoPortfolio({
     return normalizeItemRatios(rawItems);
   }, []);
 
-  // Intelligently arranged items
-  const desktopItems = useMemo(() => {
+  // Intelligently arranged items - use deterministic order for SSR, shuffle on client
+  const [desktopItems, setDesktopItems] = useState<PortfolioItem[]>(() => {
+    // Server-side: use deterministic order (no shuffle)
+    return arrangeItemsIntelligently([featuredVimeoItem, ...allItems.slice(1)], 5);
+  });
+
+  // Shuffle on client side only (after hydration)
+  useEffect(() => {
+    // Only shuffle on client side to avoid hydration mismatch
     const shuffled = shuffleArray(allItems.slice(1));
     const arranged = arrangeItemsIntelligently([featuredVimeoItem, ...shuffled], 5);
-    return arranged;
+    setDesktopItems(arranged);
   }, []);
 
   useEffect(() => {
@@ -602,6 +609,7 @@ export default function LiquidBentoPortfolio({
     }
 
     // For desktop/tablet: Always include all images, then add videos to fill remaining slots
+    // Server-side: use deterministic order (no shuffle to avoid hydration mismatch)
     const imageItems = allSecondSectionItems.filter(item => item.type === 'image');
     const videoItems = allSecondSectionItems.filter(item => item.type !== 'image');
     
@@ -610,9 +618,9 @@ export default function LiquidBentoPortfolio({
       columnCount >= 3 ? 9 :
       6;
 
-    // Always include all images, then add shuffled videos to fill remaining slots
-    const shuffledVideos = shuffleArray(videoItems);
-    const videosToInclude = shuffledVideos.slice(0, Math.max(0, maxVisible - imageItems.length));
+    // Use deterministic order for SSR (no shuffle)
+    // Shuffling will happen in useEffect on client side
+    const videosToInclude = videoItems.slice(0, Math.max(0, maxVisible - imageItems.length));
     const combined = [...imageItems, ...videosToInclude];
     
     const arranged = arrangeItemsIntelligently(combined, columnCount);
