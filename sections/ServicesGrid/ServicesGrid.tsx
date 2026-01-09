@@ -101,38 +101,11 @@ export default function ServicesGrid({ onServiceClick }: ServicesGridProps = {})
         {services.map((service, index) => {
           const isEven = index % 2 === 0;
           
-          const handleCardClick = (e: React.MouseEvent) => {
-            // PHASE 2: Show Coming Soon modal instead of navigating
-            e.preventDefault();
-            if (onServiceClick) {
-              onServiceClick();
-            }
-            // PHASE 2: Commented out - will show Coming Soon modal instead
-            // router.push(`/services#service-${service.id}`);
-            // // Scroll to the service section after navigation
-            // setTimeout(() => {
-            //   const element = document.getElementById(`service-${service.id}`);
-            //   if (element) {
-            //     // Scroll to the beginning of the service section with offset for header
-            //     // This ensures heading and content are visible
-            //     const headerOffset = 100;
-            //     const elementPosition = element.getBoundingClientRect().top;
-            //     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            //     
-            //     window.scrollTo({
-            //       top: offsetPosition,
-            //       behavior: 'smooth'
-            //     });
-            //   }
-            // }, 300);
-          };
-
           return (
             <div 
               key={service.id} 
               className={`service-card ${isEven ? 'service-card-left' : 'service-card-right'}`}
               ref={(el) => { cardsRef.current[index] = el; }}
-              onClick={handleCardClick}
             >
               <div className="service-content">
                 <div className="service-image">

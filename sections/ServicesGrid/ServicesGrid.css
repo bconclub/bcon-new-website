@@ -68,11 +68,7 @@
   animation: pulseGlow 1.5s ease-in-out infinite;
 }
 
-@media (min-width: 1025px) {
-  .service-card {
-    cursor: pointer;
-  }
-}
+/* Service cards are non-clickable - no cursor pointer */
 
 /* Ambient floating entrance animation */
 @keyframes ambientFloatIn {
