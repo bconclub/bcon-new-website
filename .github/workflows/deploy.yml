@@ -19,7 +19,30 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Deploy to VPS
+      - name: Create deployment package
+        run: |
+          # Create package with source files (build will happen on VPS)
+          mkdir -p deploy
+          # Copy source directories and config files
+          cp -r app components sections lib public effects deploy/
+          cp next.config.js tsconfig.json package.json package-lock.json ecosystem.config.js deploy/
+          # Create tarball
+          tar -czf deploy.tar.gz -C deploy .
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_DEPLOY_KEY }}
+          source: "deploy.tar.gz"
+          target: "/tmp/"
+          port: 22
+          timeout: 60s
+          command_timeout: 120s
+          debug: true
+
+      - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -30,19 +53,30 @@ jobs:
           command_timeout: 300s
           debug: true
           script: |
+            set -e  # Exit immediately if any command fails
+            
             cd /var/www/bconclub
             
-            # Pull latest code (won't touch .env.local since it's gitignored)
-            git fetch origin production
-            git reset --hard origin/production
+            # Extract deployment package
+            echo "📦 Extracting deployment files..."
+            tar -xzf /tmp/deploy.tar.gz -C /var/www/bconclub/ || { echo "❌ Failed to extract files"; exit 1; }
+            rm /tmp/deploy.tar.gz
             
-            # Install deps if package.json changed (using npm ci for clean install)
-            npm ci
+            # Verify .env.local exists (should already be there)
+            if [ ! -f .env.local ]; then
+              echo "⚠️ Warning: .env.local not found!"
+            fi
             
-            # Build (will use existing .env.local - DO NOT overwrite it)
-            npm run build
+            # Install production dependencies
+            echo "📥 Installing dependencies..."
+            npm ci || { echo "❌ npm install failed"; exit 1; }
             
-            # Restart PM2
+            # Build - CRITICAL: stop if this fails
+            echo "🔨 Building application..."
+            npm run build || { echo "❌ Build failed"; exit 1; }
+            
+            # Only restart if build succeeded
+            echo "🔄 Restarting PM2..."
             if pm2 describe bconclub > /dev/null 2>&1; then
               pm2 restart bconclub
             else
