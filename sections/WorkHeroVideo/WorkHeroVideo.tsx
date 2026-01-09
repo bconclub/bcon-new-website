@@ -1,27 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import type { VimeoPlayer } from '@/types/vimeo';
 import './WorkHeroVideo.css';
 
-interface VimeoPlayer {
-  play: () => Promise<void>;
-  pause: () => Promise<void>;
-  setVolume: (volume: number) => Promise<void>;
-  getVolume: () => Promise<number>;
-  setCurrentTime: (seconds: number) => Promise<void>;
-  getDuration: () => Promise<number>;
-  getCurrentTime: () => Promise<number>;
-  on: (event: string, callback: (data?: any) => void) => void;
-  off: (event: string, callback: (data?: any) => void) => void;
-}
-
-declare global {
-  interface Window {
-    Vimeo: {
-      Player: new (element: HTMLIFrameElement) => VimeoPlayer;
-    };
-  }
-}
+// Vimeo Player API types are defined in types/vimeo.d.ts
 
 export default function WorkHeroVideo() {
   const [isMuted, setIsMuted] = useState(true);

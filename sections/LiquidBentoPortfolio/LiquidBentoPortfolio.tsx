@@ -4,30 +4,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import type { VimeoPlayer } from '@/types/vimeo';
 import WorkHeroVideo from '@/sections/WorkHeroVideo/WorkHeroVideo';
 import ComingSoonModal from '@/components/ComingSoonModal/ComingSoonModal';
 import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Vimeo Player API types
-declare global {
-  interface Window {
-    Vimeo: {
-      Player: new (element: HTMLIFrameElement) => VimeoPlayer;
-    };
-  }
-}
-
-interface VimeoPlayer {
-  on: (event: string, callback: (data?: any) => void) => void;
-  off: (event: string, callback?: (data?: any) => void) => void;
-  ready: () => Promise<void>;
-  getDuration: () => Promise<number>;
-  getPaused: () => Promise<boolean>;
-  getCurrentTime: () => Promise<number>;
-  play: () => Promise<void>;
-}
+// Vimeo Player API types are defined in types/vimeo.d.ts
 
 // Helper function to properly encode image paths with spaces
 // encodeURI preserves slashes but encodes spaces and special characters
@@ -228,6 +212,7 @@ export default function LiquidBentoPortfolio({
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const videoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const vimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
+  const vimeoPlayersRef = useRef<Record<string, VimeoPlayer>>({});
   const progressIntervals = useRef<Record<string, ReturnType<typeof setInterval>>>({});
   
   // Second section state
@@ -242,6 +227,7 @@ export default function LiquidBentoPortfolio({
   const secondSectionItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const secondSectionVideoRefs = useRef<Record<string, HTMLVideoElement>>({});
   const secondSectionVimeoIframeRefs = useRef<Record<string, HTMLIFrameElement>>({});
+  const secondSectionVimeoPlayersRef = useRef<Record<string, VimeoPlayer>>({});
   const secondSectionProgressIntervals = useRef<Record<string, ReturnType<typeof setInterval>>>({});
   
   // PHASE 2: Coming Soon modal state - use parent handler if provided
