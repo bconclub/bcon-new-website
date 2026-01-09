@@ -48,6 +48,10 @@ jobs:
           key: ${{ secrets.VPS_DEPLOY_KEY }}
           source: "deploy.tar.gz"
           target: "/tmp/"
+          port: 22
+          timeout: 60s
+          command_timeout: 120s
+          debug: true
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -55,6 +59,10 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_DEPLOY_KEY }}
+          port: 22
+          timeout: 60s
+          command_timeout: 300s
+          debug: true
           script: |
             cd /var/www/bconclub
             
