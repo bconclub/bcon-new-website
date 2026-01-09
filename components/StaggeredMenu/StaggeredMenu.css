@@ -257,6 +257,49 @@
     border-right: 1px solid #CCFF0033;
   }
   
+  /* Close Button inside menu panel */
+  .sm-panel-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .sm-panel-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--sm-accent, #CCFF00);
+    color: var(--sm-accent, #CCFF00);
+    transform: rotate(90deg);
+  }
+
+  .sm-panel-close:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+
+  .sm-panel-close svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+  }
+
+  [data-position='left'] .sm-panel-close {
+    right: auto;
+    left: 2rem;
+  }
+
   .sm-panel-inner {
     flex: 1;
     display: flex;
@@ -436,6 +479,18 @@
       padding: 7rem 2rem 2rem 2rem;
     }
 
+    .sm-panel-close {
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+    }
+
+    [data-position='left'] .sm-panel-close {
+      left: 1.5rem;
+      right: auto;
+    }
+
     .sm-prelayers {
       width: 100%;
     }
@@ -483,6 +538,23 @@
       width: 100%;
       max-width: 100%;
       padding: 7rem 1.5rem 2rem 1.5rem;
+    }
+
+    .sm-panel-close {
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 36px;
+      height: 36px;
+    }
+
+    .sm-panel-close svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    [data-position='left'] .sm-panel-close {
+      left: 1.25rem;
+      right: auto;
     }
   
     .sm-panel-item {

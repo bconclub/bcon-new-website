@@ -106,6 +106,14 @@ export function getStoredUTMParams(): UTMParams {
 }
 
 /**
+ * Get UTM parameters (alias for getStoredUTMParams for convenience)
+ * Gets UTM params from sessionStorage (which are stored when user first visits with UTM params)
+ */
+export function getUTMParams(): UTMParams {
+  return getStoredUTMParams();
+}
+
+/**
  * Get or create session ID
  */
 export function getSessionId(): string {
