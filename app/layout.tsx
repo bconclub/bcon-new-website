@@ -3,15 +3,32 @@ import './globals.css';
 import TrackingProvider from '@/components/Tracking/TrackingProvider';
 
 export const metadata: Metadata = {
-  title: 'BCON Club - Human × AI Business Solutions',
-  description: 'We build intelligent business systems powered by AI and human creativity. AI in Business, Brand Marketing, and Business Apps.',
-  keywords: ['AI', 'Business Intelligence', 'Brand Marketing', 'Business Apps', 'BCON Club'],
-  authors: [{ name: 'BCON Club' }],
+  metadataBase: new URL('https://bconclub.com'),
+  title: 'BCON Club | Human X AI Powered Marketing',
+  description: 'Intelligent marketing systems. Powered by AI and human creativity.',
+  keywords: 'AI marketing, marketing automation, PROXe, Human X AI, business growth',
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
-    title: 'BCON Club - Human × AI Business Solutions',
-    description: 'We build intelligent business systems powered by AI and human creativity.',
+    title: 'BCON Club | Human X AI Powered Marketing',
+    description: 'Intelligent marketing systems. Powered by AI and human creativity.',
+    url: 'https://bconclub.com',
+    siteName: 'BCON Club',
+    images: [{
+      url: '/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'BCON Club - Human X AI Powered Marketing'
+    }],
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BCON Club | Human X AI Powered Marketing',
+    description: 'Intelligent marketing systems',
+    images: ['/og-image.png'],
+  }
 };
 
 export default function RootLayout({

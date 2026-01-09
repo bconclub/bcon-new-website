@@ -41,10 +41,10 @@ const mockBusinessApps: BusinessApp[] = [
   },
   {
     id: '4',
-    product_name: 'Adipoo Kitchen',
+    product_name: 'Adiploi Kitchen',
     tagline: 'Smart restaurant platform with WhatsApp ordering',
     vimeo_id: '1151324148',
-    case_study_url: '/work/adipoo-kitchen'
+    case_study_url: '/work/adiploi-kitchen'
   }
 ];
 
