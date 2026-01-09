@@ -145,27 +145,6 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Get author
-      try {
-        gitInfo.author = execSync('git log -1 --pretty=%an', { 
-          encoding: 'utf-8',
-          stdio: ['ignore', 'pipe', 'ignore'],
-          timeout: 5000
-        }).trim();
-      } catch (e: any) {
-        errors.push(`Failed to get git author: ${e.message || 'Unknown error'}`);
-      }
-
-      // Get author email
-      try {
-        gitInfo.authorEmail = execSync('git log -1 --pretty=%ae', { 
-          encoding: 'utf-8',
-          stdio: ['ignore', 'pipe', 'ignore'],
-          timeout: 5000
-        }).trim();
-      } catch (e: any) {
-        errors.push(`Failed to get git author email: ${e.message || 'Unknown error'}`);
-      }
 
       // Get commit date
       try {
@@ -191,16 +170,6 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Get remote URL
-      try {
-        gitInfo.remoteUrl = execSync('git config --get remote.origin.url', { 
-          encoding: 'utf-8',
-          stdio: ['ignore', 'pipe', 'ignore'],
-          timeout: 5000
-        }).trim();
-      } catch (e: any) {
-        errors.push(`Failed to get git remote URL: ${e.message || 'Unknown error'}`);
-      }
     } catch (error: any) {
       errors.push(`Git information error: ${error.message}`);
     }
@@ -215,10 +184,7 @@ export async function GET(request: NextRequest) {
     if (!process.env.NEXT_PUBLIC_GIT_BRANCH) {
       gitInfo.branch = 'production';
     }
-    gitInfo.author = 'Build System';
-    gitInfo.authorEmail = 'build@bconclub.com';
     gitInfo.commitDate = timestamp;
-    gitInfo.remoteUrl = 'https://github.com/bconclub/bcon-new-website.git';
   }
 
   // Test database connection

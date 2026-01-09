@@ -210,20 +210,8 @@ export default function StatusPage() {
             <span className="status-value">{statusData.git.commitMessage}</span>
           </div>
           <div className="status-item">
-            <span className="status-label">Author:</span>
-            <span className="status-value">{statusData.git.author}</span>
-          </div>
-          <div className="status-item">
-            <span className="status-label">Author Email:</span>
-            <span className="status-value">{statusData.git.authorEmail}</span>
-          </div>
-          <div className="status-item">
             <span className="status-label">Commit Date:</span>
             <span className="status-value">{formatDate(statusData.git.commitDate)}</span>
-          </div>
-          <div className="status-item">
-            <span className="status-label">Remote URL:</span>
-            <span className="status-value remote-url">{statusData.git.remoteUrl}</span>
           </div>
         </div>
 
