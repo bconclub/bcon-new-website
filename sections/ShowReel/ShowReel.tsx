@@ -3,22 +3,14 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 // Image will be loaded from public folder
-const showreelThumbnail = '/assets/images/Showreel Thumbnail.png';
+const showreelThumbnail = '/portfolio/Showreel Thumbnail.webp';
+const showreelVideo = '/portfolio/Showreel.mp4';
 import './ShowReel.css';
-
-interface VimeoPlayer {
-  pause: () => void;
-  on: (event: string, callback: (data?: any) => void) => void;
-  off: (event: string, callback?: (data?: any) => void) => void;
-}
-
-// Vimeo Player types are handled by @vimeo/player types package
 
 export default function ShowReel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [player, setPlayer] = useState<any>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -29,44 +21,18 @@ export default function ShowReel() {
     setIsModalOpen(false);
     document.body.style.overflow = 'unset';
     setVideoLoaded(false);
-    if (player) {
-      player.pause();
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
     }
   };
 
   useEffect(() => {
-    if (isModalOpen && window.Vimeo && iframeRef.current) {
-      const vimeoPlayer = new window.Vimeo.Player(iframeRef.current);
-      setPlayer(vimeoPlayer as any);
-
-      const onLoaded = () => {
-        setVideoLoaded(true);
-      };
-
-      const onEnded = () => {
-        setIsModalOpen(false);
-        document.body.style.overflow = 'unset';
-      };
-
-      vimeoPlayer.on('loaded', onLoaded);
-      vimeoPlayer.on('ended', onEnded);
-
-      return () => {
-        vimeoPlayer.off('ended', onEnded);
-        vimeoPlayer.off('loaded', onLoaded);
-      };
+    if (isModalOpen && videoRef.current) {
+      // Start loading the video when modal opens
+      videoRef.current.load();
     }
   }, [isModalOpen]);
-
-  // Load Vimeo Player API
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !window.Vimeo) {
-      const script = document.createElement('script');
-      script.src = 'https://player.vimeo.com/api/player.js';
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
 
   return (
     <>
@@ -124,16 +90,28 @@ export default function ShowReel() {
             
             {/* Video container - hidden until loaded */}
             <div className="video-container" style={{ opacity: videoLoaded ? 1 : 0 }}>
-              <iframe
-                ref={iframeRef}
-                src="https://player.vimeo.com/video/1128657641?autoplay=1&title=0&byline=0&portrait=0&controls=0"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                title="BCON Showreel"
-              ></iframe>
+              <video
+                ref={videoRef}
+                src={showreelVideo}
+                autoPlay
+                playsInline
+                muted
+                loop={false}
+                onLoadedData={() => {
+                  setVideoLoaded(true);
+                  if (videoRef.current) {
+                    videoRef.current.play().catch(() => {});
+                  }
+                }}
+                onEnded={closeModal}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }}
+              >
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>
