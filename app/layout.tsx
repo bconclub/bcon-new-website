@@ -5,8 +5,8 @@ import TrackingProvider from '@/components/Tracking/TrackingProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://bconclub.com'),
-  title: 'BCON Club | Human X AI Powered Marketing',
-  description: 'Intelligent marketing systems. Powered by AI and human creativity.',
+  title: 'BCON | Human X AI Powered Business & Marketing Solutions',
+  description: 'We help businesses grow through better marketing and smarter systems. AI-powered. Human-driven. Results-focused.',
   keywords: 'AI marketing, marketing automation, PROXe, Human X AI, business growth',
   icons: {
     icon: [
@@ -17,22 +17,22 @@ export const metadata: Metadata = {
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'BCON Club | Human X AI Powered Marketing',
-    description: 'Intelligent marketing systems. Powered by AI and human creativity.',
+    title: 'BCON | Human X AI Powered Business & Marketing Solutions',
+    description: 'We help businesses grow through better marketing and smarter systems. AI-powered. Human-driven. Results-focused.',
     url: 'https://bconclub.com',
     siteName: 'BCON Club',
     images: [{
       url: '/og-image.png',
       width: 1200,
       height: 630,
-      alt: 'BCON Club - Human X AI Powered Marketing'
+      alt: 'BCON Club - Human X AI Powered Business & Marketing Solutions'
     }],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BCON Club | Human X AI Powered Marketing',
-    description: 'Intelligent marketing systems',
+    title: 'BCON | Human X AI Powered Business & Marketing Solutions',
+    description: 'We help businesses grow through better marketing and smarter systems. AI-powered. Human-driven. Results-focused.',
     images: ['/og-image.png'],
   }
 };
