@@ -33,6 +33,21 @@ export async function GET(request: NextRequest) {
   // Get current timestamp
   const timestamp = new Date().toISOString();
   
+  // Check if git is available and .git directory exists
+  const gitAvailable = (() => {
+    try {
+      execSync('git --version', { 
+        encoding: 'utf-8',
+        stdio: 'ignore',
+        timeout: 2000
+      });
+      // Check if .git directory exists
+      return existsSync(join(process.cwd(), '.git'));
+    } catch {
+      return false;
+    }
+  })();
+  
   // Get version from git tags (latest tag)
   let version = 'v1.00';
   let versionDate = timestamp;
@@ -89,21 +104,6 @@ export async function GET(request: NextRequest) {
     branch: 'unknown',
     remoteUrl: 'unknown',
   };
-
-  // Check if git is available and .git directory exists
-  const gitAvailable = (() => {
-    try {
-      execSync('git --version', { 
-        encoding: 'utf-8',
-        stdio: 'ignore',
-        timeout: 2000
-      });
-      // Check if .git directory exists
-      return existsSync(join(process.cwd(), '.git'));
-    } catch {
-      return false;
-    }
-  })();
 
   // Try to get git info from environment variables first (set during build/deploy)
   if (process.env.NEXT_PUBLIC_GIT_COMMIT_HASH) {

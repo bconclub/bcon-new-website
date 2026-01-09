@@ -1,6 +1,6 @@
 {
   "name": "bcon-new-website",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "homepage": ".",
   "private": true,
   "dependencies": {
@@ -39,8 +39,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "next/core-web-vitals"
     ]
   },
   "browserslist": {
