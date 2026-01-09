@@ -10,6 +10,25 @@ import './LiquidBentoPortfolio.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Vimeo Player API types
+declare global {
+  interface Window {
+    Vimeo: {
+      Player: new (element: HTMLIFrameElement) => VimeoPlayer;
+    };
+  }
+}
+
+interface VimeoPlayer {
+  on: (event: string, callback: (data?: any) => void) => void;
+  off: (event: string, callback?: (data?: any) => void) => void;
+  ready: () => Promise<void>;
+  getDuration: () => Promise<number>;
+  getPaused: () => Promise<boolean>;
+  getCurrentTime: () => Promise<number>;
+  play: () => Promise<void>;
+}
+
 // Helper function to properly encode image paths with spaces
 // encodeURI preserves slashes but encodes spaces and special characters
 const encodeImagePath = (path: string): string => {
@@ -1099,27 +1118,166 @@ export default function LiquidBentoPortfolio({
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                   loading={shouldLoadImage ? "eager" : "lazy"}
-                  onLoad={() => {
+                  onLoad={async () => {
                     const itemIdStr = String(item.id);
                     const isFirstSection = sectionVimeoLoadingMap === vimeoLoadingMap;
+                    const iframe = sectionVimeoLoadedMap === vimeoLoadedMap 
+                      ? vimeoIframeRefs.current[itemIdStr] 
+                      : secondSectionVimeoIframeRefs.current[itemIdStr];
                     
-                    // Complete the progress bar to 100%
-                    if (isFirstSection) {
-                      setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
-                    } else {
-                      setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
-                    }
-                    
-                    // Hide loading bar after a brief delay to show 100%
-                    setTimeout(() => {
-                      if (isFirstSection) {
-                        setVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
-                        setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                    if (!iframe) return;
+
+                    // Wait for Vimeo Player API to be available
+                    const waitForVimeoAPI = (): Promise<void> => {
+                      return new Promise((resolve) => {
+                        if (window.Vimeo) {
+                          resolve();
+                        } else {
+                          const checkInterval = setInterval(() => {
+                            if (window.Vimeo) {
+                              clearInterval(checkInterval);
+                              resolve();
+                            }
+                          }, 100);
+                          // Timeout after 5 seconds
+                          setTimeout(() => {
+                            clearInterval(checkInterval);
+                            resolve();
+                          }, 5000);
+                        }
+                      });
+                    };
+
+                    await waitForVimeoAPI();
+
+                    // Initialize Vimeo Player and wait for video to be ready
+                    try {
+                      if (window.Vimeo && iframe) {
+                        const playersRef = isFirstSection ? vimeoPlayersRef : secondSectionVimeoPlayersRef;
+                        
+                        // Create player if it doesn't exist
+                        if (!playersRef.current[itemIdStr]) {
+                          playersRef.current[itemIdStr] = new window.Vimeo.Player(iframe);
+                        }
+                        
+                        const player = playersRef.current[itemIdStr];
+                        
+                        // Wait for video to be loaded (ready to play)
+                        await player.ready();
+                        
+                        // Additional check: wait for video duration to be available (video metadata loaded)
+                        try {
+                          await player.getDuration();
+                        } catch (e) {
+                          // If getDuration fails, wait a bit more
+                          await new Promise(resolve => setTimeout(resolve, 500));
+                        }
+                        
+                        // Ensure video starts playing (if autoplay is enabled)
+                        if (sectionPlayedMap[String(item.id)]) {
+                          try {
+                            await player.play();
+                          } catch (e) {
+                            // Play might fail due to autoplay policies, that's okay
+                            console.log('Autoplay may be blocked:', e);
+                          }
+                        }
+                        
+                        // Wait for video to actually start playing before revealing
+                        const waitForVideoToPlay = (): Promise<void> => {
+                          return new Promise((resolve) => {
+                            let attempts = 0;
+                            const maxAttempts = 60; // 6 seconds max wait
+                            
+                            const checkPlaying = async () => {
+                              try {
+                                const isPaused = await player.getPaused();
+                                const currentTime = await player.getCurrentTime();
+                                
+                                // Video is playing if it's not paused and has advanced beyond 0.1 seconds
+                                // This ensures the video has actually started playing, not just buffered
+                                if (!isPaused && currentTime >= 0.1) {
+                                  // Wait a bit more to ensure smooth playback and first frame is rendered
+                                  await new Promise(r => setTimeout(r, 300));
+                                  resolve();
+                                  return;
+                                }
+                                
+                                attempts++;
+                                if (attempts >= maxAttempts) {
+                                  // Timeout - resolve anyway to not block forever
+                                  // Video might be blocked by autoplay policy
+                                  resolve();
+                                  return;
+                                }
+                                
+                                // Check again in 100ms
+                                setTimeout(checkPlaying, 100);
+                              } catch (error) {
+                                // If there's an error, resolve anyway
+                                resolve();
+                              }
+                            };
+                            
+                            // Start checking after a small delay to let iframe initialize
+                            setTimeout(checkPlaying, 200);
+                          });
+                        };
+                        
+                        // Wait for video to start playing
+                        await waitForVideoToPlay();
+                        
+                        // Now complete the progress bar to 100%
+                        if (isFirstSection) {
+                          setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        } else {
+                          setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        }
+                        
+                        // Hide loading bar after a brief delay to show 100%
+                        setTimeout(() => {
+                          if (isFirstSection) {
+                            setVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                            setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                          } else {
+                            setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                            setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                          }
+                        }, 300);
                       } else {
-                        setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
-                        setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                        // Fallback: if Vimeo API not available, use iframe onLoad
+                        if (isFirstSection) {
+                          setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        } else {
+                          setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        }
+                        setTimeout(() => {
+                          if (isFirstSection) {
+                            setVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                            setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                          } else {
+                            setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                            setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                          }
+                        }, 300);
                       }
-                    }, 300);
+                    } catch (error) {
+                      console.error('Error initializing Vimeo player:', error);
+                      // Fallback: complete progress bar even if player init fails
+                      if (isFirstSection) {
+                        setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        setTimeout(() => {
+                          setVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                          setVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                        }, 300);
+                      } else {
+                        setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 100 }));
+                        setTimeout(() => {
+                          setSecondSectionVimeoLoadingMap((prev) => ({ ...prev, [itemIdStr]: false }));
+                          setSecondSectionVimeoLoadingProgress((prev) => ({ ...prev, [itemIdStr]: 0 }));
+                        }, 300);
+                      }
+                    }
                   }}
                   onError={(e) => {
                     console.error(`Vimeo iframe error for ${item.id} (${item.src}):`, e);
