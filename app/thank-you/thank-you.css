@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: #000000;
+  background: transparent;
   color: #FFFFFF;
   position: relative;
 }
@@ -16,16 +16,16 @@
   position: relative;
   z-index: 1;
   
-  /* Glass frosted effect */
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* Glass frosted effect - lighter to show LiquidEther through */
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 48px 40px;
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .thank-you-title {
@@ -83,11 +83,21 @@
 .thank-you-actions {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: nowrap;
+  margin-bottom: 16px;
+}
+
+.thank-you-home-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
 }
 
 .thank-you-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 16px 32px;
   background: #CDFC2E;
   color: #000000;
@@ -99,11 +109,63 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
 }
 
 .thank-you-button:hover {
   background: #B8E600;
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(205, 252, 46, 0.3);
+}
+
+.thank-you-button-whatsapp {
+  background: #CDFC2E;
+  color: #000000;
+  flex: 1;
+}
+
+.thank-you-button-whatsapp:hover {
+  background: #B8E600;
+  box-shadow: 0 8px 20px rgba(205, 252, 46, 0.3);
+}
+
+.thank-you-button-call {
+  background: #5227FF;
+  color: #FFFFFF;
+  flex: 1;
+}
+
+.thank-you-button-call:hover {
+  background: #3D1FCC;
+  box-shadow: 0 8px 20px rgba(82, 39, 255, 0.3);
+}
+
+.thank-you-button-home {
+  background: rgba(205, 252, 46, 0.2);
+  color: #CDFC2E;
+  border: 2px solid #CDFC2E;
+  border-radius: 50%;
+  padding: 12px;
+  min-width: 48px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thank-you-button-home span {
+  display: none;
+}
+
+.thank-you-button-home svg {
+  margin: 0 !important;
+}
+
+.thank-you-button-home:hover {
+  background: #CDFC2E;
+  color: #000000;
   box-shadow: 0 8px 20px rgba(205, 252, 46, 0.3);
 }
 
@@ -129,8 +191,27 @@
     font-size: 14px;
   }
 
+  .thank-you-actions {
+    flex-direction: row;
+    gap: 12px;
+    width: 100%;
+  }
+
   .thank-you-button {
-    padding: 14px 28px;
+    padding: 14px 20px;
     font-size: 14px;
+  }
+
+  .thank-you-button-whatsapp,
+  .thank-you-button-call {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .thank-you-button-home {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
   }
 }
