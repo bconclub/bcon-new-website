@@ -95,7 +95,6 @@ export default function ShowReel() {
                 src={showreelVideo}
                 autoPlay
                 playsInline
-                muted
                 loop={false}
                 onLoadedData={() => {
                   setVideoLoaded(true);
