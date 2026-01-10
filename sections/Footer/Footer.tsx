@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { InstagramIcon, LinkedInIcon, YouTubeIcon } from '@/components/shared/Icons';
+import { InstagramIcon, LinkedInIcon, YouTubeIcon, FacebookIcon, XIcon } from '@/components/shared/Icons';
 import { sendToWebhook } from '@/lib/tracking/webhook';
 import { getTrackingData } from '@/lib/tracking/utm';
 import './Footer.css';
@@ -30,8 +30,15 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
         try {
           const response = await fetch('/api/visitor-count?fetchOnly=true');
           if (response.ok) {
-            const { count } = await response.json();
-            setVisitorCount(count);
+            const data = await response.json();
+            if (data.count !== undefined) {
+              setVisitorCount(data.count);
+            } else {
+              console.warn('Visitor count API returned unexpected format:', data);
+            }
+          } else {
+            const errorData = await response.json().catch(() => ({}));
+            console.warn('Visitor count fetch failed:', response.status, errorData);
           }
         } catch (error) {
           console.error('Error fetching visitor count:', error);
@@ -44,17 +51,28 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
         const response = await fetch('/api/visitor-count');
         
         if (response.ok) {
-          const { count } = await response.json();
-          setVisitorCount(count);
-          
-          // Mark as counted in this session
-          if (typeof window !== 'undefined') {
-            sessionStorage.setItem('visitor_counted', 'true');
+          const data = await response.json();
+          if (data.count !== undefined) {
+            setVisitorCount(data.count);
+            // Mark as counted in this session
+            if (typeof window !== 'undefined') {
+              sessionStorage.setItem('visitor_counted', 'true');
+            }
+          } else if (data.error) {
+            console.warn('Visitor count API error:', data.error, data.details);
+            // Don't show error to user, just log it
+            setVisitorCount(0);
           }
+        } else {
+          const errorData = await response.json().catch(() => ({}));
+          console.warn('Visitor count API failed:', response.status, errorData);
+          // Still show 0 instead of hiding
+          setVisitorCount(0);
         }
       } catch (error) {
         console.error('Error tracking visitor:', error);
-        setVisitorCount(null);
+        // Show 0 instead of null so the section still renders
+        setVisitorCount(0);
       }
     };
 
@@ -109,16 +127,9 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
   };
 
   const companyLinks = [
-    { label: 'Work', href: '/work' },
-    { label: 'Services', href: '/services' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms & Conditions', href: '/terms' },
-  ];
-
-  const socialLinks = [
-    { label: 'Instagram', href: 'https://www.instagram.com/bconclub', icon: InstagramIcon },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/bconclub', icon: LinkedInIcon },
-    { label: 'YouTube', href: 'https://www.youtube.com/@bconclub', icon: YouTubeIcon },
+    { label: 'Work', href: '/work', className: 'company-link-work' },
+    { label: 'Solutions', href: '/services', className: 'company-link-solutions' },
+    { label: 'Contact', href: '/#contact', className: 'company-link-contact' },
   ];
 
   return (
@@ -155,13 +166,28 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
           {/* Company Column */}
           <div className="footer-column">
             <h3 className="footer-column-title">COMPANY</h3>
-            <ul className="footer-links">
+            <ul className="footer-links company-links">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  {isInternalLink(link.href) ? (
+                  {link.href.startsWith('/#') ? (
+                    // Hash link (like /#contact) - navigate to homepage and scroll
                     <a
                       href={link.href}
-                      className="footer-link"
+                      className={`footer-link ${link.className || ''}`}
+                      onClick={(e) => {
+                        if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+                          e.preventDefault();
+                          window.location.href = link.href;
+                        }
+                        // If on homepage, let default scroll behavior work
+                      }}
+                    >
+                      {link.label}
+                    </a>
+                  ) : isInternalLink(link.href) ? (
+                    <a
+                      href={link.href}
+                      className={`footer-link ${link.className || ''}`}
                       onClick={(e) => handleLinkClick(e, link.href)}
                     >
                       {link.label}
@@ -169,7 +195,7 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
                   ) : (
                     <a
                       href={link.href}
-                      className="footer-link"
+                      className={`footer-link ${link.className || ''}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -181,34 +207,31 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
             </ul>
           </div>
 
-          {/* Social Column */}
-          <div className="footer-column">
-            <h3 className="footer-column-title">SOCIAL</h3>
-            <ul className="footer-links">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon;
-                return (
-                  <li key={social.href}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="footer-link footer-social-link"
-                      aria-label={social.label}
-                    >
-                      <IconComponent size={18} color="currentColor" />
-                      <span>{social.label}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </div>
 
         {/* Copyright */}
         <div className="footer-copyright">
           <p>© <span className="footer-accent">BCON CLUB</span>. ALL RIGHTS RESERVED. <span className="footer-accent">2026</span></p>
+          <p className="footer-privacy-link">
+            {isInternalLink('/privacy') ? (
+              <a
+                href="/privacy"
+                className="footer-link"
+                onClick={(e) => handleLinkClick(e, '/privacy')}
+              >
+                Privacy Policy
+              </a>
+            ) : (
+              <a
+                href="/privacy"
+                className="footer-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>
+            )}
+          </p>
         </div>
 
         {/* Large BCON Logo */}
@@ -221,13 +244,63 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
             className="footer-logo-large"
             priority
           />
+          {/* Social Media Icons Below Logo */}
+          <div className="footer-logo-social-icons">
+            <a
+              href="https://www.instagram.com/bconclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-icon-link"
+              aria-label="Instagram"
+            >
+              <InstagramIcon size={32} color="#E4405F" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/bconclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-icon-link"
+              aria-label="LinkedIn"
+            >
+              <LinkedInIcon size={32} color="#0077B5" />
+            </a>
+            <a
+              href="https://www.youtube.com/@bconclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-icon-link"
+              aria-label="YouTube"
+            >
+              <YouTubeIcon size={32} color="#FF0000" />
+            </a>
+            <a
+              href="https://www.facebook.com/bconclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-icon-link"
+              aria-label="Facebook"
+            >
+              <FacebookIcon size={32} color="#1877F2" />
+            </a>
+            <a
+              href="https://x.com/bconclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-icon-link"
+              aria-label="X"
+            >
+              <XIcon size={32} color="#FFFFFF" />
+            </a>
+          </div>
         </div>
       </div>
 
       {/* Visitor Counter */}
       {visitorCount !== null && (
         <div className="footer-visitor-counter">
-          <p>You're visitor #<span className="visitor-count-number">{visitorCount.toLocaleString()}</span></p>
+          <p>
+            You're visitor #<span className="visitor-number">{visitorCount.toLocaleString()}</span>
+          </p>
         </div>
       )}
     </footer>

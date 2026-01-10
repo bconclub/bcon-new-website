@@ -165,22 +165,22 @@ export default function Work() {
 
   // Menu configuration
   const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '/' },
     { label: 'Work', ariaLabel: 'View our work', link: '/work' },
-    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
-    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '/' }
+    { label: 'Solutions', ariaLabel: 'View our solutions', link: '/services' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '/#contact' }
   ];
 
   const socialItems = [
     { label: 'Instagram', link: 'https://www.instagram.com/bconclub/' },
     { label: 'LinkedIn', link: 'https://www.linkedin.com/company/bconclub' },
-    { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' }
+    { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' },
+    { label: 'Facebook', link: 'https://www.facebook.com/bconclub' },
+    { label: 'X', link: 'https://x.com/bconclub' }
   ];
 
   const handleMenuItemClick = (item: { label: string; ariaLabel: string; link: string }) => {
-    // PHASE 2: Show Coming Soon modal for non-homepage links
-    if (item.link !== '/') {
+    // Show Coming Soon modal for internal page links
+    if (!item.link.startsWith('/#')) {
       setShowComingSoon(true);
     }
   };

@@ -19,18 +19,15 @@ export default function Home() {
 
   // Menu configuration
   const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    // PHASE 2: Internal navigation - will show Coming Soon modal
-    { label: 'About', ariaLabel: 'Learn about us', link: '/about' }, // PHASE 2: href="/about"
-    { label: 'Work', ariaLabel: 'View our work', link: '/work' }, // PHASE 2: href="/work"
-    { label: 'Services', ariaLabel: 'View our services', link: '/services' }, // PHASE 2: href="/services"
-    { label: 'Hire Us', ariaLabel: 'Get in touch', link: '#contact' } // Keep working - scrolls to contact
+    { label: 'Work', ariaLabel: 'View our work', link: '/work' },
+    { label: 'Solutions', ariaLabel: 'View our solutions', link: '/services' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' } // Scrolls to contact section
   ];
 
   const handleMenuItemClick = (item: { label: string; ariaLabel: string; link: string }) => {
-    // PHASE 2: Show Coming Soon modal for non-homepage internal links
-    // Keep homepage (/) and contact (#contact) working
-    if (item.link !== '/' && !item.link.startsWith('#')) {
+    // Show Coming Soon modal for internal page links
+    // Keep contact (#contact) working - scrolls to contact section
+    if (!item.link.startsWith('#')) {
       setShowComingSoon(true);
     }
   };
@@ -38,7 +35,9 @@ export default function Home() {
   const socialItems = [
     { label: 'Instagram', link: 'https://www.instagram.com/bconclub/' },
     { label: 'LinkedIn', link: 'https://www.linkedin.com/company/bconclub' },
-    { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' }
+    { label: 'YouTube', link: 'https://www.youtube.com/@bconclub' },
+    { label: 'Facebook', link: 'https://www.facebook.com/bconclub' },
+    { label: 'X', link: 'https://x.com/bconclub' }
   ];
 
   return (

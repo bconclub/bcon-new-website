@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminSupabaseClient } from '@/lib/supabase/server';
+import { createAdminSupabaseClient, createServerSupabaseClient } from '@/lib/supabase/server';
 
 /**
  * Visitor Count API
@@ -11,10 +11,17 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const fetchOnly = searchParams.get('fetchOnly') === 'true';
     
-    const adminClient = createAdminSupabaseClient();
+    // Try admin client first, fallback to regular client for local dev
+    let supabase;
+    try {
+      supabase = createAdminSupabaseClient();
+    } catch (adminError) {
+      console.warn('Admin client not available, using regular client:', adminError);
+      supabase = await createServerSupabaseClient();
+    }
     
     // Get the current visitor count row (there should only be one)
-    const { data: analytics, error: fetchError } = await adminClient
+    const { data: analytics, error: fetchError } = await supabase
       .from('site_analytics')
       .select('id, visitor_count')
       .order('created_at', { ascending: true })
@@ -23,13 +30,13 @@ export async function GET(request: NextRequest) {
 
     if (fetchError) {
       // If no row exists, create one
-      if (fetchError.code === 'PGRST116') {
+      if (fetchError.code === 'PGRST116' || fetchError.message?.includes('No rows')) {
         if (fetchOnly) {
           // Just return 0 if fetching only and no row exists
           return NextResponse.json({ count: 0 });
         }
         
-        const { data: newAnalytics, error: insertError } = await adminClient
+        const { data: newAnalytics, error: insertError } = await supabase
           .from('site_analytics')
           .insert({ visitor_count: 1 })
           .select('visitor_count')
@@ -37,8 +44,13 @@ export async function GET(request: NextRequest) {
 
         if (insertError) {
           console.error('Error creating visitor count:', insertError);
+          // If insert fails, might be RLS issue - return 0 for local dev
+          if (insertError.message?.includes('permission') || insertError.message?.includes('policy')) {
+            console.warn('RLS policy blocking insert, returning count: 0');
+            return NextResponse.json({ count: 0 });
+          }
           return NextResponse.json(
-            { error: 'Failed to initialize visitor count' },
+            { error: 'Failed to initialize visitor count', details: insertError.message },
             { status: 500 }
           );
         }
@@ -47,8 +59,13 @@ export async function GET(request: NextRequest) {
       }
 
       console.error('Error fetching visitor count:', fetchError);
+      // If table doesn't exist or access denied, return 0 for local dev
+      if (fetchError.message?.includes('relation') || fetchError.message?.includes('permission')) {
+        console.warn('Table may not exist or access denied, returning count: 0');
+        return NextResponse.json({ count: 0 });
+      }
       return NextResponse.json(
-        { error: 'Failed to fetch visitor count' },
+        { error: 'Failed to fetch visitor count', details: fetchError.message },
         { status: 500 }
       );
     }
@@ -61,7 +78,7 @@ export async function GET(request: NextRequest) {
     // Increment the visitor count
     const newCount = (analytics.visitor_count || 0) + 1;
     
-    const { data: updatedAnalytics, error: updateError } = await adminClient
+    const { data: updatedAnalytics, error: updateError } = await supabase
       .from('site_analytics')
       .update({ visitor_count: newCount })
       .eq('id', analytics.id)
@@ -70,8 +87,13 @@ export async function GET(request: NextRequest) {
 
     if (updateError) {
       console.error('Error updating visitor count:', updateError);
+      // If update fails due to RLS, return current count for local dev
+      if (updateError.message?.includes('permission') || updateError.message?.includes('policy')) {
+        console.warn('RLS policy blocking update, returning current count:', analytics.visitor_count);
+        return NextResponse.json({ count: analytics.visitor_count || 0 });
+      }
       return NextResponse.json(
-        { error: 'Failed to update visitor count' },
+        { error: 'Failed to update visitor count', details: updateError.message },
         { status: 500 }
       );
     }
