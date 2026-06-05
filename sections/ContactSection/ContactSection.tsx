@@ -137,6 +137,10 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
       newErrors.service = 'Please select a solution';
     }
 
+    if (!formData.brandName.trim()) {
+      newErrors.brandName = 'Please enter your brand name';
+    }
+
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) return;
@@ -310,8 +314,10 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
                   placeholder="Brand Name"
                   value={formData.brandName}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
+                {errors.brandName && <div className="form-error">{errors.brandName}</div>}
               </div>
             )}
 

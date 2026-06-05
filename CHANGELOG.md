@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-06-05 20:29 IST · feat(contact): make Brand Name a required field
+
+- sections/ContactSection/ContactSection.tsx: Brand Name is now required — added handleSubmit validation ("Please enter your brand name"), the `required` attribute, and an inline error message under the field.
+- Previously Brand Name was optional (only rendered after a solution was selected and never validated), which is why leads with a blank brand were being rejected by PROXe (400) and lost.
+- The payload-side brand fallback (brandName -> name -> 'Website Lead') is kept as defense-in-depth in case the field is bypassed via any other path.
+- User-facing: visitors must now enter a brand name before the contact form will submit.
+
 ## 2026-06-05 18:10 IST · fix(leads): stop dropping leads — PROXe rejected empty brand (400)
 
 - ROOT CAUSE: PROXe's /api/website hard-requires a non-empty `brand` field ("Required: name + (email or phone) + brand"). The website sent `brand: ''` whenever the optional brand-name field was blank, so PROXe returned HTTP 400 and the lead was silently lost (the fetch failure was swallowed by a fire-and-forget catch, while the user was still redirected to /thank-you and appeared to convert).
