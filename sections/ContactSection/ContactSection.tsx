@@ -42,7 +42,7 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
       if (pricingIndustry || pricingAppType) {
         setFormData(prev => ({
           ...prev,
-          service: 'business-apps', // Pre-select business apps
+          service: 'business-app-website', // Pre-select business app / website
           industry: pricingIndustry || undefined,
           appType: pricingAppType || undefined,
           estimatedMinPrice: pricingMinPrice || undefined,
@@ -54,11 +54,10 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
 
   const services = [
     { value: '', label: 'Select Solution' },
-    { value: 'ai-in-business', label: 'AI in Business' },
-    { value: 'brand-marketing', label: 'Brand Marketing' },
-    { value: 'business-apps', label: 'Business Apps' },
-    { value: 'general', label: 'General Inquiry' },
-    { value: 'not-sure', label: 'Not sure yet / Want to discuss' }
+    { value: 'ai-customer-acquisition', label: 'AI Customer Acquisition' },
+    { value: 'brand-management', label: 'Brand Management' },
+    { value: 'ai-content-ads', label: 'AI Content & Ads' },
+    { value: 'business-app-website', label: 'Business App / Website' }
   ];
 
   const [errors, setErrors] = useState<Record<string, string>>({});
