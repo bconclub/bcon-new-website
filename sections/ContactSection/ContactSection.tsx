@@ -83,7 +83,7 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
       const utmTerm = utm.utm_term || '';
       const utmContent = utm.utm_content || '';
 
-      await fetch('https://proxe.bconclub.com/api/website', {
+      const res = await fetch('https://proxe.bconclub.com/api/website', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +95,9 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
           message: formData.service + (formData.brandName ? ` - Brand: ${formData.brandName}` : ''),
           form_type: 'contact',
           page_url: window.location.href,
-          brand: formData.brandName || '',
+          // PROXe requires a non-empty brand or it rejects the lead with 400.
+          // Brand name is optional on the form, so fall back to the lead's name.
+          brand: formData.brandName?.trim() || formData.name?.trim() || 'Website Lead',
           service: formData.service,
           industry: formData.industry || '',
           app_type: formData.appType || '',
@@ -108,6 +110,11 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
           utm_content: utmContent,
         }),
       });
+      // Surface non-2xx responses instead of silently dropping the lead.
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => '');
+        console.error(`PROXe submission rejected (HTTP ${res.status}):`, errBody);
+      }
     } catch (e) {
       console.error('PROXe submission failed:', e);
     }

@@ -67,7 +67,7 @@ export default function AILeadMachinePage() {
       const utmTerm = utm.utm_term || '';
       const utmContent = utm.utm_content || '';
 
-      await fetch('https://proxe.bconclub.com/api/website', {
+      const res = await fetch('https://proxe.bconclub.com/api/website', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,8 @@ export default function AILeadMachinePage() {
           message: `AI Lead Machine inquiry - Business Type: ${formData.businessType}`,
           form_type: 'contact',
           page_url: window.location.href,
-          brand: formData.businessType,
+          // PROXe requires a non-empty brand or it rejects the lead with 400.
+          brand: formData.businessType?.trim() || formData.name?.trim() || 'GPFC Lead',
           service: 'ai-lead-machine',
           utm_source: utmSource,
           utm_medium: utmMedium,
@@ -88,6 +89,10 @@ export default function AILeadMachinePage() {
           utm_content: utmContent,
         }),
       });
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => '');
+        console.error(`PROXe submission rejected (HTTP ${res.status}):`, errBody);
+      }
     } catch (e) {
       console.error('PROXe submission failed:', e);
     }

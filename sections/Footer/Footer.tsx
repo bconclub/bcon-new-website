@@ -98,7 +98,7 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
       const utmTerm = utm.utm_term || '';
       const utmContent = utm.utm_content || '';
 
-      await fetch('https://proxe.bconclub.com/api/website', {
+      const res = await fetch('https://proxe.bconclub.com/api/website', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,9 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
           message: 'Newsletter subscription',
           form_type: 'newsletter',
           page_url: window.location.href,
-          brand: '',
+          // PROXe requires a non-empty brand or it rejects the lead with 400.
+          // Newsletter has no brand field, so use the subscriber's name.
+          brand: name?.trim() || 'Newsletter Subscriber',
           utm_source: utmSource,
           utm_medium: utmMedium,
           utm_campaign: utmCampaign,
@@ -118,6 +120,10 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
           utm_content: utmContent,
         }),
       });
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => '');
+        console.error(`PROXe submission rejected (HTTP ${res.status}):`, errBody);
+      }
     } catch (e) {
       console.error('PROXe submission failed:', e);
     }
