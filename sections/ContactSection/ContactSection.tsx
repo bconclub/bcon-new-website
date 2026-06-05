@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { getMergedUTMParams } from '@/lib/tracking/utm';
 import './ContactSection.css';
 
 interface FormData {
@@ -72,11 +73,15 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
 
   const submitToPROXe = async (formData: FormData) => {
     try {
-      // Parse UTM params from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get('utm_source') || '';
-      const utmMedium = urlParams.get('utm_medium') || '';
-      const utmCampaign = urlParams.get('utm_campaign') || '';
+      // UTM params: use the persisted (cross-page) store, falling back to the
+      // current URL. Reading window.location.search alone would lose attribution
+      // once the visitor navigates away from the UTM landing page.
+      const utm = getMergedUTMParams();
+      const utmSource = utm.utm_source || '';
+      const utmMedium = utm.utm_medium || '';
+      const utmCampaign = utm.utm_campaign || '';
+      const utmTerm = utm.utm_term || '';
+      const utmContent = utm.utm_content || '';
 
       await fetch('https://proxe.bconclub.com/api/website', {
         method: 'POST',
@@ -99,6 +104,8 @@ export default function ContactSection({ onInternalLinkClick }: ContactSectionPr
           utm_source: utmSource,
           utm_medium: utmMedium,
           utm_campaign: utmCampaign,
+          utm_term: utmTerm,
+          utm_content: utmContent,
         }),
       });
     } catch (e) {

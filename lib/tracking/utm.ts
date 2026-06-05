@@ -114,6 +114,40 @@ export function getUTMParams(): UTMParams {
 }
 
 /**
+ * Get the best-available UTM parameters for a conversion/submission.
+ *
+ * Merges the persisted (sessionStorage) UTMs with whatever is in the current
+ * URL — current URL wins when present, otherwise we fall back to the values
+ * captured on the original landing page. This is the function form components
+ * should use so attribution survives cross-page navigation (Next.js drops the
+ * query string on internal navigation, so reading window.location.search alone
+ * loses the UTMs the moment the visitor leaves the landing page).
+ *
+ * Side effect: if the current URL carries UTMs, they are (re)persisted so a
+ * later fresh-landing value always becomes the stored value.
+ */
+export function getMergedUTMParams(): UTMParams {
+  if (typeof window === 'undefined') {
+    return {};
+  }
+
+  const utmFromURL = getUTMParamsFromURL();
+  const storedUTM = getStoredUTMParams();
+
+  // URL params take precedence; stored ones fill the gaps (persistence).
+  const merged: UTMParams = {
+    ...storedUTM,
+    ...utmFromURL,
+  };
+
+  if (Object.keys(utmFromURL).length > 0) {
+    storeUTMParams(merged);
+  }
+
+  return merged;
+}
+
+/**
  * Get or create session ID
  */
 export function getSessionId(): string {

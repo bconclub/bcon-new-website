@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { InstagramIcon, LinkedInIcon, YouTubeIcon, FacebookIcon, XIcon } from '@/components/shared/Icons';
-import { getTrackingData } from '@/lib/tracking/utm';
+import { getTrackingData, getMergedUTMParams } from '@/lib/tracking/utm';
 import { sendToWebhook } from '@/lib/tracking/webhook';
 import './Footer.css';
 
@@ -89,11 +89,14 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
 
   const submitToPROXe = async (name: string, email: string) => {
     try {
-      // Parse UTM params from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get('utm_source') || '';
-      const utmMedium = urlParams.get('utm_medium') || '';
-      const utmCampaign = urlParams.get('utm_campaign') || '';
+      // UTM params: use the persisted (cross-page) store, falling back to the
+      // current URL, so newsletter attribution survives cross-page navigation.
+      const utm = getMergedUTMParams();
+      const utmSource = utm.utm_source || '';
+      const utmMedium = utm.utm_medium || '';
+      const utmCampaign = utm.utm_campaign || '';
+      const utmTerm = utm.utm_term || '';
+      const utmContent = utm.utm_content || '';
 
       await fetch('https://proxe.bconclub.com/api/website', {
         method: 'POST',
@@ -111,6 +114,8 @@ export default function Footer({ onInternalLinkClick }: FooterProps = {}) {
           utm_source: utmSource,
           utm_medium: utmMedium,
           utm_campaign: utmCampaign,
+          utm_term: utmTerm,
+          utm_content: utmContent,
         }),
       });
     } catch (e) {
