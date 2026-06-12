@@ -27,6 +27,11 @@ const nextConfig = {
         destination: 'https://goproxe.com/:path*',
         permanent: true,
       },
+      {
+        source: '/gpfc-ai-lead-machine',
+        destination: '/lead-machine',
+        permanent: true,
+      },
     ];
   },
 

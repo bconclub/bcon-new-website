@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-12 IST · feat(routing): rename /gpfc-ai-lead-machine → /lead-machine
+
+- `app/gpfc-ai-lead-machine/` renamed to `app/lead-machine/` (page.tsx + page.css)
+- `next.config.js`: permanent 308 redirect added from `/gpfc-ai-lead-machine` to `/lead-machine` — preserves SEO and any existing ad campaign links
+- User-facing: page now lives at `/lead-machine`; old URL auto-redirects
+
 ## 2026-06-05 20:29 IST · feat(contact): make Brand Name a required field
 
 - sections/ContactSection/ContactSection.tsx: Brand Name is now required — added handleSubmit validation ("Please enter your brand name"), the `required` attribute, and an inline error message under the field.
