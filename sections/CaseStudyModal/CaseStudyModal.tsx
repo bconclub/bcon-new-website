@@ -63,13 +63,21 @@ export default function CaseStudyModal({ workItem, isOpen, onClose }: CaseStudyM
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (workItem && typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          event: 'case_study_viewed',
+          client_name: workItem.client_name,
+          project_title: workItem.project_title,
+          category: workItem.category,
+        });
+      }
     } else {
       document.body.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, workItem]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

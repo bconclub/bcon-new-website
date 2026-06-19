@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-06-19 IST · feat(analytics): add missing GTM/fbq events across site
+
+- `app/thank-you/page.tsx`: fires `fbq('track', 'Lead')` + GTM `lead_conversion` event on mount — previously zero conversion events fired on the thank-you page
+- `app/thank-you/page.tsx`: GTM `whatsapp_click` event on WhatsApp button click; GTM `call_click` event on Call button click
+- `sections/ShowReel/ShowReel.tsx`: GTM `showreel_opened` event when user opens the showreel modal
+- `sections/CaseStudyModal/CaseStudyModal.tsx`: GTM `case_study_viewed` event with client_name, project_title, category when modal opens
+- `components/StaggeredMenu/StaggeredMenu.tsx`: GTM `nav_click` event with item_label on all nav menu link/button clicks (external, homepage, contact, internal)
+- User-facing: no UI changes — analytics only
+
 ## 2026-06-12 IST · feat(routing): rename /gpfc-ai-lead-machine → /lead-machine
 
 - `app/gpfc-ai-lead-machine/` renamed to `app/lead-machine/` (page.tsx + page.css)

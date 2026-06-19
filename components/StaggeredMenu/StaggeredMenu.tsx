@@ -298,9 +298,16 @@ export default function StaggeredMenu({
                 <span className="sm-panel-itemLabel">{item.label}</span>
               );
 
+              const trackNav = (label: string) => {
+                if (typeof window !== 'undefined' && (window as any).dataLayer) {
+                  (window as any).dataLayer.push({ event: 'nav_click', item_label: label });
+                }
+              };
+
               // PHASE 2: Show Coming Soon modal for non-homepage internal links
               const handleItemClick = (e: React.MouseEvent) => {
                 e.preventDefault();
+                trackNav(item.label);
                 closeMenu();
                 if (onItemClick) {
                   onItemClick(item);
@@ -320,7 +327,7 @@ export default function StaggeredMenu({
                       className="sm-panel-item"
                       aria-label={item.ariaLabel}
                       ref={(el) => { itemsRef.current[index] = el; }}
-                      onClick={closeMenu}
+                      onClick={() => { trackNav(item.label); closeMenu(); }}
                     >
                       {linkContent}
                     </a>
@@ -330,7 +337,7 @@ export default function StaggeredMenu({
                       className="sm-panel-item"
                       aria-label={item.ariaLabel}
                       ref={(el) => { itemsRef.current[index] = el; }}
-                      onClick={closeMenu}
+                      onClick={() => { trackNav(item.label); closeMenu(); }}
                     >
                       {linkContent}
                     </Link>
@@ -342,6 +349,7 @@ export default function StaggeredMenu({
                       ref={(el) => { itemsRef.current[index] = el; }}
                       onClick={(e) => {
                         e.preventDefault();
+                        trackNav(item.label);
                         closeMenu();
                         setTimeout(() => {
                           const contactSection = document.getElementById('contact');

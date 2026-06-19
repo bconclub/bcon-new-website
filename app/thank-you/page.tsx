@@ -23,6 +23,28 @@ function ThankYouContent() {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Fire conversion events once on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    // Meta Pixel — Lead conversion
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'Lead', {
+        content_name: service || 'contact_form',
+      });
+    }
+    // GTM — lead_conversion
+    if ((window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'lead_conversion',
+        service: service || '',
+        formType: 'contact',
+        hasPhone: !!phone,
+        hasEmail: !!email,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   // Safely get form data from query params with fallbacks
   const name = searchParams?.get('name') || '';
@@ -56,6 +78,10 @@ function ThankYouContent() {
     
     setIsCalling(true);
     
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: 'call_click', source: 'thank_you', service });
+    }
+
     try {
       // Call PROXe to trigger voice call
       const response = await fetch('https://proxe.bconclub.com/api/voice/call', {
@@ -89,6 +115,9 @@ function ThankYouContent() {
       return;
     }
     setHasWhatsAppClicked(true);
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: 'whatsapp_click', source: 'thank_you', service });
+    }
   };
   
   // Show loading state while mounting

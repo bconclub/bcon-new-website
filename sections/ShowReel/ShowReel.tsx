@@ -15,6 +15,9 @@ export default function ShowReel() {
   const openModal = () => {
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: 'showreel_opened' });
+    }
   };
 
   const closeModal = () => {
