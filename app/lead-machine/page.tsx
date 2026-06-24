@@ -13,28 +13,28 @@ interface FormData {
 
 const faqs = [
   {
-    q: 'What exactly is included in the 20k/month package?',
-    a: 'Everything: the full PROXe platform (landing pages, unified inbox for WhatsApp/Telegram/socials, dashboard), complete ad setup across Meta/Google, and ongoing management. No hidden fees, no piecemeal add-ons.'
+    q: "What's actually included for the price?",
+    a: 'Everything, end to end. We make the content (ads, videos, copy), we build and run the campaigns across Meta and Google, and our AI Lead Machine answers, qualifies, and nurtures every lead across WhatsApp, Instagram, and Facebook. No piecemeal add-ons, no hidden fees. One price, the whole machine.'
   },
   {
-    q: 'How quickly can we go live?',
-    a: 'Onboarding takes 5–7 business days. We set up your PROXe account, build your ad creatives, configure your landing pages, and connect your inboxes. You start receiving leads within the first week.'
+    q: 'How fast can we go live?',
+    a: 'Onboarding takes 5–7 business days. We map your buyers, build your creatives, set up your campaigns, and connect your inboxes. You start receiving qualified leads within the first week.'
   },
   {
-    q: 'What happens after the first 3 months?',
-    a: 'After the 3-month introductory period at 20k/month, the service continues at the standard 40k/month rate. You can cancel anytime before the 3-month period ends with no penalty.'
+    q: 'What happens after the first 2 months?',
+    a: 'After the 2-month introductory period at ₹40K/month, the service continues at the standard ₹80K/month rate. No contract, cancel anytime before the period ends with no penalty.'
   },
   {
     q: 'We already run ads. Can we still use this?',
-    a: 'Yes. We either migrate your existing campaigns into our managed system or run alongside them. Either way, you get the full PROXe platform and unified inbox immediately.'
+    a: 'Yes. We either migrate your existing campaigns into our managed system or run fresh ones alongside them. Either way you get the full content engine, ad management, and AI lead follow-up from day one.'
   },
   {
-    q: 'What industries does this work for?',
-    a: 'Real estate, education, clinics, professional services, retail, hospitality — any service business where lead follow-up speed and organization determines whether deals close.'
+    q: 'What kind of businesses is this for?',
+    a: 'Any service business where follow-up speed and organization decide whether deals close — real estate, education, clinics, professional services, retail, hospitality. If leads come in across multiple channels and slip through the cracks, this is built for you.'
   },
   {
     q: 'Is there a contract?',
-    a: 'Monthly. No long-term lock-in. We keep your business because results keep you, not contracts.'
+    a: 'No long-term lock-in. Billing is monthly. We keep your business with results, not contracts.'
   }
 ];
 
@@ -80,7 +80,7 @@ export default function AILeadMachinePage() {
           form_type: 'contact',
           page_url: window.location.href,
           // PROXe requires a non-empty brand or it rejects the lead with 400.
-          brand: formData.businessType?.trim() || formData.name?.trim() || 'GPFC Lead',
+          brand: formData.businessType?.trim() || formData.name?.trim() || 'Lead Machine Lead',
           service: 'ai-lead-machine',
           utm_source: utmSource,
           utm_medium: utmMedium,
@@ -143,7 +143,14 @@ export default function AILeadMachinePage() {
     }).catch((err) => console.error('Email notification failed:', err));
 
     setTimeout(() => {
-      window.location.href = '/thank-you';
+      const params = new URLSearchParams({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        brandName: formData.businessType,
+        service: 'ai-lead-machine',
+      });
+      window.location.href = `/thank-you?${params.toString()}`;
     }, 200);
   };
 
@@ -159,223 +166,275 @@ export default function AILeadMachinePage() {
         <div className="alm-hero-badge">LIMITED — First 100 Businesses Only</div>
 
         <h1 className="alm-hero-headline">
-          You're Losing Leads<br />
-          <span className="alm-accent">Right Now.</span>
+          We'll Build You an <span className="alm-accent">AI Lead Machine</span> That Gets You Customers. You Don't Lift a Finger.
         </h1>
 
         <p className="alm-hero-sub">
-          WhatsApp pings. Instagram DMs. Facebook enquiries. Google form submissions.
-          Your team is chasing them across 6 different apps — and half the leads go cold before anyone follows up.
+          You don't need more tools. You don't need to hire. You don't need to learn ads.
+          We make the content, run the campaigns, and chase every lead until they're ready to buy.
+          You just show up and close.
         </p>
 
-        <div className="alm-hero-stats">
-          <div className="alm-stat">
-            <span className="alm-stat-num">78%</span>
-            <span className="alm-stat-label">of leads go to the first business that responds</span>
+        <div className="alm-hero-bullets">
+          <div className="alm-hero-bullet">
+            <span className="alm-bullet-check">✓</span>
+            <span>You get the ads made for you, so you don't touch a thing</span>
           </div>
-          <div className="alm-stat-divider" />
-          <div className="alm-stat">
-            <span className="alm-stat-num">5 min</span>
-            <span className="alm-stat-label">is the window before lead interest drops sharply</span>
+          <div className="alm-hero-bullet">
+            <span className="alm-bullet-check">✓</span>
+            <span>You get them launched and managed for you, so you don't waste a rupee</span>
           </div>
-          <div className="alm-stat-divider" />
-          <div className="alm-stat">
-            <span className="alm-stat-num">3x</span>
-            <span className="alm-stat-label">more conversions with a unified follow-up system</span>
+          <div className="alm-hero-bullet">
+            <span className="alm-bullet-check">✓</span>
+            <span>You get every lead answered in seconds, 24/7, so none go cold</span>
+          </div>
+          <div className="alm-hero-bullet">
+            <span className="alm-bullet-check">✓</span>
+            <span>You get only the ready-to-buy ones, so you stop wasting time on tyre-kickers</span>
           </div>
         </div>
 
-        <button className="alm-cta-btn" onClick={scrollToForm}>
-          Get AI Lead Machine — Start Now
+        <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
+          Get the AI Lead Machine — Start Now
         </button>
 
-        <p className="alm-hero-note">50% off for your first 3 months · No contracts</p>
+        <p className="alm-hero-note">First 100 businesses get 50% off. After that it's gone.</p>
       </section>
 
-      {/* ── PROBLEM ──────────────────────────────────────────── */}
+      {/* ── SECTION 1 — WHAT YOU'RE GETTING ──────────────────── */}
+      <section className="alm-section alm-getting">
+        <div className="alm-container">
+          <div className="alm-section-label">What You're Actually Getting</div>
+          <h2 className="alm-section-heading">
+            One System. Three Jobs.<br /><span className="alm-accent">All Done For You.</span>
+          </h2>
+          <p className="alm-getting-intro">
+            Most people sell you a piece. A tool. A course. An ad guy. You end up stitching it together yourself.
+            We don't do pieces. We do the whole thing.
+          </p>
+
+          <div className="alm-getting-grid">
+            <div className="alm-getting-block">
+              <div className="alm-getting-num">01</div>
+              <h3>We Make the Content</h3>
+              <p>Scroll-stopping ads, videos, and copy. Made by us. You approve, we ship. You never stare at a blank screen.</p>
+            </div>
+            <div className="alm-getting-block">
+              <div className="alm-getting-num">02</div>
+              <h3>We Run the Campaigns</h3>
+              <p>Audience research, targeting, the full Meta and Google build, launched and managed by us. You never log into an ad account.</p>
+            </div>
+            <div className="alm-getting-block">
+              <div className="alm-getting-num">03</div>
+              <h3>We Manage Every Lead</h3>
+              <p>Every inquiry across WhatsApp, Instagram, and Facebook gets answered in seconds, qualified, and chased until they're ready. You never lose a lead to slow follow-up again.</p>
+            </div>
+          </div>
+
+          <p className="alm-getting-closer">
+            From the first ad they see to the lead in your hand. <span className="alm-accent">The whole chain. Done for you.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ── SECTION 2 — HOW IT WORKS ─────────────────────────── */}
+      <section className="alm-section alm-how">
+        <div className="alm-container">
+          <div className="alm-section-label">How It Works</div>
+          <h2 className="alm-section-heading">Three Steps. Live in Days.</h2>
+
+          <div className="alm-steps">
+            <div className="alm-step">
+              <div className="alm-step-num">1</div>
+              <div className="alm-step-body">
+                <h3>We Build</h3>
+                <p>We map your buyers, make the content, and set up your campaigns from scratch. You do nothing but approve.</p>
+              </div>
+            </div>
+            <div className="alm-step-connector" />
+            <div className="alm-step">
+              <div className="alm-step-num">2</div>
+              <div className="alm-step-body">
+                <h3>We Launch and Manage</h3>
+                <p>Ads go live. Every inquiry lands in one place. We watch it, test it, and keep it running.</p>
+              </div>
+            </div>
+            <div className="alm-step-connector" />
+            <div className="alm-step">
+              <div className="alm-step-num">3</div>
+              <div className="alm-step-body">
+                <h3>You Get Hot Leads</h3>
+                <p>Our AI Lead Machine answers, qualifies, and nurtures every lead. You only talk to people ready to buy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 3 — THE PROBLEM ──────────────────────────── */}
       <section className="alm-section alm-problem">
         <div className="alm-container">
           <div className="alm-section-label">The Problem</div>
           <h2 className="alm-section-heading">
-            Your leads exist.<br />Your system doesn't.
+            You Don't Have a Lead Problem.<br /><span className="alm-accent">You Have a System Problem.</span>
           </h2>
-          <div className="alm-problem-grid">
-            <div className="alm-problem-card">
-              <div className="alm-problem-icon">⚡</div>
-              <h3>Scattered Inboxes</h3>
-              <p>WhatsApp, Instagram, Telegram, Facebook, email — your team jumps between platforms and things fall through the cracks daily.</p>
-            </div>
-            <div className="alm-problem-card">
-              <div className="alm-problem-icon">🔥</div>
-              <h3>Slow Follow-Ups</h3>
-              <p>By the time someone responds to a lead, they've already spoken to a competitor. Speed is the difference between a sale and a missed opportunity.</p>
-            </div>
-            <div className="alm-problem-card">
-              <div className="alm-problem-icon">💸</div>
-              <h3>Ad Spend Wasted</h3>
-              <p>You pay for every click. When leads don't convert because of poor follow-up infrastructure, you're burning budget with nothing to show for it.</p>
-            </div>
-            <div className="alm-problem-card">
-              <div className="alm-problem-icon">🧩</div>
-              <h3>No Single View</h3>
-              <p>No one person has a full picture of all incoming leads. Sales, marketing, and management are working from different data — or no data at all.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SOLUTION ─────────────────────────────────────────── */}
-      <section className="alm-section alm-solution">
-        <div className="alm-container">
-          <div className="alm-section-label">The Solution</div>
-          <h2 className="alm-section-heading">
-            Introducing <span className="alm-accent">AI Lead Machine</span>
-          </h2>
-          <p className="alm-solution-desc">
-            Not another tool. Not another dashboard. A complete, done-for-you lead generation and management system — built, launched, and managed by us, powered by PROXe AI.
+          <p className="alm-problem-intro">
+            The leads are out there. You're just losing them before they ever reach you.
           </p>
-          <div className="alm-solution-highlight">
-            <span className="alm-highlight-text">One system. Every lead. Zero chaos.</span>
+
+          <div className="alm-problem-list">
+            <div className="alm-problem-row">
+              <span className="alm-problem-x">✕</span>
+              <p>They come in across six different apps and half go cold before anyone replies</p>
+            </div>
+            <div className="alm-problem-row">
+              <span className="alm-problem-x">✕</span>
+              <p>You spend on ads, but there's no system to follow up, so the money burns</p>
+            </div>
+            <div className="alm-problem-row">
+              <span className="alm-problem-x">✕</span>
+              <p>Your team is busy chasing, not closing</p>
+            </div>
+            <div className="alm-problem-row">
+              <span className="alm-problem-x">✕</span>
+              <p>Nobody can see what's working, so you keep guessing</p>
+            </div>
           </div>
+
+          <p className="alm-problem-closer">
+            The AI Lead Machine fixes the whole chain. <span className="alm-accent">Not one piece of it.</span>
+          </p>
         </div>
       </section>
 
-      {/* ── WHAT'S INCLUDED ──────────────────────────────────── */}
-      <section className="alm-section alm-included">
+      {/* ── SECTION 4 — WHY THIS IS DIFFERENT ────────────────── */}
+      <section className="alm-section alm-why">
         <div className="alm-container">
-          <div className="alm-section-label">What's Included</div>
-          <h2 className="alm-section-heading">Three pillars. One price.</h2>
+          <div className="alm-section-label">Why This Isn't Like Anything Else</div>
+          <h2 className="alm-section-heading">
+            Not a Tool. Not Another Agency.<br />
+            An AI Lead Machine <span className="alm-accent">You Own the Results Of.</span>
+          </h2>
 
-          <div className="alm-pillars">
-            <div className="alm-pillar">
-              <div className="alm-pillar-num">01</div>
-              <div className="alm-pillar-icon">🖥️</div>
-              <h3 className="alm-pillar-title">PROXe Platform</h3>
-              <ul className="alm-pillar-list">
-                <li>Unified inbox — WhatsApp, Telegram, Instagram, Facebook, email in one place</li>
-                <li>AI-powered lead scoring and follow-up suggestions</li>
-                <li>Custom landing pages built for conversion</li>
-                <li>Real-time dashboard — every lead, every stage, every team member</li>
-                <li>Automated responses to keep leads warm 24/7</li>
-              </ul>
+          <div className="alm-why-grid">
+            <div className="alm-why-card">
+              <div className="alm-why-icon">🧩</div>
+              <p>Everything done for you: content, ads, follow-up. No gaps to fill.</p>
             </div>
-
-            <div className="alm-pillar alm-pillar-featured">
-              <div className="alm-pillar-num">02</div>
-              <div className="alm-pillar-icon">🎯</div>
-              <h3 className="alm-pillar-title">Complete Ad Setup</h3>
-              <ul className="alm-pillar-list">
-                <li>Meta (Facebook + Instagram) ad campaigns built from scratch</li>
-                <li>Google Search and Display campaigns configured</li>
-                <li>Ad creatives designed for your target audience</li>
-                <li>Audience research, targeting, and pixel setup</li>
-                <li>Tracking and attribution — know exactly what's working</li>
-              </ul>
+            <div className="alm-why-card">
+              <div className="alm-why-icon">🤖</div>
+              <p>Powered by PROXe, our AI lead engine that never sleeps and never forgets.</p>
             </div>
-
-            <div className="alm-pillar">
-              <div className="alm-pillar-num">03</div>
-              <div className="alm-pillar-icon">⚙️</div>
-              <h3 className="alm-pillar-title">Ongoing Management</h3>
-              <ul className="alm-pillar-list">
-                <li>Monthly ad optimization — budget, bids, creatives</li>
-                <li>Performance reporting every month</li>
-                <li>PROXe platform updates and maintenance</li>
-                <li>Dedicated account manager</li>
-                <li>Continuous A/B testing on landing pages and ads</li>
-              </ul>
+            <div className="alm-why-card">
+              <div className="alm-why-icon">⚡</div>
+              <p>Human strategy plus AI speed. The thinking and the doing, handled.</p>
+            </div>
+            <div className="alm-why-card">
+              <div className="alm-why-icon">🎯</div>
+              <p>You run your business. We run the machine.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── RESULTS ──────────────────────────────────────────── */}
+      {/* ── SECTION 5 — WHAT YOU GET ─────────────────────────── */}
       <section className="alm-section alm-results">
         <div className="alm-container">
           <div className="alm-section-label">What You Get</div>
-          <h2 className="alm-section-heading">Real outcomes. Not promises.</h2>
+          <h2 className="alm-section-heading">Here's What Changes the Day You Turn It On.</h2>
 
           <div className="alm-results-grid">
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>Faster Lead Response</h4>
-                <p>AI auto-responds to new leads instantly. No more cold leads from slow manual follow-ups.</p>
-              </div>
+              <div><h4>More qualified leads, less wasted ad spend</h4></div>
             </div>
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>One Inbox, All Channels</h4>
-                <p>Your team works from one place. No switching apps. No missed messages.</p>
-              </div>
+              <div><h4>Every inquiry answered in seconds, 24/7</h4></div>
             </div>
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>Less Manual Work</h4>
-                <p>Automated workflows handle follow-up sequences, status updates, and lead routing.</p>
-              </div>
+              <div><h4>One inbox for every channel, nothing slips</h4></div>
             </div>
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>Full Visibility</h4>
-                <p>Management sees pipeline health in real time. Every lead tracked from ad click to closed deal.</p>
-              </div>
+              <div><h4>Only ready-to-buy leads reach your team</h4></div>
             </div>
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>Higher Conversion Rate</h4>
-                <p>Better ads, faster follow-up, and optimized landing pages compound into more deals closed.</p>
-              </div>
+              <div><h4>Full visibility, from ad click to closed deal</h4></div>
             </div>
             <div className="alm-result-item">
               <div className="alm-result-icon">✅</div>
-              <div>
-                <h4>You Stay Focused</h4>
-                <p>We run the system. You run your business. No hiring, no training, no agency babysitting.</p>
-              </div>
+              <div><h4>Your time back, you stop being the follow-up guy</h4></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── PRICING ──────────────────────────────────────────── */}
+      {/* ── SECTION 6 — PROOF ────────────────────────────────── */}
+      <section className="alm-section alm-proof">
+        <div className="alm-container">
+          <div className="alm-section-label">Proof</div>
+          <h2 className="alm-section-heading">Don't Take Our Word For It.</h2>
+
+          <div className="alm-proof-grid">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="alm-proof-card alm-proof-placeholder">
+                <div className="alm-proof-tag">Case Study {i}</div>
+                <div className="alm-proof-stage">
+                  <span className="alm-proof-stage-label">Starting Point</span>
+                  <p>—</p>
+                </div>
+                <div className="alm-proof-stage">
+                  <span className="alm-proof-stage-label">What the AI Lead Machine Did</span>
+                  <p>—</p>
+                </div>
+                <div className="alm-proof-stage">
+                  <span className="alm-proof-stage-label">Result</span>
+                  <p>—</p>
+                </div>
+                <div className="alm-proof-soon">Coming Soon</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 7 — PRICING ──────────────────────────────── */}
       <section className="alm-section alm-pricing" id="pricing">
         <div className="alm-container">
           <div className="alm-section-label">Pricing</div>
-          <h2 className="alm-section-heading">One plan. Everything included.</h2>
+          <h2 className="alm-section-heading">One Plan. Everything In It.</h2>
 
           <div className="alm-pricing-card">
             <div className="alm-pricing-badge">First 100 Businesses — 50% Off</div>
 
             <div className="alm-price-row">
               <div className="alm-price-block">
-                <span className="alm-price-label">First 3 Months</span>
+                <span className="alm-price-label">First 2 Months</span>
                 <div className="alm-price-main">
-                  <span className="alm-price-original">40k</span>
-                  <span className="alm-price-current">20k<span className="alm-price-period">/mo</span></span>
+                  <span className="alm-price-original">₹80K</span>
+                  <span className="alm-price-current">₹40K<span className="alm-price-period">/mo</span></span>
                 </div>
-                <span className="alm-price-note">Save 20k/month for 90 days</span>
+                <span className="alm-price-note">Save ₹40K/month for 60 days</span>
               </div>
               <div className="alm-price-arrow">→</div>
               <div className="alm-price-block">
-                <span className="alm-price-label">After 3 Months</span>
+                <span className="alm-price-label">After 2 Months</span>
                 <div className="alm-price-main">
-                  <span className="alm-price-standard">40k<span className="alm-price-period">/mo</span></span>
+                  <span className="alm-price-standard">₹80K<span className="alm-price-period">/mo</span></span>
                 </div>
                 <span className="alm-price-note">Standard rate, cancel anytime</span>
               </div>
             </div>
 
             <div className="alm-pricing-includes">
-              <span>PROXe Platform</span>
+              <span>Content</span>
               <span>+</span>
-              <span>Ad Setup</span>
+              <span>Campaigns</span>
               <span>+</span>
-              <span>Management</span>
+              <span>Lead Management</span>
               <span>+</span>
               <span>No contracts</span>
             </div>
@@ -385,7 +444,7 @@ export default function AILeadMachinePage() {
             </button>
 
             <p className="alm-pricing-disclaimer">
-              Spots are limited. Once 100 businesses are onboarded, this rate closes permanently.
+              Once 100 businesses are in, this rate closes for good.
             </p>
           </div>
         </div>
@@ -476,7 +535,7 @@ export default function AILeadMachinePage() {
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────── */}
+      {/* ── SECTION 8 — FAQ ──────────────────────────────────── */}
       <section className="alm-section alm-faq">
         <div className="alm-container">
           <div className="alm-section-label">FAQ</div>
@@ -502,27 +561,27 @@ export default function AILeadMachinePage() {
         </div>
       </section>
 
-      {/* ── FINAL CTA ────────────────────────────────────────── */}
+      {/* ── SECTION 9 — FINAL CTA ────────────────────────────── */}
       <section className="alm-section alm-final-cta">
         <div className="alm-container alm-final-cta-inner">
           <h2 className="alm-final-heading">
-            Every day without a system<br />
-            <span className="alm-accent">is a day of lost leads.</span>
+            Every Day Without the AI Lead Machine Is a Day of<br />
+            <span className="alm-accent">Customers Going to Someone Else.</span>
           </h2>
           <p className="alm-final-sub">
-            First 100 businesses get 50% off for 3 months. Spots are filling fast.
+            First 100 businesses get 50% off for 2 months. Spots are filling.
           </p>
           <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
             Get AI Lead Machine Now
           </button>
-          <p className="alm-hero-note">20k/month for first 3 months · No contracts · Cancel anytime</p>
+          <p className="alm-hero-note">₹40K/mo for first 2 months · No contracts · Cancel anytime</p>
         </div>
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────── */}
       <footer className="alm-footer">
         <div className="alm-container">
-          <p>© {new Date().getFullYear()} BCON Club. All rights reserved.</p>
+          <p>© 2026 BCON Club. All rights reserved.</p>
           <a href="/privacy" className="alm-privacy-link">Privacy Policy</a>
         </div>
       </footer>

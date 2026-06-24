@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): rebuild landing page to new 9-section flow
+
+- `app/lead-machine/page.tsx`: complete content + structure rewrite to the approved flow — Hero (new headline, subline, 4 benefit bullets, CTA) → S1 What You're Getting (3 done-for-you blocks) → S2 How It Works (3 steps) → S3 The Problem (4-row list) → S4 Why This Is Different (4 cards) → S5 What You Get (6 outcomes) → S6 Proof (3 case-study placeholders) → S7 Pricing → Lead Form → S8 FAQ → S9 Final CTA
+- Pricing updated: ₹40K/mo for first 2 months, then ₹80K/mo (was 20k/40k over 3 months); anchor ₹80K struck through
+- FAQ rewritten to 6 new questions with draft answers (pending final approval)
+- Proof section is placeholder (Starting Point → What the Machine Did → Result) pending real case-study inputs
+- `/thank-you` redirect now passes lead params (name, email, phone, brand, service) so the thank-you page can personalize + trigger the voice call
+- Brand fallback fixed: stale 'GPFC Lead' → 'Lead Machine Lead'
+- `app/lead-machine/page.css`: new styles for hero bullets, getting grid, how-it-works steps, problem list, why-grid, proof cards; responsive stacking at 900px/768px
+- User-facing: net-new landing page content and layout. Verified no horizontal overflow at 375px + 1265px, all 11 sections render, no console errors
+
 ## 2026-06-19 IST · feat(analytics): add missing GTM/fbq events across site
 
 - `app/thank-you/page.tsx`: fires `fbq('track', 'Lead')` + GTM `lead_conversion` event on mount — previously zero conversion events fired on the thank-you page

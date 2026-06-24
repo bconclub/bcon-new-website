@@ -677,7 +677,327 @@
   color: #3A3A3A;
 }
 
+/* ── HERO BULLETS ──────────────────────────────────────────────── */
+.alm-hero-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 48px;
+  text-align: left;
+  max-width: 620px;
+  width: 100%;
+}
+
+.alm-hero-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: #D4D4D4;
+  line-height: 1.5;
+}
+
+.alm-bullet-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #CDFC2E;
+  color: #000;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ── SECTION 1 — WHAT YOU'RE GETTING ───────────────────────────── */
+.alm-getting-intro {
+  font-size: clamp(16px, 2vw, 19px);
+  color: #A3A3A3;
+  max-width: 720px;
+  line-height: 1.6;
+  margin-bottom: 56px;
+}
+
+.alm-getting-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.alm-getting-block {
+  background: #0A0A0A;
+  border: 1px solid #1C1C1C;
+  padding: 40px 32px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.alm-getting-block:hover {
+  border-color: #CDFC2E;
+  transform: translateY(-4px);
+}
+
+.alm-getting-num {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #CDFC2E;
+  margin-bottom: 20px;
+}
+
+.alm-getting-block h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.alm-getting-block p {
+  font-size: 15px;
+  color: #8B8B8B;
+  line-height: 1.65;
+}
+
+.alm-getting-closer {
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  max-width: 760px;
+}
+
+/* ── SECTION 2 — HOW IT WORKS ──────────────────────────────────── */
+.alm-steps {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.alm-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 8px 24px 8px 0;
+}
+
+.alm-step-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #CDFC2E;
+  color: #CDFC2E;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alm-step-body h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.alm-step-body p {
+  font-size: 15px;
+  color: #8B8B8B;
+  line-height: 1.65;
+}
+
+.alm-step-connector {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #CDFC2E, #1C1C1C);
+  align-self: flex-start;
+  margin-top: 27px;
+  flex-shrink: 0;
+}
+
+/* ── SECTION 3 — PROBLEM (LIST) ────────────────────────────────── */
+.alm-problem-intro {
+  font-size: clamp(16px, 2vw, 19px);
+  color: #A3A3A3;
+  max-width: 700px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.alm-problem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 820px;
+  margin-bottom: 48px;
+}
+
+.alm-problem-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #0A0A0A;
+  border: 1px solid #1C1C1C;
+  padding: 24px 28px;
+}
+
+.alm-problem-x {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 68, 68, 0.12);
+  color: #ff5a5a;
+  font-size: 13px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alm-problem-row p {
+  font-size: 16px;
+  color: #C4C4C4;
+  line-height: 1.5;
+}
+
+.alm-problem-closer {
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+
+/* ── SECTION 4 — WHY DIFFERENT ─────────────────────────────────── */
+.alm-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.alm-why-card {
+  background: #0A0A0A;
+  border: 1px solid #1C1C1C;
+  padding: 36px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: border-color 0.2s;
+}
+
+.alm-why-card:hover {
+  border-color: #CDFC2E;
+}
+
+.alm-why-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+}
+
+.alm-why-card p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #E4E4E4;
+  line-height: 1.5;
+}
+
+/* ── SECTION 6 — PROOF ─────────────────────────────────────────── */
+.alm-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.alm-proof-card {
+  background: #0A0A0A;
+  border: 1px solid #1C1C1C;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.alm-proof-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #CDFC2E;
+}
+
+.alm-proof-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alm-proof-stage-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6B6B6B;
+}
+
+.alm-proof-stage p {
+  font-size: 15px;
+  color: #C4C4C4;
+  line-height: 1.5;
+}
+
+.alm-proof-placeholder .alm-proof-stage p {
+  color: #2D2D2D;
+}
+
+.alm-proof-soon {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #3A3A3A;
+  border: 1px dashed #2D2D2D;
+  padding: 6px 14px;
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .alm-getting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alm-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alm-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alm-steps {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .alm-step {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  .alm-step-connector {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   .alm-pillars {
     grid-template-columns: 1fr;
