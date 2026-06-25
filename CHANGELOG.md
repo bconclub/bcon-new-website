@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · style(lead-machine): sharpen hero text hierarchy
+
+- `app/lead-machine/page.css`: widened the size/weight steps between the three hero tiers so the headline reads as a clear title + two smaller sub-lines instead of one block — line 1 "We'll Build You an AI Lead Machine" (clamp 42-84px, weight 900), line 2 "That Gets You Customers." (clamp 22-40px, weight 700, dimmer), line 3 "You Don't Lift a Finger." (clamp 15-24px, weight 500, dimmest); increased the inter-line gap
+- User-facing: hero no longer reads as one large chunk of text
+
 ## 2026-06-25 IST · feat(lead-machine): VSL video, tiered hero, vector icons, no emoji/dashes
 
 - `app/lead-machine/page.tsx`:

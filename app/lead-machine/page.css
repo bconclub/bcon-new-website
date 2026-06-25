@@ -121,32 +121,31 @@
 .alm-hero-headline {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   margin-bottom: 28px;
   max-width: 960px;
   color: #fff;
 }
 
 .alm-h-1 {
-  font-size: clamp(40px, 7vw, 82px);
+  font-size: clamp(42px, 7.5vw, 84px);
   font-weight: 900;
-  line-height: 1.02;
-  letter-spacing: -1px;
+  line-height: 1.0;
+  letter-spacing: -1.5px;
 }
 
 .alm-h-2 {
-  font-size: clamp(26px, 4vw, 46px);
-  font-weight: 800;
-  line-height: 1.1;
-  color: #E4E4E4;
+  font-size: clamp(22px, 3.4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #C4C4C4;
 }
 
 .alm-h-3 {
-  font-size: clamp(18px, 2.6vw, 30px);
-  font-weight: 600;
+  font-size: clamp(15px, 2.2vw, 24px);
+  font-weight: 500;
   line-height: 1.2;
-  color: #8B8B8B;
-  margin-top: 4px;
+  color: #7A7A7A;
 }
 
 .alm-hero-sub {
