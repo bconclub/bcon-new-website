@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): move VSL video into hero, under headline
+
+- `app/lead-machine/page.tsx`: moved the VSL video out of its own standalone section and up into the hero, positioned directly below the headline ("You Don't Lift a Finger.") and above the "You don't need more tools..." copy; removed the separate "Watch This First" section
+- `app/lead-machine/page.css`: hero no longer forces 100vh (grows naturally with the video); added `.alm-hero-vsl` wrapper (max-width 760px, centered) reusing the existing video frame/overlay styles
+- User-facing: the sales video is now the first thing under the headline, with the supporting "You don't need..." copy beneath it
+
 ## 2026-06-25 IST · style(lead-machine): sharpen hero text hierarchy
 
 - `app/lead-machine/page.css`: widened the size/weight steps between the three hero tiers so the headline reads as a clear title + two smaller sub-lines instead of one block — line 1 "We'll Build You an AI Lead Machine" (clamp 42-84px, weight 900), line 2 "That Gets You Customers." (clamp 22-40px, weight 700, dimmer), line 3 "You Don't Lift a Finger." (clamp 15-24px, weight 500, dimmest); increased the inter-line gap

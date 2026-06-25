@@ -252,6 +252,29 @@ export default function AILeadMachinePage() {
           <span className="alm-h-3">You Don't Lift a Finger.</span>
         </h1>
 
+        <div className="alm-hero-vsl">
+          <div className={`alm-vsl-frame ${vslPlaying ? 'alm-vsl-playing' : ''}`}>
+            <video
+              ref={vslRef}
+              className="alm-vsl-video"
+              src="/assets/Lead%20Machine%20Landing.mp4"
+              controls={vslPlaying}
+              playsInline
+              preload="metadata"
+            />
+            {!vslPlaying && (
+              <button className="alm-vsl-overlay" onClick={playVsl} aria-label="Play video">
+                <span className="alm-vsl-play">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+                <span className="alm-vsl-caption">Watch how it works</span>
+              </button>
+            )}
+          </div>
+        </div>
+
         <p className="alm-hero-sub">
           You don't need more tools. You don't need to hire. You don't need to learn ads.
           We make the content, run the campaigns, and chase every lead until they're ready to buy.
@@ -281,37 +304,6 @@ export default function AILeadMachinePage() {
         </button>
 
         <p className="alm-hero-note">First 100 businesses get 50% off. After that it's gone.</p>
-      </section>
-
-      {/* ── VSL VIDEO ────────────────────────────────────────── */}
-      <section className="alm-section alm-vsl">
-        <div className="alm-container">
-          <div className="alm-section-label">Watch This First</div>
-          <h2 className="alm-section-heading alm-vsl-heading">
-            See the AI Lead Machine <span className="alm-accent">in 90 seconds.</span>
-          </h2>
-
-          <div className={`alm-vsl-frame ${vslPlaying ? 'alm-vsl-playing' : ''}`}>
-            <video
-              ref={vslRef}
-              className="alm-vsl-video"
-              src="/assets/Lead%20Machine%20Landing.mp4"
-              controls={vslPlaying}
-              playsInline
-              preload="metadata"
-            />
-            {!vslPlaying && (
-              <button className="alm-vsl-overlay" onClick={playVsl} aria-label="Play video">
-                <span className="alm-vsl-play">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-                <span className="alm-vsl-caption">Watch how it works</span>
-              </button>
-            )}
-          </div>
-        </div>
       </section>
 
       {/* ── SECTION 1 — WHAT YOU'RE GETTING ──────────────────── */}
