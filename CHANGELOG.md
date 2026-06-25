@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): product-details card in "We Manage Every Lead" chat
+
+- `app/lead-machine/page.tsx` + `page.css`: the phone chat now replies to "is this still available / can you share details" with a proper **product-details card** instead of a raw image — Wind Chasers "DGCA Ground Classes" with an availability badge (Available · Batch 15 Jun), "Limited seats" meta, and a "View Details" action, using the real Wind Chasers flight-academy creative (`WC-Event.jpg`)
+- Moved `WC-Event.jpg` out of the content carousel (swapped in Come-to-Dubai) so the flight creative is exclusive to the product card — no repeats
+- User-facing: the lead-management demo reads like a real qualified-lead conversation (product card, not a stray photo)
+
 ## 2026-06-25 IST · fix(lead-machine): real brand logos in campaign card, uniform size
 
 - `app/lead-machine/page.tsx` + `page.css`: replaced the broken unicode-glyph icons (◎ ◇ ▲) and the text "G" in the campaign card with proper inline SVG brand logos — Meta, Google, Facebook, Instagram, Messenger, Google Ads. All six badges now render real logos at a single uniform size (18×18 inside 30px circles); no more glyph breakage or mismatched sizing

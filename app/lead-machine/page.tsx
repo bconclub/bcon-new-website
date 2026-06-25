@@ -405,7 +405,7 @@ export default function AILeadMachinePage() {
                     '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
                     '/portfolio/thumbnails/LS Swap Thumbnail.webp',
                     '/portfolio/Laptopstore-Product-Ad.jpg',
-                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/Come-to-Dubai.webp',
                     '/portfolio/11PC-Launch.jpg',
                     '/portfolio/11PC-Event.jpg',
                     '/portfolio/Birdbox-Launching-Soon.jpg',
@@ -417,7 +417,7 @@ export default function AILeadMachinePage() {
                     '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
                     '/portfolio/thumbnails/LS Swap Thumbnail.webp',
                     '/portfolio/Laptopstore-Product-Ad.jpg',
-                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/Come-to-Dubai.webp',
                     '/portfolio/11PC-Launch.jpg',
                     '/portfolio/11PC-Event.jpg',
                     '/portfolio/Birdbox-Launching-Soon.jpg',
@@ -535,7 +535,18 @@ export default function AILeadMachinePage() {
                     <div className="alm-msg in"><p>Hey! Is this still available?</p><time>10:30 AM</time></div>
                     <div className="alm-msg out"><p>Yes, it is! How can I help you?</p><time>10:31 AM</time></div>
                     <div className="alm-msg in"><p>Can you share more details?</p><time>10:31 AM</time></div>
-                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img"><img className="alm-cc-img" src={encodeURI('/portfolio/Come-to-Dubai.webp')} alt="" /><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
+                    <div className="alm-msg out alm-msg-card">
+                      <div className="alm-prodcard">
+                        <img className="alm-prodcard-img" src={encodeURI('/portfolio/WC-Event.jpg')} alt="" />
+                        <div className="alm-prodcard-body">
+                          <span className="alm-prodcard-title">DGCA Ground Classes</span>
+                          <span className="alm-prodcard-badge"><span className="alm-pc-dot" />Available · Batch 15 Jun</span>
+                          <span className="alm-prodcard-meta">Wind Chasers · Limited seats</span>
+                          <span className="alm-prodcard-btn">View Details</span>
+                        </div>
+                      </div>
+                      <time>10:32 AM</time>
+                    </div>
                   </div>
                   <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
                 </div>

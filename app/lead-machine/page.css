@@ -1260,6 +1260,31 @@
 }
 .alm-cc-play.sm { width: 18px; height: 18px; top: 50%; left: 50%; right: auto; transform: translate(-50%, -50%); background: rgba(0,0,0,0.5); }
 
+/* product-details card inside the chat */
+.alm-msg-card { align-self: flex-end; align-items: flex-end; max-width: 92%; }
+.alm-prodcard {
+  width: 124px;
+  background: #1f1f1f;
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+}
+.alm-prodcard-img { width: 100%; height: 62px; object-fit: cover; display: block; }
+.alm-prodcard-body { padding: 7px 8px; display: flex; flex-direction: column; gap: 3px; }
+.alm-prodcard-title { font-size: 9px; font-weight: 800; color: #fff; line-height: 1.1; }
+.alm-prodcard-badge {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 7.5px; font-weight: 700; color: #22C55E;
+}
+.alm-pc-dot { width: 5px; height: 5px; border-radius: 50%; background: #22C55E; flex-shrink: 0; }
+.alm-prodcard-meta { font-size: 7.5px; color: #888; }
+.alm-prodcard-btn {
+  margin-top: 4px; text-align: center;
+  background: #2f4a16; color: #cdfc2e;
+  border-radius: 5px; padding: 4px;
+  font-size: 7.5px; font-weight: 800; letter-spacing: 0.3px;
+}
+
 .alm-phone-input {
   margin-top: auto;
   display: flex;
