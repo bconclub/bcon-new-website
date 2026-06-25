@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): real brand logos in campaign card, uniform size
+
+- `app/lead-machine/page.tsx` + `page.css`: replaced the broken unicode-glyph icons (◎ ◇ ▲) and the text "G" in the campaign card with proper inline SVG brand logos — Meta, Google, Facebook, Instagram, Messenger, Google Ads. All six badges now render real logos at a single uniform size (18×18 inside 30px circles); no more glyph breakage or mismatched sizing
+- User-facing: the "We Run the Campaigns" card shows accurate, consistent platform logos
+
 ## 2026-06-25 IST · feat(lead-machine): bento carousel + rich campaign card in Section 1
 
 - `app/lead-machine/page.tsx` + `page.css`:

@@ -112,9 +112,42 @@ const IconChartUp = () => (
   </svg>
 );
 
-const IconMeta = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M3.5 8.5C4.6 6.7 6 5.5 7.7 5.5c2.1 0 3.5 1.8 5.1 4.4l.9 1.5 1-1.7c1.5-2.5 2.9-4.2 4.9-4.2 2.4 0 4 2.6 4 6.2 0 2.7-1.2 4.8-3.4 4.8-1.8 0-2.9-1.3-4.4-3.9l-.9-1.6-1.1 1.9c-1.6 2.7-2.9 3.6-4.6 3.6C6 16.5 4.5 14.6 4.5 12c0-.5.1-1 .2-1.4l-1.2-2.1Zm3.9.2c-.7 0-1.3.9-1.3 2.9 0 1.7.6 2.7 1.5 2.7.8 0 1.4-.6 2.5-2.4-.9-1.6-1.9-3.2-2.7-3.2Zm9.5 0c-.8 0-1.7 1.4-2.6 3l.3.5c1.1 1.8 1.7 2.6 2.5 2.6.9 0 1.5-1 1.5-2.8 0-2.1-.7-3.3-1.7-3.3Z" />
+/* ── Brand logos (uniform 24×24 viewBox) ─────────────────────── */
+const BrandMeta = () => (
+  <svg viewBox="0 0 24 24" fill="#0866FF" aria-hidden="true">
+    <path d="M2.2 9.3C3.3 7.4 4.7 6.2 6.5 6.2c2.2 0 3.7 1.9 5.4 4.7l1 1.7 1.1-1.9c1.6-2.7 3.1-4.5 5.2-4.5 2.6 0 4.4 2.8 4.4 6.7 0 2.9-1.3 5.1-3.7 5.1-1.9 0-3.1-1.4-4.7-4.2l-1-1.7-1.2 2.1c-1.7 2.9-3.1 3.8-4.9 3.8-2.4 0-3.9-2-3.9-4.8 0-.6.1-1.1.3-1.6L2.2 9.3Zm4.2.2c-.8 0-1.4 1-1.4 3.1 0 1.8.7 2.9 1.6 2.9.9 0 1.5-.7 2.7-2.6-1-1.7-2.1-3.4-2.9-3.4Zm10.2 0c-.9 0-1.8 1.5-2.8 3.2l.3.6c1.2 1.9 1.8 2.7 2.7 2.7.9 0 1.6-1.1 1.6-3 0-2.2-.8-3.5-1.8-3.5Z" />
+  </svg>
+);
+const BrandGoogle = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="#4285F4" d="M23 12.27c0-.79-.07-1.54-.2-2.27H12v4.5h6.19c-.27 1.4-1.08 2.59-2.3 3.39v2.82h3.72C21.78 18.74 23 15.77 23 12.27z" />
+    <path fill="#34A853" d="M12 24c3.11 0 5.72-1.03 7.62-2.79l-3.72-2.82c-1.03.69-2.35 1.1-3.9 1.1-3 0-5.54-2.03-6.45-4.75H1.7v2.91C3.59 21.42 7.49 24 12 24z" />
+    <path fill="#FBBC05" d="M5.55 14.74c-.23-.69-.36-1.43-.36-2.19s.13-1.5.36-2.19V7.45H1.7A11.97 11.97 0 0 0 .43 12c0 1.94.46 3.77 1.27 5.39l3.85-2.65z" />
+    <path fill="#EA4335" d="M12 4.75c1.69 0 3.21.58 4.4 1.72l3.3-3.3C17.71 1.18 15.1 0 12 0 7.49 0 3.59 2.58 1.7 6.4l3.85 2.91C6.46 6.78 9 4.75 12 4.75z" />
+  </svg>
+);
+const BrandFacebook = () => (
+  <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+    <path d="M13.4 21v-7.3h2.45l.37-2.85H13.4V9.03c0-.83.23-1.39 1.42-1.39h1.5V5.1c-.26-.04-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.08H7.99v2.85h2.46V21h2.95z" />
+  </svg>
+);
+const BrandInstagram = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" aria-hidden="true">
+    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.3" cy="6.7" r="1.1" fill="#fff" stroke="none" />
+  </svg>
+);
+const BrandMessenger = () => (
+  <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+    <path d="M12 2C6.4 2 2 6.13 2 11.7c0 2.91 1.19 5.44 3.14 7.19.16.15.26.35.27.57l.05 1.78c.02.57.6.94 1.12.71l1.99-.88c.17-.07.36-.09.53-.04 1 .28 2.06.42 3.16.42 5.6 0 10-4.13 10-9.7S17.6 2 12 2zm6 7.46l-2.94 4.66c-.47.74-1.46.93-2.17.41l-2.34-1.75a.6.6 0 0 0-.72 0l-3.16 2.4c-.42.32-.97-.18-.69-.63l2.94-4.66c.47-.74 1.46-.93 2.17-.41l2.34 1.75c.21.16.51.16.72 0l3.16-2.4c.42-.32.97.18.69.63z" />
+  </svg>
+);
+const BrandGoogleAds = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="8.4" y="2.5" width="4.4" height="14.5" rx="2.2" transform="rotate(-30 10.6 9.75)" fill="#FBBC04" />
+    <rect x="11.2" y="2.5" width="4.4" height="14.5" rx="2.2" transform="rotate(30 13.4 9.75)" fill="#4285F4" />
+    <circle cx="6.6" cy="18" r="3.1" fill="#34A853" />
   </svg>
 );
 
@@ -408,8 +441,8 @@ export default function AILeadMachinePage() {
 
               <div className="alm-camp">
                 <div className="alm-camp-top">
-                  <span className="alm-camp-plat alm-plat-meta"><IconMeta /></span>
-                  <span className="alm-camp-plat alm-plat-google">G</span>
+                  <span className="alm-camp-plat alm-plat-white"><BrandMeta /></span>
+                  <span className="alm-camp-plat alm-plat-white"><BrandGoogle /></span>
                 </div>
 
                 <div className="alm-camp-panels">
@@ -468,10 +501,10 @@ export default function AILeadMachinePage() {
                     <path d="M150 0 C150 14 215 12 215 26" />
                   </svg>
                   <div className="alm-camp-dist-icons">
-                    <span className="alm-dicon" style={{ background: '#1877F2' }}>f</span>
-                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#FEDA75,#D62976,#962FBF)' }}>◎</span>
-                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#00B2FF,#006AFF)' }}>◇</span>
-                    <span className="alm-dicon" style={{ background: '#fff', color: '#4285F4' }}>▲</span>
+                    <span className="alm-dicon" style={{ background: '#1877F2' }}><BrandFacebook /></span>
+                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#FEDA75,#D62976,#962FBF)' }}><BrandInstagram /></span>
+                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#00B2FF,#006AFF)' }}><BrandMessenger /></span>
+                    <span className="alm-dicon alm-plat-white"><BrandGoogleAds /></span>
                   </div>
                 </div>
 

@@ -1117,9 +1117,13 @@
 .alm-camp-plat {
   width: 30px; height: 30px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
-.alm-plat-meta { background: #0866FF; color: #fff; }
-.alm-plat-google { background: #fff; color: #4285F4; font-weight: 800; font-size: 15px; }
+.alm-plat-white { background: #fff; }
+
+/* uniform brand-logo sizing across every badge (no breakage, one size) */
+.alm-camp-plat svg,
+.alm-dicon svg { width: 18px; height: 18px; display: block; }
 
 .alm-camp-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .alm-camp-card {
