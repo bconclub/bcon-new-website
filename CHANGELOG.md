@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): rebuild Section 1 as visual mockup showcase
+
+- `app/lead-machine/page.tsx` + `page.css`: rebuilt the "One System. Three Jobs." section to match the approved reference design with three rich visual columns:
+  - Col 01 "We Make the Content": 3×2 grid of creative-ad cards (KASTURI, BUILT TO PERFORM, CONFIDENCE IS QUIET, WHEY THAT WORKS, MOVE DIFFERENT, LIVE BETTER) with gradient placeholders, labels, and bottom-left play buttons (real creatives to be dropped in later)
+  - Col 02 "We Run the Campaigns": a "Campaign Performance" dashboard card — Leads 1,247 (+24%), Cost per Lead $6.21 (-12%), ROAS 4.6x (+18%), a green line chart with axes, four platform cards (Facebook/Instagram/Google/TikTok, each Active with CPL), and a "View All Campaigns" button
+  - Col 03 "We Manage Every Lead": an iPhone chat mockup (AI Lead Machine, WhatsApp-style bubbles + media + input bar) beside a "Lead Pipeline" card (New Lead 127, Contacted 94, Qualified 61, Booked 23, Won 11) and a "Qualified Meetings Booked 23 +15%" stat with mini chart
+- Section header, column subtitles, and closer line centered/updated to match the reference
+- User-facing: the section is now a visual product showcase instead of three text blocks. Verified against the reference in a real browser at desktop; no horizontal overflow
+
 ## 2026-06-25 IST · feat(lead-machine): move VSL video into hero, under headline
 
 - `app/lead-machine/page.tsx`: moved the VSL video out of its own standalone section and up into the hero, positioned directly below the headline ("You Don't Lift a Finger.") and above the "You don't need more tools..." copy; removed the separate "Watch This First" section

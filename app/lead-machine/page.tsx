@@ -308,35 +308,157 @@ export default function AILeadMachinePage() {
 
       {/* ── SECTION 1 — WHAT YOU'RE GETTING ──────────────────── */}
       <section className="alm-section alm-getting">
-        <div className="alm-container">
-          <div className="alm-section-label">What You're Actually Getting</div>
-          <h2 className="alm-section-heading">
+        <div className="alm-container alm-getting-container">
+          <div className="alm-section-label alm-center">What You're Actually Getting</div>
+          <h2 className="alm-section-heading alm-center">
             One System. Three Jobs.<br /><span className="alm-accent">All Done For You.</span>
           </h2>
-          <p className="alm-getting-intro">
+          <p className="alm-getting-intro alm-center">
             Most people sell you a piece. A tool. A course. An ad guy. You end up stitching it together yourself.
             We don't do pieces. We do the whole thing.
           </p>
 
           <div className="alm-getting-grid">
-            <div className="alm-getting-block">
+
+            {/* Column 01 — We Make the Content */}
+            <div className="alm-getting-col">
               <div className="alm-getting-num">01</div>
-              <h3>We Make the Content</h3>
-              <p>Scroll-stopping ads, videos, and copy. Made by us. You approve, we ship. You never stare at a blank screen.</p>
+              <h3 className="alm-getting-col-title">We Make the Content</h3>
+              <p className="alm-getting-sub">Scroll-stopping content that makes people stop, watch, and want.</p>
+
+              <div className="alm-creative-grid">
+                {[
+                  { cls: 'cc-turmeric', tag: 'KASTURI', title: 'NATURAL.\nNOT BASIC.' },
+                  { cls: 'cc-watch', title: 'BUILT TO\nPERFORM' },
+                  { cls: 'cc-portrait', title: 'CONFIDENCE\nIS QUIET' },
+                  { cls: 'cc-whey', title: 'WHEY\nTHAT WORKS' },
+                  { cls: 'cc-shoe', title: 'MOVE\nDIFFERENT' },
+                  { cls: 'cc-house', title: 'LIVE\nBETTER' },
+                ].map((c, i) => (
+                  <div key={i} className={`alm-creative-card ${c.cls}`}>
+                    {c.tag && <span className="alm-cc-tag">{c.tag}</span>}
+                    <span className="alm-cc-title">{c.title}</span>
+                    <span className="alm-cc-play">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="alm-getting-block">
+
+            {/* Column 02 — We Run the Campaigns */}
+            <div className="alm-getting-col">
               <div className="alm-getting-num">02</div>
-              <h3>We Run the Campaigns</h3>
-              <p>Audience research, targeting, the full Meta and Google build, launched and managed by us. You never log into an ad account.</p>
+              <h3 className="alm-getting-col-title">We Run the Campaigns</h3>
+              <p className="alm-getting-sub">We launch, test, and scale campaigns that bring in leads on autopilot.</p>
+
+              <div className="alm-dash">
+                <div className="alm-dash-title">Campaign Performance</div>
+
+                <div className="alm-dash-stats">
+                  <div className="alm-dash-stat">
+                    <span className="alm-dash-stat-label">Leads</span>
+                    <span className="alm-dash-stat-row"><b>1,247</b><i className="up">+24%</i></span>
+                  </div>
+                  <div className="alm-dash-stat">
+                    <span className="alm-dash-stat-label">Cost per Lead</span>
+                    <span className="alm-dash-stat-row"><b>$6.21</b><i className="up">-12%</i></span>
+                  </div>
+                  <div className="alm-dash-stat">
+                    <span className="alm-dash-stat-label">ROAS</span>
+                    <span className="alm-dash-stat-row"><b>4.6x</b><i className="up">+18%</i></span>
+                  </div>
+                </div>
+
+                <div className="alm-dash-chart">
+                  <div className="alm-dash-yaxis"><span>1.5K</span><span>1K</span><span>500</span><span>0</span></div>
+                  <svg className="alm-dash-svg" viewBox="0 0 300 130" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="dashFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#CDFC2E" stopOpacity="0.35" />
+                        <stop offset="100%" stopColor="#CDFC2E" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,110 L40,100 L80,95 L120,80 L160,70 L200,48 L240,40 L300,18 L300,130 L0,130 Z" fill="url(#dashFill)" />
+                    <path d="M0,110 L40,100 L80,95 L120,80 L160,70 L200,48 L240,40 L300,18" fill="none" stroke="#CDFC2E" strokeWidth="2.5" />
+                  </svg>
+                  <div className="alm-dash-xaxis"><span>May 1</span><span>May 8</span><span>May 15</span><span>May 22</span><span>May 29</span></div>
+                </div>
+
+                <div className="alm-dash-platforms">
+                  {[
+                    { name: 'Facebook', letter: 'f', color: '#1877F2', cpl: '$4.21' },
+                    { name: 'Instagram', letter: '◎', color: '#E4405F', cpl: '$5.12' },
+                    { name: 'Google', letter: 'G', color: '#4285F4', cpl: '$6.45' },
+                    { name: 'TikTok', letter: '♪', color: '#ffffff', cpl: '$5.32' },
+                  ].map((p, i) => (
+                    <div key={i} className="alm-platform">
+                      <span className="alm-platform-icon" style={{ background: p.color, color: p.name === 'TikTok' ? '#000' : '#fff' }}>{p.letter}</span>
+                      <span className="alm-platform-active"><span className="alm-dot-green" />Active</span>
+                      <span className="alm-platform-cpl">{p.cpl}</span>
+                      <span className="alm-platform-cpllabel">CPL</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button className="alm-dash-btn">View All Campaigns <ArrowRight className="alm-cta-arrow" /></button>
+              </div>
             </div>
-            <div className="alm-getting-block">
+
+            {/* Column 03 — We Manage Every Lead */}
+            <div className="alm-getting-col">
               <div className="alm-getting-num">03</div>
-              <h3>We Manage Every Lead</h3>
-              <p>Every inquiry across WhatsApp, Instagram, and Facebook gets answered in seconds, qualified, and chased until they're ready. You never lose a lead to slow follow-up again.</p>
+              <h3 className="alm-getting-col-title">We Manage Every Lead</h3>
+              <p className="alm-getting-sub">Every lead is captured, qualified, and followed up until they're ready.</p>
+
+              <div className="alm-manage">
+                <div className="alm-phone">
+                  <div className="alm-phone-notch" />
+                  <div className="alm-phone-header">
+                    <span className="alm-phone-avatar">AI</span>
+                    <span className="alm-phone-hname">AI Lead Machine<i>Online</i></span>
+                  </div>
+                  <div className="alm-phone-chat">
+                    <div className="alm-msg in"><p>Hey! Is this still available?</p><time>10:30 AM</time></div>
+                    <div className="alm-msg out"><p>Yes, it is! How can I help you?</p><time>10:31 AM</time></div>
+                    <div className="alm-msg in"><p>Can you share more details?</p><time>10:31 AM</time></div>
+                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img cc-watch"><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
+                  </div>
+                  <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
+                </div>
+
+                <div className="alm-manage-right">
+                  <div className="alm-pipeline">
+                    <div className="alm-pipeline-title">Lead Pipeline</div>
+                    {[
+                      { stage: 'New Lead', count: 127, color: '#CDFC2E' },
+                      { stage: 'Contacted', count: 94, color: '#FFB020' },
+                      { stage: 'Qualified', count: 61, color: '#3B9EFF' },
+                      { stage: 'Booked', count: 23, color: '#A855F7' },
+                      { stage: 'Won', count: 11, color: '#22C55E' },
+                    ].map((r, i) => (
+                      <div key={i} className="alm-pipeline-row">
+                        <span className="alm-pipeline-dot" style={{ background: r.color }} />
+                        <span className="alm-pipeline-stage">{r.stage}</span>
+                        <span className="alm-pipeline-count">{r.count}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="alm-meetings">
+                    <span className="alm-meetings-label">Qualified Meetings Booked</span>
+                    <span className="alm-meetings-row"><b>23</b><i className="up">+15%</i></span>
+                    <svg className="alm-meetings-chart" viewBox="0 0 120 36" preserveAspectRatio="none">
+                      <path d="M0,30 L20,26 L40,28 L60,18 L80,20 L100,10 L120,6" fill="none" stroke="#CDFC2E" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
 
-          <p className="alm-getting-closer">
+          <p className="alm-getting-closer alm-center">
             From the first ad they see to the lead in your hand. <span className="alm-accent">The whole chain. Done for you.</span>
           </p>
         </div>
