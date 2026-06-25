@@ -328,16 +328,15 @@ export default function AILeadMachinePage() {
 
               <div className="alm-creative-grid">
                 {[
-                  { cls: 'cc-turmeric', tag: 'KASTURI', title: 'NATURAL.\nNOT BASIC.' },
-                  { cls: 'cc-watch', title: 'BUILT TO\nPERFORM' },
-                  { cls: 'cc-portrait', title: 'CONFIDENCE\nIS QUIET' },
-                  { cls: 'cc-whey', title: 'WHEY\nTHAT WORKS' },
-                  { cls: 'cc-shoe', title: 'MOVE\nDIFFERENT' },
-                  { cls: 'cc-house', title: 'LIVE\nBETTER' },
-                ].map((c, i) => (
-                  <div key={i} className={`alm-creative-card ${c.cls}`}>
-                    {c.tag && <span className="alm-cc-tag">{c.tag}</span>}
-                    <span className="alm-cc-title">{c.title}</span>
+                  '/portfolio/thumbnails/That AI Thumbnail.webp',
+                  '/portfolio/thumbnails/Campa Cola AI Ad.webp',
+                  '/portfolio/thumbnails/Comet AI Ad.webp',
+                  '/portfolio/thumbnails/Organix Rosa Move In.webp',
+                  '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
+                  '/portfolio/thumbnails/LS Swap Thumbnail.webp',
+                ].map((src, i) => (
+                  <div key={i} className="alm-creative-card">
+                    <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
                     <span className="alm-cc-play">
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
                     </span>
@@ -422,7 +421,7 @@ export default function AILeadMachinePage() {
                     <div className="alm-msg in"><p>Hey! Is this still available?</p><time>10:30 AM</time></div>
                     <div className="alm-msg out"><p>Yes, it is! How can I help you?</p><time>10:31 AM</time></div>
                     <div className="alm-msg in"><p>Can you share more details?</p><time>10:31 AM</time></div>
-                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img cc-watch"><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
+                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img"><img className="alm-cc-img" src={encodeURI('/portfolio/thumbnails/Comet AI Ad.webp')} alt="" /><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
                   </div>
                   <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
                 </div>

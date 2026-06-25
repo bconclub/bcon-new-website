@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): use real portfolio creatives in "We Make the Content"
+
+- `app/lead-machine/page.tsx` + `page.css`: replaced the gradient placeholder cards in the "We Make the Content" grid with the real campaign creatives already used on the home gallery (`/portfolio/thumbnails/*` — Thar AI, Campa Cola, Comet AI, Organix Rosa, Birdbox, LS Swap). Static poster images (no moving video) with a play button overlay; the phone chat media bubble now shows a real creative too
+- User-facing: the content showcase now displays BCON's actual ad creatives instead of placeholders
+
 ## 2026-06-25 IST · feat(lead-machine): rebuild Section 1 as visual mockup showcase
 
 - `app/lead-machine/page.tsx` + `page.css`: rebuilt the "One System. Three Jobs." section to match the approved reference design with three rich visual columns:
