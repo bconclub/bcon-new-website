@@ -896,7 +896,7 @@
   align-items: start;
 }
 
-.alm-getting-col { display: flex; flex-direction: column; }
+.alm-getting-col { display: flex; flex-direction: column; min-width: 0; }
 
 .alm-getting-num {
   font-size: 13px;
@@ -921,26 +921,57 @@
   min-height: 42px;
 }
 
-/* ── Col 01: creative grid ─────────────────────────────── */
-.alm-creative-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+/* ── Col 01: creative carousel ─────────────────────────── */
+.alm-creative-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.alm-creative-track {
+  display: flex;
+  width: max-content;
+  animation: alm-marquee 50s linear infinite;
+}
+
+.alm-creative-carousel:hover .alm-creative-track {
+  animation-play-state: paused;
+}
+
+@keyframes alm-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .alm-creative-card {
   position: relative;
-  aspect-ratio: 3 / 4;
+  flex: 0 0 auto;
+  height: 188px;
+  margin-right: 10px;
   border-radius: 10px;
   overflow: hidden;
   background: #111;
 }
 
+/* base (used by phone media bubble): fill + cover */
 .alm-cc-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* bento carousel: card sizes to each creative's natural ratio */
+.alm-creative-card .alm-cc-img {
+  position: static;
+  height: 100%;
+  width: auto;
+  max-width: none;
   object-fit: cover;
   display: block;
 }
@@ -1069,6 +1100,117 @@
   gap: 8px;
 }
 .alm-dash-btn .alm-cta-arrow { width: 14px; height: 14px; }
+
+/* ── Col 02: campaign card ─────────────────────────────── */
+.alm-camp {
+  background: #0C0C0C;
+  border: 1px solid rgba(205, 252, 46, 0.18);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.alm-camp-top { display: flex; gap: 10px; }
+.alm-camp-plat {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.alm-plat-meta { background: #0866FF; color: #fff; }
+.alm-plat-google { background: #fff; color: #4285F4; font-weight: 800; font-size: 15px; }
+
+.alm-camp-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.alm-camp-card {
+  background: #141414;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.alm-camp-ptitle {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #CDFC2E;
+}
+.alm-camp-field { display: flex; flex-direction: column; gap: 4px; }
+.alm-camp-flabel { font-size: 9px; color: #888; }
+.alm-camp-select {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 7px;
+  padding: 7px 9px; font-size: 11px; color: #fff;
+}
+.alm-camp-aud { display: flex; align-items: center; gap: 8px; }
+.alm-camp-avatars { display: flex; }
+.alm-camp-avatars i {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid #141414; margin-left: -6px;
+  background: linear-gradient(135deg, #CDFC2E, #6b2fe8);
+}
+.alm-camp-avatars i:first-child { margin-left: 0; }
+.alm-camp-avatars i:nth-child(2) { background: linear-gradient(135deg, #3B9EFF, #A855F7); }
+.alm-camp-avatars i:nth-child(3) { background: linear-gradient(135deg, #FFB020, #E4405F); }
+.alm-camp-aud-count { font-size: 10px; color: #CDFC2E; font-weight: 700; }
+.alm-camp-budget {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: #fff; font-weight: 600;
+}
+.alm-camp-toggle {
+  width: 30px; height: 17px; border-radius: 9px;
+  background: #CDFC2E; position: relative; flex-shrink: 0;
+}
+.alm-camp-toggle i {
+  position: absolute; top: 2px; right: 2px;
+  width: 13px; height: 13px; border-radius: 50%; background: #000;
+}
+.alm-camp-launch {
+  margin-top: 2px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: #CDFC2E; color: #000; border: none; border-radius: 8px;
+  padding: 9px; font-family: 'Anybody', sans-serif;
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.alm-camp-launch svg { width: 13px; height: 13px; }
+
+.alm-camp-leads { display: flex; flex-direction: column; gap: 3px; }
+.alm-camp-leads-row { display: flex; align-items: baseline; gap: 6px; }
+.alm-camp-leads-row b { font-size: 20px; font-weight: 900; color: #fff; }
+.alm-camp-leads-row i { font-style: normal; font-size: 9px; color: #CDFC2E; }
+.alm-camp-chart { width: 100%; height: 52px; display: block; }
+.alm-camp-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+.alm-camp-metrics > div { display: flex; flex-direction: column; gap: 2px; }
+.alm-camp-metrics b { font-size: 14px; font-weight: 800; color: #fff; }
+
+.alm-camp-dist { display: flex; flex-direction: column; align-items: center; }
+.alm-camp-dist-label {
+  font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #888; margin-bottom: 2px;
+}
+.alm-camp-dist-lines { width: 100%; height: 26px; display: block; }
+.alm-camp-dist-lines path {
+  fill: none; stroke: rgba(205, 252, 46, 0.4);
+  stroke-width: 1.2; stroke-dasharray: 3 3;
+}
+.alm-camp-dist-icons { display: flex; justify-content: center; gap: 22px; margin-top: 2px; }
+.alm-dicon {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: #fff;
+}
+
+.alm-camp-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+  border-top: 1px solid #1c1c1c; padding-top: 14px;
+}
+.alm-camp-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.alm-camp-step svg { color: #CDFC2E; }
+.alm-camp-step span {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; color: #999;
+}
 
 /* ── Col 03: manage (phone + pipeline) ─────────────────── */
 .alm-manage { display: grid; grid-template-columns: 150px 1fr; gap: 12px; }

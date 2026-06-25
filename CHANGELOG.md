@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): bento carousel + rich campaign card in Section 1
+
+- `app/lead-machine/page.tsx` + `page.css`:
+  - "We Make the Content" is now an auto-scrolling **bento carousel** — each creative keeps its natural aspect ratio (fixed height, auto width) so tiles vary in shape like the home gallery; 11 distinct portfolio creatives (no repeats), seamless margin-based loop, pauses on hover, edge fade. Fixed a grid-blowout where the wide track forced the column full-width (`min-width: 0`)
+  - "We Run the Campaigns" dashboard replaced with a richer **campaign card** matching the approved reference: Meta + Google badges, a Campaign Setup panel (Objective→Leads, Audience avatars +2.4K, Budget $50/day toggle, Launch Campaign button), a Live Performance panel (Leads 1,247 ▲26%, area chart, CPL $6.21 / ROAS 4.6x), an Ad Distribution fan-out to Facebook/Instagram/Messenger/Google Ads, and a Research→Target→Build→Launch→Optimize step bar
+  - Phone chat media bubble uses a held-out creative (Come-to-Dubai) so nothing repeats with the carousel
+- User-facing: Section 1 is a far more dynamic, polished product showcase. Verified in a real browser, no horizontal overflow
+
 ## 2026-06-25 IST · feat(lead-machine): use real portfolio creatives in "We Make the Content"
 
 - `app/lead-machine/page.tsx` + `page.css`: replaced the gradient placeholder cards in the "We Make the Content" grid with the real campaign creatives already used on the home gallery (`/portfolio/thumbnails/*` — Thar AI, Campa Cola, Comet AI, Organix Rosa, Birdbox, LS Swap). Static poster images (no moving video) with a play button overlay; the phone chat media bubble now shows a real creative too

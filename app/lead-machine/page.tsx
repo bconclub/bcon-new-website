@@ -82,6 +82,42 @@ const IconClose = () => (
   </svg>
 );
 
+const IconChevron = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.5" y2="16.5" />
+  </svg>
+);
+
+const IconUsers = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="9" cy="8" r="3.2" /><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5" /><path d="M16 5.6a3 3 0 0 1 0 5.6M17.5 15c2.2.4 3.5 1.9 3.5 5" />
+  </svg>
+);
+
+const IconGear = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3.2" /><path d="M12 2.5v2.5M12 19v2.5M3.5 12H6M18 12h2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" />
+  </svg>
+);
+
+const IconChartUp = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3 17l5-5 4 4 8-8" /><polyline points="14 8 20 8 20 14" />
+  </svg>
+);
+
+const IconMeta = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M3.5 8.5C4.6 6.7 6 5.5 7.7 5.5c2.1 0 3.5 1.8 5.1 4.4l.9 1.5 1-1.7c1.5-2.5 2.9-4.2 4.9-4.2 2.4 0 4 2.6 4 6.2 0 2.7-1.2 4.8-3.4 4.8-1.8 0-2.9-1.3-4.4-3.9l-.9-1.6-1.1 1.9c-1.6 2.7-2.9 3.6-4.6 3.6C6 16.5 4.5 14.6 4.5 12c0-.5.1-1 .2-1.4l-1.2-2.1Zm3.9.2c-.7 0-1.3.9-1.3 2.9 0 1.7.6 2.7 1.5 2.7.8 0 1.4-.6 2.5-2.4-.9-1.6-1.9-3.2-2.7-3.2Zm9.5 0c-.8 0-1.7 1.4-2.6 3l.3.5c1.1 1.8 1.7 2.6 2.5 2.6.9 0 1.5-1 1.5-2.8 0-2.1-.7-3.3-1.7-3.3Z" />
+  </svg>
+);
+
 const faqs = [
   {
     q: "What's actually included for the price?",
@@ -326,22 +362,41 @@ export default function AILeadMachinePage() {
               <h3 className="alm-getting-col-title">We Make the Content</h3>
               <p className="alm-getting-sub">Scroll-stopping content that makes people stop, watch, and want.</p>
 
-              <div className="alm-creative-grid">
-                {[
-                  '/portfolio/thumbnails/That AI Thumbnail.webp',
-                  '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                  '/portfolio/thumbnails/Comet AI Ad.webp',
-                  '/portfolio/thumbnails/Organix Rosa Move In.webp',
-                  '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
-                  '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                ].map((src, i) => (
-                  <div key={i} className="alm-creative-card">
-                    <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
-                    <span className="alm-cc-play">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-                    </span>
-                  </div>
-                ))}
+              <div className="alm-creative-carousel">
+                <div className="alm-creative-track">
+                  {[
+                    '/portfolio/thumbnails/That AI Thumbnail.webp',
+                    '/portfolio/thumbnails/Campa Cola AI Ad.webp',
+                    '/portfolio/thumbnails/Comet AI Ad.webp',
+                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
+                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
+                    '/portfolio/thumbnails/LS Swap Thumbnail.webp',
+                    '/portfolio/Laptopstore-Product-Ad.jpg',
+                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/11PC-Launch.jpg',
+                    '/portfolio/11PC-Event.jpg',
+                    '/portfolio/Birdbox-Launching-Soon.jpg',
+                  ].concat([
+                    '/portfolio/thumbnails/That AI Thumbnail.webp',
+                    '/portfolio/thumbnails/Campa Cola AI Ad.webp',
+                    '/portfolio/thumbnails/Comet AI Ad.webp',
+                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
+                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
+                    '/portfolio/thumbnails/LS Swap Thumbnail.webp',
+                    '/portfolio/Laptopstore-Product-Ad.jpg',
+                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/11PC-Launch.jpg',
+                    '/portfolio/11PC-Event.jpg',
+                    '/portfolio/Birdbox-Launching-Soon.jpg',
+                  ]).map((src, i) => (
+                    <div key={i} className="alm-creative-card" aria-hidden={i >= 11}>
+                      <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
+                      <span className="alm-cc-play">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -349,58 +404,84 @@ export default function AILeadMachinePage() {
             <div className="alm-getting-col">
               <div className="alm-getting-num">02</div>
               <h3 className="alm-getting-col-title">We Run the Campaigns</h3>
-              <p className="alm-getting-sub">We launch, test, and scale campaigns that bring in leads on autopilot.</p>
+              <p className="alm-getting-sub">Audience research, targeting, the full Meta and Google build, launched and managed by us. You never log into an ad account.</p>
 
-              <div className="alm-dash">
-                <div className="alm-dash-title">Campaign Performance</div>
-
-                <div className="alm-dash-stats">
-                  <div className="alm-dash-stat">
-                    <span className="alm-dash-stat-label">Leads</span>
-                    <span className="alm-dash-stat-row"><b>1,247</b><i className="up">+24%</i></span>
-                  </div>
-                  <div className="alm-dash-stat">
-                    <span className="alm-dash-stat-label">Cost per Lead</span>
-                    <span className="alm-dash-stat-row"><b>$6.21</b><i className="up">-12%</i></span>
-                  </div>
-                  <div className="alm-dash-stat">
-                    <span className="alm-dash-stat-label">ROAS</span>
-                    <span className="alm-dash-stat-row"><b>4.6x</b><i className="up">+18%</i></span>
-                  </div>
+              <div className="alm-camp">
+                <div className="alm-camp-top">
+                  <span className="alm-camp-plat alm-plat-meta"><IconMeta /></span>
+                  <span className="alm-camp-plat alm-plat-google">G</span>
                 </div>
 
-                <div className="alm-dash-chart">
-                  <div className="alm-dash-yaxis"><span>1.5K</span><span>1K</span><span>500</span><span>0</span></div>
-                  <svg className="alm-dash-svg" viewBox="0 0 300 130" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="dashFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#CDFC2E" stopOpacity="0.35" />
-                        <stop offset="100%" stopColor="#CDFC2E" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                    <path d="M0,110 L40,100 L80,95 L120,80 L160,70 L200,48 L240,40 L300,18 L300,130 L0,130 Z" fill="url(#dashFill)" />
-                    <path d="M0,110 L40,100 L80,95 L120,80 L160,70 L200,48 L240,40 L300,18" fill="none" stroke="#CDFC2E" strokeWidth="2.5" />
-                  </svg>
-                  <div className="alm-dash-xaxis"><span>May 1</span><span>May 8</span><span>May 15</span><span>May 22</span><span>May 29</span></div>
-                </div>
-
-                <div className="alm-dash-platforms">
-                  {[
-                    { name: 'Facebook', letter: 'f', color: '#1877F2', cpl: '$4.21' },
-                    { name: 'Instagram', letter: '◎', color: '#E4405F', cpl: '$5.12' },
-                    { name: 'Google', letter: 'G', color: '#4285F4', cpl: '$6.45' },
-                    { name: 'TikTok', letter: '♪', color: '#ffffff', cpl: '$5.32' },
-                  ].map((p, i) => (
-                    <div key={i} className="alm-platform">
-                      <span className="alm-platform-icon" style={{ background: p.color, color: p.name === 'TikTok' ? '#000' : '#fff' }}>{p.letter}</span>
-                      <span className="alm-platform-active"><span className="alm-dot-green" />Active</span>
-                      <span className="alm-platform-cpl">{p.cpl}</span>
-                      <span className="alm-platform-cpllabel">CPL</span>
+                <div className="alm-camp-panels">
+                  <div className="alm-camp-card alm-camp-setup">
+                    <div className="alm-camp-ptitle">Campaign Setup</div>
+                    <div className="alm-camp-field">
+                      <span className="alm-camp-flabel">Objective</span>
+                      <div className="alm-camp-select">Leads <IconChevron /></div>
                     </div>
-                  ))}
+                    <div className="alm-camp-field">
+                      <span className="alm-camp-flabel">Audience</span>
+                      <div className="alm-camp-aud">
+                        <span className="alm-camp-avatars"><i /><i /><i /><i /></span>
+                        <span className="alm-camp-aud-count">+2.4K</span>
+                      </div>
+                    </div>
+                    <div className="alm-camp-field">
+                      <span className="alm-camp-flabel">Budget</span>
+                      <div className="alm-camp-budget">
+                        <span>$50 / day</span>
+                        <span className="alm-camp-toggle"><i /></span>
+                      </div>
+                    </div>
+                    <button className="alm-camp-launch"><IconRocket /> Launch Campaign</button>
+                  </div>
+
+                  <div className="alm-camp-card alm-camp-live">
+                    <div className="alm-camp-ptitle">Live Performance</div>
+                    <div className="alm-camp-leads">
+                      <span className="alm-camp-flabel">Leads (30 Days)</span>
+                      <span className="alm-camp-leads-row"><b>1,247</b><i className="up">▲ 26%</i></span>
+                    </div>
+                    <svg className="alm-camp-chart" viewBox="0 0 200 80" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="campFill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#CDFC2E" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#CDFC2E" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,66 L28,60 L52,62 L82,46 L110,50 L138,30 L168,26 L200,10 L200,80 L0,80 Z" fill="url(#campFill)" />
+                      <path d="M0,66 L28,60 L52,62 L82,46 L110,50 L138,30 L168,26 L200,10" fill="none" stroke="#CDFC2E" strokeWidth="2" />
+                    </svg>
+                    <div className="alm-camp-metrics">
+                      <div><span className="alm-camp-flabel">CPL</span><b>$6.21</b></div>
+                      <div><span className="alm-camp-flabel">ROAS</span><b>4.6x</b></div>
+                    </div>
+                  </div>
                 </div>
 
-                <button className="alm-dash-btn">View All Campaigns <ArrowRight className="alm-cta-arrow" /></button>
+                <div className="alm-camp-dist">
+                  <div className="alm-camp-dist-label">Ad Distribution</div>
+                  <svg className="alm-camp-dist-lines" viewBox="0 0 300 28" preserveAspectRatio="none">
+                    <path d="M150 0 C150 14 85 12 85 26" />
+                    <path d="M150 0 C150 14 128 14 128 26" />
+                    <path d="M150 0 C150 14 172 14 172 26" />
+                    <path d="M150 0 C150 14 215 12 215 26" />
+                  </svg>
+                  <div className="alm-camp-dist-icons">
+                    <span className="alm-dicon" style={{ background: '#1877F2' }}>f</span>
+                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#FEDA75,#D62976,#962FBF)' }}>◎</span>
+                    <span className="alm-dicon" style={{ background: 'linear-gradient(135deg,#00B2FF,#006AFF)' }}>◇</span>
+                    <span className="alm-dicon" style={{ background: '#fff', color: '#4285F4' }}>▲</span>
+                  </div>
+                </div>
+
+                <div className="alm-camp-steps">
+                  <div className="alm-camp-step"><IconSearch /><span>Research</span></div>
+                  <div className="alm-camp-step"><IconUsers /><span>Target</span></div>
+                  <div className="alm-camp-step"><IconGear /><span>Build</span></div>
+                  <div className="alm-camp-step"><IconRocket /><span>Launch</span></div>
+                  <div className="alm-camp-step"><IconChartUp /><span>Optimize</span></div>
+                </div>
               </div>
             </div>
 
@@ -421,7 +502,7 @@ export default function AILeadMachinePage() {
                     <div className="alm-msg in"><p>Hey! Is this still available?</p><time>10:30 AM</time></div>
                     <div className="alm-msg out"><p>Yes, it is! How can I help you?</p><time>10:31 AM</time></div>
                     <div className="alm-msg in"><p>Can you share more details?</p><time>10:31 AM</time></div>
-                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img"><img className="alm-cc-img" src={encodeURI('/portfolio/thumbnails/Comet AI Ad.webp')} alt="" /><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
+                    <div className="alm-msg out alm-msg-media"><span className="alm-msg-img"><img className="alm-cc-img" src={encodeURI('/portfolio/Come-to-Dubai.webp')} alt="" /><span className="alm-cc-play sm"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg></span></span></div>
                   </div>
                   <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
                 </div>
