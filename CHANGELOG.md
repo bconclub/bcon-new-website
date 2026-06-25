@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): swap in the real AI Lead Machine VSL video
+
+- Added `public/assets/AI-Lead-Machine-VSL.mp4` (16.7MB, 31s) and pointed the hero VSL player at it, replacing the old placeholder `Lead Machine Landing.mp4`
+- Self-hosted (consistent with the existing portfolio MP4s) — plays through the existing play-overlay + `<video controls>`; verified playing in a real browser
+- User-facing: the hero video is now the real AI Lead Machine sales video
+
 ## 2026-06-25 IST · feat(lead-machine): product-details card in "We Manage Every Lead" chat
 
 - `app/lead-machine/page.tsx` + `page.css`: the phone chat now replies to "is this still available / can you share details" with a proper **product-details card** instead of a raw image — Wind Chasers "DGCA Ground Classes" with an availability badge (Available · Batch 15 Jun), "Limited seats" meta, and a "View Details" action, using the real Wind Chasers flight-academy creative (`WC-Event.jpg`)

@@ -326,7 +326,7 @@ export default function AILeadMachinePage() {
             <video
               ref={vslRef}
               className="alm-vsl-video"
-              src="/assets/Lead%20Machine%20Landing.mp4"
+              src="/assets/AI-Lead-Machine-VSL.mp4"
               controls={vslPlaying}
               playsInline
               preload="metadata"
