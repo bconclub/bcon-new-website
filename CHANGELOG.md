@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): VSL video, tiered hero, vector icons, no emoji/dashes
+
+- `app/lead-machine/page.tsx`:
+  - Added a VSL video section under the hero (uses existing `/assets/Lead Machine Landing.mp4`) with a custom play-button overlay; fires a `vsl_play` GTM event on play
+  - Hero headline split into 3 visual tiers (big "We'll Build You an AI Lead Machine" → medium "That Gets You Customers." → smaller "You Don't Lift a Finger.") instead of one large text block
+  - Removed ALL emojis site-wide on this page; replaced with crisp accent-colored SVG vector icons (check, layers, chip, bolt, target, clock, shield, rocket, close) on dimensional tiles
+  - Removed ALL em/en dashes from copy (eyebrow, CTAs, FAQ answers, guarantees), especially around numbers (e.g. "5 to 7 business days", "First 100 Businesses · 50% Off")
+  - Added directional arrows: between the 3 How-It-Works steps (rotate downward on mobile) and inside every CTA button (nudge-right on hover)
+- `app/lead-machine/page.css`: styles for VSL frame/overlay/play button, 3-tier hero, SVG icon tiles, step arrows, CTA arrow alignment; responsive at 900px/768px
+- User-facing: richer, more visual landing page with an embedded sales video, clearer hero hierarchy, vector iconography, and no emoji. Verified no horizontal overflow at 375px + 1265px; VSL video serves 200; no console errors
+
 ## 2026-06-25 IST · feat(lead-machine): rebuild landing page to new 9-section flow
 
 - `app/lead-machine/page.tsx`: complete content + structure rewrite to the approved flow — Hero (new headline, subline, 4 benefit bullets, CTA) → S1 What You're Getting (3 done-for-you blocks) → S2 How It Works (3 steps) → S3 The Problem (4-row list) → S4 Why This Is Different (4 cards) → S5 What You Get (6 outcomes) → S6 Proof (3 case-study placeholders) → S7 Pricing → Lead Form → S8 FAQ → S9 Final CTA

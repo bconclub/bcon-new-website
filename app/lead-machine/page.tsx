@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { getMergedUTMParams } from '@/lib/tracking/utm';
 import './page.css';
 
@@ -11,6 +11,77 @@ interface FormData {
   email: string;
 }
 
+/* ── Vector icons (no emoji) ─────────────────────────────────── */
+const ArrowRight = ({ className = '' }: { className?: string }) => (
+  <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <line x1="4" y1="12" x2="20" y2="12" />
+    <polyline points="13 5 20 12 13 19" />
+  </svg>
+);
+
+const IconCheck = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const IconLayers = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
+
+const IconChip = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="6" y="6" width="12" height="12" rx="2" />
+    <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+  </svg>
+);
+
+const IconBolt = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+);
+
+const IconTarget = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="12" cy="12" r="5" />
+    <circle cx="12" cy="12" r="1.5" />
+  </svg>
+);
+
+const IconClock = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="12 7 12 12 16 14" />
+  </svg>
+);
+
+const IconShield = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z" />
+  </svg>
+);
+
+const IconRocket = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2 0-2.8a2 2 0 0 0-3 -.2Z" />
+    <path d="M12 15 9 12a14 14 0 0 1 7-9c2 0 4 2 4 4a14 14 0 0 1-9 7Z" />
+    <path d="M9 12H4s.5-2.8 2-4c1.2-1 3-1 3-1M12 15v5s2.8-.5 4-2c1-1.2 1-3 1-3" />
+  </svg>
+);
+
+const IconClose = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+    <line x1="6" y1="6" x2="18" y2="18" />
+    <line x1="18" y1="6" x2="6" y2="18" />
+  </svg>
+);
+
 const faqs = [
   {
     q: "What's actually included for the price?",
@@ -18,11 +89,11 @@ const faqs = [
   },
   {
     q: 'How fast can we go live?',
-    a: 'Onboarding takes 5–7 business days. We map your buyers, build your creatives, set up your campaigns, and connect your inboxes. You start receiving qualified leads within the first week.'
+    a: 'Onboarding takes 5 to 7 business days. We map your buyers, build your creatives, set up your campaigns, and connect your inboxes. You start receiving qualified leads within the first week.'
   },
   {
     q: 'What happens after the first 2 months?',
-    a: 'After the 2-month introductory period at ₹40K/month, the service continues at the standard ₹80K/month rate. No contract, cancel anytime before the period ends with no penalty.'
+    a: 'After the 2 month introductory period at ₹40K/month, the service continues at the standard ₹80K/month rate. No contract, cancel anytime before the period ends with no penalty.'
   },
   {
     q: 'We already run ads. Can we still use this?',
@@ -30,11 +101,11 @@ const faqs = [
   },
   {
     q: 'What kind of businesses is this for?',
-    a: 'Any service business where follow-up speed and organization decide whether deals close — real estate, education, clinics, professional services, retail, hospitality. If leads come in across multiple channels and slip through the cracks, this is built for you.'
+    a: 'Any service business where follow-up speed and organization decide whether deals close. Real estate, education, clinics, professional services, retail, hospitality. If leads come in across multiple channels and slip through the cracks, this is built for you.'
   },
   {
     q: 'Is there a contract?',
-    a: 'No long-term lock-in. Billing is monthly. We keep your business with results, not contracts.'
+    a: 'No long-term lock in. Billing is monthly. We keep your business with results, not contracts.'
   }
 ];
 
@@ -48,6 +119,16 @@ export default function AILeadMachinePage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [vslPlaying, setVslPlaying] = useState(false);
+  const vslRef = useRef<HTMLVideoElement>(null);
+
+  const playVsl = () => {
+    setVslPlaying(true);
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: 'vsl_play', page: 'lead-machine' });
+    }
+    setTimeout(() => vslRef.current?.play().catch(() => {}), 50);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -163,42 +244,74 @@ export default function AILeadMachinePage() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="alm-hero">
-        <div className="alm-hero-badge">LIMITED — First 100 Businesses Only</div>
+        <div className="alm-hero-badge">LIMITED · First 100 Businesses Only</div>
 
         <h1 className="alm-hero-headline">
-          We'll Build You an <span className="alm-accent">AI Lead Machine</span> That Gets You Customers. You Don't Lift a Finger.
+          <span className="alm-h-1">We'll Build You an <span className="alm-accent">AI Lead Machine</span></span>
+          <span className="alm-h-2">That Gets You Customers.</span>
+          <span className="alm-h-3">You Don't Lift a Finger.</span>
         </h1>
 
         <p className="alm-hero-sub">
           You don't need more tools. You don't need to hire. You don't need to learn ads.
           We make the content, run the campaigns, and chase every lead until they're ready to buy.
-          You just show up and close.
         </p>
 
         <div className="alm-hero-bullets">
           <div className="alm-hero-bullet">
-            <span className="alm-bullet-check">✓</span>
+            <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get the ads made for you, so you don't touch a thing</span>
           </div>
           <div className="alm-hero-bullet">
-            <span className="alm-bullet-check">✓</span>
+            <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get them launched and managed for you, so you don't waste a rupee</span>
           </div>
           <div className="alm-hero-bullet">
-            <span className="alm-bullet-check">✓</span>
+            <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get every lead answered in seconds, 24/7, so none go cold</span>
           </div>
           <div className="alm-hero-bullet">
-            <span className="alm-bullet-check">✓</span>
+            <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get only the ready-to-buy ones, so you stop wasting time on tyre-kickers</span>
           </div>
         </div>
 
         <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
-          Get the AI Lead Machine — Start Now
+          Get the AI Lead Machine <ArrowRight className="alm-cta-arrow" />
         </button>
 
         <p className="alm-hero-note">First 100 businesses get 50% off. After that it's gone.</p>
+      </section>
+
+      {/* ── VSL VIDEO ────────────────────────────────────────── */}
+      <section className="alm-section alm-vsl">
+        <div className="alm-container">
+          <div className="alm-section-label">Watch This First</div>
+          <h2 className="alm-section-heading alm-vsl-heading">
+            See the AI Lead Machine <span className="alm-accent">in 90 seconds.</span>
+          </h2>
+
+          <div className={`alm-vsl-frame ${vslPlaying ? 'alm-vsl-playing' : ''}`}>
+            <video
+              ref={vslRef}
+              className="alm-vsl-video"
+              src="/assets/Lead%20Machine%20Landing.mp4"
+              controls={vslPlaying}
+              playsInline
+              preload="metadata"
+            />
+            {!vslPlaying && (
+              <button className="alm-vsl-overlay" onClick={playVsl} aria-label="Play video">
+                <span className="alm-vsl-play">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+                <span className="alm-vsl-caption">Watch how it works</span>
+              </button>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* ── SECTION 1 — WHAT YOU'RE GETTING ──────────────────── */}
@@ -251,7 +364,7 @@ export default function AILeadMachinePage() {
                 <p>We map your buyers, make the content, and set up your campaigns from scratch. You do nothing but approve.</p>
               </div>
             </div>
-            <div className="alm-step-connector" />
+            <div className="alm-step-arrow"><ArrowRight /></div>
             <div className="alm-step">
               <div className="alm-step-num">2</div>
               <div className="alm-step-body">
@@ -259,7 +372,7 @@ export default function AILeadMachinePage() {
                 <p>Ads go live. Every inquiry lands in one place. We watch it, test it, and keep it running.</p>
               </div>
             </div>
-            <div className="alm-step-connector" />
+            <div className="alm-step-arrow"><ArrowRight /></div>
             <div className="alm-step">
               <div className="alm-step-num">3</div>
               <div className="alm-step-body">
@@ -284,19 +397,19 @@ export default function AILeadMachinePage() {
 
           <div className="alm-problem-list">
             <div className="alm-problem-row">
-              <span className="alm-problem-x">✕</span>
+              <span className="alm-problem-x"><IconClose /></span>
               <p>They come in across six different apps and half go cold before anyone replies</p>
             </div>
             <div className="alm-problem-row">
-              <span className="alm-problem-x">✕</span>
+              <span className="alm-problem-x"><IconClose /></span>
               <p>You spend on ads, but there's no system to follow up, so the money burns</p>
             </div>
             <div className="alm-problem-row">
-              <span className="alm-problem-x">✕</span>
+              <span className="alm-problem-x"><IconClose /></span>
               <p>Your team is busy chasing, not closing</p>
             </div>
             <div className="alm-problem-row">
-              <span className="alm-problem-x">✕</span>
+              <span className="alm-problem-x"><IconClose /></span>
               <p>Nobody can see what's working, so you keep guessing</p>
             </div>
           </div>
@@ -318,19 +431,19 @@ export default function AILeadMachinePage() {
 
           <div className="alm-why-grid">
             <div className="alm-why-card">
-              <div className="alm-why-icon">🧩</div>
+              <div className="alm-why-icon"><IconLayers /></div>
               <p>Everything done for you: content, ads, follow-up. No gaps to fill.</p>
             </div>
             <div className="alm-why-card">
-              <div className="alm-why-icon">🤖</div>
+              <div className="alm-why-icon"><IconChip /></div>
               <p>Powered by PROXe, our AI lead engine that never sleeps and never forgets.</p>
             </div>
             <div className="alm-why-card">
-              <div className="alm-why-icon">⚡</div>
+              <div className="alm-why-icon"><IconBolt /></div>
               <p>Human strategy plus AI speed. The thinking and the doing, handled.</p>
             </div>
             <div className="alm-why-card">
-              <div className="alm-why-icon">🎯</div>
+              <div className="alm-why-icon"><IconTarget /></div>
               <p>You run your business. We run the machine.</p>
             </div>
           </div>
@@ -345,27 +458,27 @@ export default function AILeadMachinePage() {
 
           <div className="alm-results-grid">
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>More qualified leads, less wasted ad spend</h4></div>
             </div>
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>Every inquiry answered in seconds, 24/7</h4></div>
             </div>
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>One inbox for every channel, nothing slips</h4></div>
             </div>
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>Only ready-to-buy leads reach your team</h4></div>
             </div>
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>Full visibility, from ad click to closed deal</h4></div>
             </div>
             <div className="alm-result-item">
-              <div className="alm-result-icon">✅</div>
+              <div className="alm-result-icon"><IconCheck /></div>
               <div><h4>Your time back, you stop being the follow-up guy</h4></div>
             </div>
           </div>
@@ -384,15 +497,15 @@ export default function AILeadMachinePage() {
                 <div className="alm-proof-tag">Case Study {i}</div>
                 <div className="alm-proof-stage">
                   <span className="alm-proof-stage-label">Starting Point</span>
-                  <p>—</p>
+                  <p>Coming soon</p>
                 </div>
                 <div className="alm-proof-stage">
                   <span className="alm-proof-stage-label">What the AI Lead Machine Did</span>
-                  <p>—</p>
+                  <p>Coming soon</p>
                 </div>
                 <div className="alm-proof-stage">
                   <span className="alm-proof-stage-label">Result</span>
-                  <p>—</p>
+                  <p>Coming soon</p>
                 </div>
                 <div className="alm-proof-soon">Coming Soon</div>
               </div>
@@ -408,7 +521,7 @@ export default function AILeadMachinePage() {
           <h2 className="alm-section-heading">One Plan. Everything In It.</h2>
 
           <div className="alm-pricing-card">
-            <div className="alm-pricing-badge">First 100 Businesses — 50% Off</div>
+            <div className="alm-pricing-badge">First 100 Businesses · 50% Off</div>
 
             <div className="alm-price-row">
               <div className="alm-price-block">
@@ -419,7 +532,7 @@ export default function AILeadMachinePage() {
                 </div>
                 <span className="alm-price-note">Save ₹40K/month for 60 days</span>
               </div>
-              <div className="alm-price-arrow">→</div>
+              <div className="alm-price-arrow"><ArrowRight /></div>
               <div className="alm-price-block">
                 <span className="alm-price-label">After 2 Months</span>
                 <div className="alm-price-main">
@@ -440,7 +553,7 @@ export default function AILeadMachinePage() {
             </div>
 
             <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
-              Claim Your Spot — Start Now
+              Claim Your Spot <ArrowRight className="alm-cta-arrow" />
             </button>
 
             <p className="alm-pricing-disclaimer">
@@ -461,12 +574,12 @@ export default function AILeadMachinePage() {
                 <span className="alm-accent">this week.</span>
               </h2>
               <p className="alm-form-sub">
-                Fill in your details and we'll reach out within 24 hours to walk you through onboarding. No sales pitch — just a plan.
+                Fill in your details and we'll reach out within 24 hours to walk you through onboarding. No sales pitch, just a plan.
               </p>
               <div className="alm-form-guarantees">
-                <div className="alm-guarantee">⚡ Response within 24 hours</div>
-                <div className="alm-guarantee">🔒 Your info is never shared</div>
-                <div className="alm-guarantee">🚀 Live in 5–7 business days</div>
+                <div className="alm-guarantee"><span className="alm-guarantee-icon"><IconClock /></span> Response within 24 hours</div>
+                <div className="alm-guarantee"><span className="alm-guarantee-icon"><IconShield /></span> Your info is never shared</div>
+                <div className="alm-guarantee"><span className="alm-guarantee-icon"><IconRocket /></span> Live in 5 to 7 business days</div>
               </div>
             </div>
 
@@ -521,7 +634,7 @@ export default function AILeadMachinePage() {
                 </div>
 
                 <button type="submit" className="alm-submit-btn" disabled={submitting}>
-                  {submitting ? 'Submitting...' : 'Start Now — Claim 50% Off'}
+                  {submitting ? 'Submitting...' : (<>Claim Your 50% Off <ArrowRight className="alm-cta-arrow" /></>)}
                 </button>
 
                 <p className="alm-form-privacy">
@@ -572,7 +685,7 @@ export default function AILeadMachinePage() {
             First 100 businesses get 50% off for 2 months. Spots are filling.
           </p>
           <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
-            Get AI Lead Machine Now
+            Get AI Lead Machine Now <ArrowRight className="alm-cta-arrow" />
           </button>
           <p className="alm-hero-note">₹40K/mo for first 2 months · No contracts · Cancel anytime</p>
         </div>
