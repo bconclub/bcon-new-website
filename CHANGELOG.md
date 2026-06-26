@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): content card is a true no-crop bento
+
+- `app/lead-machine/page.tsx` + `page.css`: the "We Make the Content" card now shows each creative at its OWN aspect ratio — a 3-column masonry (`column-count`, `height:auto` images) so stories stay 9:16, the landscape (Comet) stays 4:3, squares stay square. Nothing is cropped (the previous fixed grid was cover-cropping stories/landscapes into squares, which the user called out)
+- Tuned to 9 tiles that pack to exactly the card's inner height (470px) — verified zero tiles clipped, all three cards still identical (359×490)
+
 ## 2026-06-25 IST · fix(lead-machine): Section 1 = three equal cards, small tiles, real-estate chat
 
 - `app/lead-machine/page.tsx` + `page.css`: rebuilt the three "What You're Getting" columns as THREE EQUAL CARDS — all exactly the same width and height (359×490), sharing one `.alm-card` shell (bg, border, radius). Fixes the long-standing mismatched-size problem

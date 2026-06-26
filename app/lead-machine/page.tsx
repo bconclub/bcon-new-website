@@ -407,24 +407,24 @@ export default function AILeadMachinePage() {
               <h3 className="alm-getting-col-title">We Make the Content</h3>
               <p className="alm-getting-sub">Scroll-stopping ads and reels that make people stop, watch, and want.</p>
 
-              <div className="alm-card alm-card-tiles">
-                <div className="alm-tilegrid">
+              <div className="alm-card alm-card-bento">
+                <div className="alm-bento">
                   {[
                     '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                    '/portfolio/thumbnails/That AI Thumbnail.webp',
-                    '/portfolio/thumbnails/Comet AI Ad.webp',
-                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
                     '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
-                    '/portfolio/Laptopstore-Product-Ad.jpg',
+                    '/portfolio/thumbnails/Comet AI Ad.webp',
                     '/portfolio/Come-to-Dubai.webp',
-                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/thumbnails/That AI Thumbnail.webp',
+                    '/portfolio/Laptopstore-Product-Ad.jpg',
+                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
                     '/portfolio/11PC-Launch.jpg',
-                    '/portfolio/11PC-Event.jpg',
-                    '/portfolio/Birdbox-Launching-Soon.jpg',
+                    '/portfolio/WC-Event.jpg',
                   ].map((src, i) => (
-                    <div key={i} className="alm-tile">
+                    <div key={i} className="alm-btile">
                       <img src={encodeURI(src)} alt="" loading="lazy" />
+                      <span className="alm-btile-play">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                      </span>
                     </div>
                   ))}
                 </div>
