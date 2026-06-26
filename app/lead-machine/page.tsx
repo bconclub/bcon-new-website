@@ -199,6 +199,17 @@ export default function AILeadMachinePage() {
     setTimeout(() => vslRef.current?.play().catch(() => {}), 50);
   };
 
+  // When the video ends, reset to the start and show the play button again.
+  const handleVslEnded = () => {
+    setVslPlaying(false);
+    if (vslRef.current) vslRef.current.currentTime = 0;
+  };
+
+  // When paused (by the user), bring the play button back over the frame.
+  const handleVslPause = () => {
+    setVslPlaying(false);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
@@ -330,6 +341,8 @@ export default function AILeadMachinePage() {
               controls={vslPlaying}
               playsInline
               preload="metadata"
+              onEnded={handleVslEnded}
+              onPause={handleVslPause}
             />
             {!vslPlaying && (
               <button className="alm-vsl-overlay" onClick={playVsl} aria-label="Play video">
@@ -338,7 +351,6 @@ export default function AILeadMachinePage() {
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </span>
-                <span className="alm-vsl-caption">Watch how it works</span>
               </button>
             )}
           </div>

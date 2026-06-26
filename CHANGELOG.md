@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): hero VSL play-button overlay returns on end/pause
+
+- `app/lead-machine/page.tsx`: removed the "Watch how it works" caption from the hero video overlay (just a play button now); added `onEnded` (resets to start + shows the play button so it can be replayed) and `onPause` (brings the play button back over the frame) handlers
+- User-facing: when the hero video finishes or is paused, the play button reappears instead of the video sitting frozen
+
 ## 2026-06-25 IST · fix(lead-machine): static bento (not carousel), coherent chat, mobile
 
 - `app/lead-machine/page.tsx` + `page.css`:
