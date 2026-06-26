@@ -410,10 +410,9 @@ export default function AILeadMachinePage() {
               <div className="alm-creative-bento">
                 {[
                   '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                  '/portfolio/thumbnails/That AI Thumbnail.webp',
                   '/portfolio/thumbnails/Comet AI Ad.webp',
+                  '/portfolio/thumbnails/That AI Thumbnail.webp',
                   '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                  '/portfolio/thumbnails/Organix Rosa Move In.webp',
                 ].map((src, i) => (
                   <div key={i} className="alm-creative-card">
                     <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />

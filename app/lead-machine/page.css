@@ -921,32 +921,29 @@
   min-height: 42px;
 }
 
-/* ── Col 01: creative bento (compact mosaic) ───────────── */
+/* ── Col 01: creative bento (natural-ratio masonry) ────── */
 .alm-creative-bento {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 98px;
-  gap: 8px;
+  column-count: 2;
+  column-gap: 8px;
   min-width: 0;
 }
 
 .alm-creative-card {
   position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+  break-inside: avoid;
   border-radius: 10px;
   overflow: hidden;
   background: #111;
 }
 
-/* first tile is tall (2 rows) for the bento accent */
-.alm-creative-card:first-child { grid-row: span 2; }
-
+/* show the full poster — never crop the creative */
 .alm-cc-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 .alm-creative-card::after {

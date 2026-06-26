@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): bento shows full creatives (no crop), balanced
+
+- `app/lead-machine/page.tsx` + `page.css`: "We Make the Content" bento now shows each creative at its natural aspect ratio (CSS-columns masonry, `height:auto`) instead of cropping posters into fixed cells — fixes the chopped-off ad text (e.g. "SWAP DEALS", Organix, Thar were being cut)
+- Tuned to 4 creatives (a portrait + landscape + square mix) so the bento height (~498px) balances the campaign card (~451px) and the phone/pipeline column (~536px) — all three columns now align instead of col 1 sticking out
+- Verified in a real browser at desktop: full posters, no cropping, no horizontal overflow, balanced columns
+
 ## 2026-06-25 IST · fix(lead-machine): hero VSL play-button overlay returns on end/pause
 
 - `app/lead-machine/page.tsx`: removed the "Watch how it works" caption from the hero video overlay (just a play button now); added `onEnded` (resets to start + shows the play button so it can be replayed) and `onPause` (brings the play button back over the frame) handlers
