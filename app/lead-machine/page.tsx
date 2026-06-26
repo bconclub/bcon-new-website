@@ -395,41 +395,21 @@ export default function AILeadMachinePage() {
               <h3 className="alm-getting-col-title">We Make the Content</h3>
               <p className="alm-getting-sub">Scroll-stopping content that makes people stop, watch, and want.</p>
 
-              <div className="alm-creative-carousel">
-                <div className="alm-creative-track">
-                  {[
-                    '/portfolio/thumbnails/That AI Thumbnail.webp',
-                    '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                    '/portfolio/thumbnails/Comet AI Ad.webp',
-                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
-                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
-                    '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                    '/portfolio/Laptopstore-Product-Ad.jpg',
-                    '/portfolio/Come-to-Dubai.webp',
-                    '/portfolio/11PC-Launch.jpg',
-                    '/portfolio/11PC-Event.jpg',
-                    '/portfolio/Birdbox-Launching-Soon.jpg',
-                  ].concat([
-                    '/portfolio/thumbnails/That AI Thumbnail.webp',
-                    '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                    '/portfolio/thumbnails/Comet AI Ad.webp',
-                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
-                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
-                    '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                    '/portfolio/Laptopstore-Product-Ad.jpg',
-                    '/portfolio/Come-to-Dubai.webp',
-                    '/portfolio/11PC-Launch.jpg',
-                    '/portfolio/11PC-Event.jpg',
-                    '/portfolio/Birdbox-Launching-Soon.jpg',
-                  ]).map((src, i) => (
-                    <div key={i} className="alm-creative-card" aria-hidden={i >= 11}>
-                      <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
-                      <span className="alm-cc-play">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-                      </span>
-                    </div>
-                  ))}
-                </div>
+              <div className="alm-creative-bento">
+                {[
+                  '/portfolio/thumbnails/Campa Cola AI Ad.webp',
+                  '/portfolio/thumbnails/That AI Thumbnail.webp',
+                  '/portfolio/thumbnails/Comet AI Ad.webp',
+                  '/portfolio/thumbnails/LS Swap Thumbnail.webp',
+                  '/portfolio/thumbnails/Organix Rosa Move In.webp',
+                ].map((src, i) => (
+                  <div key={i} className="alm-creative-card">
+                    <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
+                    <span className="alm-cc-play">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -532,9 +512,8 @@ export default function AILeadMachinePage() {
                     <span className="alm-phone-hname">AI Lead Machine<i>Online</i></span>
                   </div>
                   <div className="alm-phone-chat">
-                    <div className="alm-msg in"><p>Hey! Is this still available?</p><time>10:30 AM</time></div>
-                    <div className="alm-msg out"><p>Yes, it is! How can I help you?</p><time>10:31 AM</time></div>
-                    <div className="alm-msg in"><p>Can you share more details?</p><time>10:31 AM</time></div>
+                    <div className="alm-msg in"><p>Is the DGCA ground class batch still open?</p><time>10:30 AM</time></div>
+                    <div className="alm-msg out"><p>Yes! Limited seats left for the 15 June batch. Here are the details:</p><time>10:31 AM</time></div>
                     <div className="alm-msg out alm-msg-card">
                       <div className="alm-prodcard">
                         <img className="alm-prodcard-img" src={encodeURI('/portfolio/WC-Event.jpg')} alt="" />
@@ -547,6 +526,8 @@ export default function AILeadMachinePage() {
                       </div>
                       <time>10:32 AM</time>
                     </div>
+                    <div className="alm-msg in"><p>Perfect, how do I enroll?</p><time>10:32 AM</time></div>
+                    <div className="alm-msg out"><p>I'll reserve your seat and send the enrollment link now.</p><time>10:33 AM</time></div>
                   </div>
                   <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
                 </div>

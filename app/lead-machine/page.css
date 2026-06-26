@@ -921,57 +921,30 @@
   min-height: 42px;
 }
 
-/* ── Col 01: creative carousel ─────────────────────────── */
-.alm-creative-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
+/* ── Col 01: creative bento (compact mosaic) ───────────── */
+.alm-creative-bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 98px;
+  gap: 8px;
   min-width: 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
-}
-
-.alm-creative-track {
-  display: flex;
-  width: max-content;
-  animation: alm-marquee 50s linear infinite;
-}
-
-.alm-creative-carousel:hover .alm-creative-track {
-  animation-play-state: paused;
-}
-
-@keyframes alm-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 .alm-creative-card {
   position: relative;
-  flex: 0 0 auto;
-  height: 188px;
-  margin-right: 10px;
   border-radius: 10px;
   overflow: hidden;
   background: #111;
 }
 
-/* base (used by phone media bubble): fill + cover */
+/* first tile is tall (2 rows) for the bento accent */
+.alm-creative-card:first-child { grid-row: span 2; }
+
 .alm-cc-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* bento carousel: card sizes to each creative's natural ratio */
-.alm-creative-card .alm-cc-img {
-  position: static;
-  height: 100%;
-  width: auto;
-  max-width: none;
   object-fit: cover;
   display: block;
 }
@@ -1654,4 +1627,22 @@
     font-size: 15px;
     padding: 18px 32px;
   }
+}
+
+/* ── Section 1 mobile (stacked columns) ─────────────────── */
+@media (max-width: 760px) {
+  .alm-getting-sub { min-height: 0; }
+
+  /* campaign card: stack the two panels */
+  .alm-camp-panels { grid-template-columns: 1fr; }
+
+  /* manage: phone on top (centered), pipeline + meetings below */
+  .alm-manage { grid-template-columns: 1fr; gap: 16px; }
+  .alm-phone { width: 100%; max-width: 300px; margin: 0 auto; }
+  .alm-manage-right { width: 100%; }
+}
+
+@media (max-width: 760px) and (min-width: 521px) {
+  /* roomy enough to keep pipeline + meetings side by side */
+  .alm-manage-right { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
 }

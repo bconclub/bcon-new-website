@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): static bento (not carousel), coherent chat, mobile
+
+- `app/lead-machine/page.tsx` + `page.css`:
+  - "We Make the Content" is now a **static bento mosaic** (no scrolling/animation) — a compact 2-column grid of 5 real creatives with a tall accent tile; removed the auto-scrolling carousel and its marquee animation entirely
+  - Rewrote the "We Manage Every Lead" chat to a coherent product inquiry: "Is the DGCA ground class batch still open?" → "Yes! Limited seats for the 15 June batch. Here are the details:" → product card → "Perfect, how do I enroll?" → "I'll reserve your seat and send the enrollment link now." (replaces the nonsensical "Yes, how can I help you?")
+  - Mobile: Section 1 columns now stack properly — campaign-card panels stack, the phone mockup is centered/capped, and the pipeline + meetings sit below it (fixes the blown-up mobile layout)
+- User-facing: content shows as a clean static bento, the lead-management demo reads like a real conversation, and Section 1 is usable on mobile
+
 ## 2026-06-25 IST · feat(lead-machine): swap in the real AI Lead Machine VSL video
 
 - Added `public/assets/AI-Lead-Machine-VSL.mp4` (16.7MB, 31s) and pointed the hero VSL player at it, replacing the old placeholder `Lead Machine Landing.mp4`
