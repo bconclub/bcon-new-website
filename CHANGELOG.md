@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): Section 1 = three equal cards, small tiles, real-estate chat
+
+- `app/lead-machine/page.tsx` + `page.css`: rebuilt the three "What You're Getting" columns as THREE EQUAL CARDS — all exactly the same width and height (359×490), sharing one `.alm-card` shell (bg, border, radius). Fixes the long-standing mismatched-size problem
+  - Card 1 "We Make the Content": a tidy 3×4 grid of 12 small creative tiles (content-library look) instead of big posters
+  - Card 2 "We Run the Campaigns": same campaign UI, now in the shared equal card
+  - Card 3 "We Manage Every Lead": replaced the phone-bezel mockup with a flat chat card and a REAL-ESTATE conversation — "Looking for a 3 BHK in Whitefield?" → a horizontal carousel of 3 property cards (real apartment photos via Unsplash: Prestige Lakeside, Brigade Cosmopolis, Sobha Dream Acres — 3 BHK, ₹ prices, Available · Whitefield) → "Can I visit this weekend?" → "Site visit booked for Saturday, 11 AM."
+- Added `public/unsplash/property-*.jpg` (3 real-estate photos, ~25KB each) + `_credits.json`
+- Verified in a real browser: three cards identical size, property photos load, no horizontal overflow
+
 ## 2026-06-25 IST · fix(lead-machine): bento shows full creatives (no crop), balanced
 
 - `app/lead-machine/page.tsx` + `page.css`: "We Make the Content" bento now shows each creative at its natural aspect ratio (CSS-columns masonry, `height:auto`) instead of cropping posters into fixed cells — fixes the chopped-off ad text (e.g. "SWAP DEALS", Organix, Thar were being cut)

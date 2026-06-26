@@ -405,22 +405,29 @@ export default function AILeadMachinePage() {
             <div className="alm-getting-col">
               <div className="alm-getting-num">01</div>
               <h3 className="alm-getting-col-title">We Make the Content</h3>
-              <p className="alm-getting-sub">Scroll-stopping content that makes people stop, watch, and want.</p>
+              <p className="alm-getting-sub">Scroll-stopping ads and reels that make people stop, watch, and want.</p>
 
-              <div className="alm-creative-bento">
-                {[
-                  '/portfolio/thumbnails/Campa Cola AI Ad.webp',
-                  '/portfolio/thumbnails/Comet AI Ad.webp',
-                  '/portfolio/thumbnails/That AI Thumbnail.webp',
-                  '/portfolio/thumbnails/LS Swap Thumbnail.webp',
-                ].map((src, i) => (
-                  <div key={i} className="alm-creative-card">
-                    <img className="alm-cc-img" src={encodeURI(src)} alt="" loading="lazy" />
-                    <span className="alm-cc-play">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-                    </span>
-                  </div>
-                ))}
+              <div className="alm-card alm-card-tiles">
+                <div className="alm-tilegrid">
+                  {[
+                    '/portfolio/thumbnails/Campa Cola AI Ad.webp',
+                    '/portfolio/thumbnails/That AI Thumbnail.webp',
+                    '/portfolio/thumbnails/Comet AI Ad.webp',
+                    '/portfolio/thumbnails/Organix Rosa Move In.webp',
+                    '/portfolio/thumbnails/LS Swap Thumbnail.webp',
+                    '/portfolio/thumbnails/Birdbox Claude Thumbnail.webp',
+                    '/portfolio/Laptopstore-Product-Ad.jpg',
+                    '/portfolio/Come-to-Dubai.webp',
+                    '/portfolio/WC-Event.jpg',
+                    '/portfolio/11PC-Launch.jpg',
+                    '/portfolio/11PC-Event.jpg',
+                    '/portfolio/Birdbox-Launching-Soon.jpg',
+                  ].map((src, i) => (
+                    <div key={i} className="alm-tile">
+                      <img src={encodeURI(src)} alt="" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -428,9 +435,9 @@ export default function AILeadMachinePage() {
             <div className="alm-getting-col">
               <div className="alm-getting-num">02</div>
               <h3 className="alm-getting-col-title">We Run the Campaigns</h3>
-              <p className="alm-getting-sub">Audience research, targeting, the full Meta and Google build, launched and managed by us. You never log into an ad account.</p>
+              <p className="alm-getting-sub">We build and run your full Meta and Google ad system, start to finish.</p>
 
-              <div className="alm-camp">
+              <div className="alm-card alm-camp">
                 <div className="alm-camp-top">
                   <span className="alm-camp-plat alm-plat-white"><BrandMeta /></span>
                   <span className="alm-camp-plat alm-plat-white"><BrandGoogle /></span>
@@ -513,62 +520,39 @@ export default function AILeadMachinePage() {
             <div className="alm-getting-col">
               <div className="alm-getting-num">03</div>
               <h3 className="alm-getting-col-title">We Manage Every Lead</h3>
-              <p className="alm-getting-sub">Every lead is captured, qualified, and followed up until they're ready.</p>
+              <p className="alm-getting-sub">Every lead answered, qualified, and followed up until they're ready.</p>
 
-              <div className="alm-manage">
-                <div className="alm-phone">
-                  <div className="alm-phone-notch" />
-                  <div className="alm-phone-header">
-                    <span className="alm-phone-avatar">AI</span>
-                    <span className="alm-phone-hname">AI Lead Machine<i>Online</i></span>
-                  </div>
-                  <div className="alm-phone-chat">
-                    <div className="alm-msg in"><p>Is the DGCA ground class batch still open?</p><time>10:30 AM</time></div>
-                    <div className="alm-msg out"><p>Yes! Limited seats left for the 15 June batch. Here are the details:</p><time>10:31 AM</time></div>
-                    <div className="alm-msg out alm-msg-card">
-                      <div className="alm-prodcard">
-                        <img className="alm-prodcard-img" src={encodeURI('/portfolio/WC-Event.jpg')} alt="" />
-                        <div className="alm-prodcard-body">
-                          <span className="alm-prodcard-title">DGCA Ground Classes</span>
-                          <span className="alm-prodcard-badge"><span className="alm-pc-dot" />Available · Batch 15 Jun</span>
-                          <span className="alm-prodcard-meta">Wind Chasers · Limited seats</span>
-                          <span className="alm-prodcard-btn">View Details</span>
+              <div className="alm-card alm-chat">
+                <div className="alm-chat-head">
+                  <span className="alm-chat-avatar">AI</span>
+                  <span className="alm-chat-name">AI Lead Machine<i>Online now</i></span>
+                </div>
+                <div className="alm-chat-body">
+                  <div className="alm-msg in"><p>Hi, looking for a 3 BHK in Whitefield. Anything available?</p><time>6:12 PM</time></div>
+                  <div className="alm-msg out"><p>Yes! 3 options match your budget. Take a look:</p><time>6:12 PM</time></div>
+                  <div className="alm-msg out alm-msg-props">
+                    <div className="alm-props">
+                      {[
+                        { img: '/unsplash/property-1-apt-61b07816.jpg', name: 'Prestige Lakeside', meta: '3 BHK · ₹1.45 Cr' },
+                        { img: '/unsplash/property-2-tower-dd8c05e3.jpg', name: 'Brigade Cosmopolis', meta: '3 BHK · ₹1.30 Cr' },
+                        { img: '/unsplash/property-3-villa-78b9dba3.jpg', name: 'Sobha Dream Acres', meta: '3 BHK · ₹98 L' },
+                      ].map((p, i) => (
+                        <div key={i} className="alm-prop">
+                          <img className="alm-prop-img" src={p.img} alt="" loading="lazy" />
+                          <div className="alm-prop-body">
+                            <span className="alm-prop-name">{p.name}</span>
+                            <span className="alm-prop-meta">{p.meta}</span>
+                            <span className="alm-prop-loc"><span className="alm-pc-dot" />Available · Whitefield</span>
+                          </div>
                         </div>
-                      </div>
-                      <time>10:32 AM</time>
+                      ))}
                     </div>
-                    <div className="alm-msg in"><p>Perfect, how do I enroll?</p><time>10:32 AM</time></div>
-                    <div className="alm-msg out"><p>I'll reserve your seat and send the enrollment link now.</p><time>10:33 AM</time></div>
+                    <time>6:13 PM</time>
                   </div>
-                  <div className="alm-phone-input"><span>Type a message</span><span className="alm-phone-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
+                  <div className="alm-msg in"><p>Love the first one. Can I visit this weekend?</p><time>6:14 PM</time></div>
+                  <div className="alm-msg out"><p>Done! Site visit booked for Saturday, 11 AM.</p><time>6:14 PM</time></div>
                 </div>
-
-                <div className="alm-manage-right">
-                  <div className="alm-pipeline">
-                    <div className="alm-pipeline-title">Lead Pipeline</div>
-                    {[
-                      { stage: 'New Lead', count: 127, color: '#CDFC2E' },
-                      { stage: 'Contacted', count: 94, color: '#FFB020' },
-                      { stage: 'Qualified', count: 61, color: '#3B9EFF' },
-                      { stage: 'Booked', count: 23, color: '#A855F7' },
-                      { stage: 'Won', count: 11, color: '#22C55E' },
-                    ].map((r, i) => (
-                      <div key={i} className="alm-pipeline-row">
-                        <span className="alm-pipeline-dot" style={{ background: r.color }} />
-                        <span className="alm-pipeline-stage">{r.stage}</span>
-                        <span className="alm-pipeline-count">{r.count}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="alm-meetings">
-                    <span className="alm-meetings-label">Qualified Meetings Booked</span>
-                    <span className="alm-meetings-row"><b>23</b><i className="up">+15%</i></span>
-                    <svg className="alm-meetings-chart" viewBox="0 0 120 36" preserveAspectRatio="none">
-                      <path d="M0,30 L20,26 L40,28 L60,18 L80,20 L100,10 L120,6" fill="none" stroke="#CDFC2E" strokeWidth="2" />
-                    </svg>
-                  </div>
-                </div>
+                <div className="alm-chat-input"><span>Type a message</span><span className="alm-chat-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
               </div>
             </div>
 
