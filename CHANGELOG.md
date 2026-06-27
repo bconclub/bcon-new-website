@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): CTA shine/pulse, remove Proof, fix card 3 mobile
+
+- `app/lead-machine/page.tsx` + `page.css`:
+  - Hero "Get a Call Back" button now has a metallic shine sweep across it + a soft pulse glow so it draws the eye (respects prefers-reduced-motion); tightened the name/phone input rows a touch
+  - Removed the Proof / case-study section entirely (per request — no real case studies yet)
+  - Fixed card 3 on mobile: the phone + pipeline were cramped side-by-side; now the phone is centered at a proper iPhone aspect on top, with the Lead Pipeline + Site Visits stacked below, and stacked cards size to their content
+- User-facing: the call-back CTA is more clickable, the Proof section is gone, and the lead card is no longer broken on phones
+
 ## 2026-06-25 IST · feat(lead-machine): modern light WhatsApp + property carousel in card 3
 
 - `app/lead-machine/page.tsx` + `page.css`:

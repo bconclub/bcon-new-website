@@ -832,35 +832,6 @@ export default function AILeadMachinePage() {
         </div>
       </section>
 
-      {/* ── SECTION 6 — PROOF ────────────────────────────────── */}
-      <section className="alm-section alm-proof">
-        <div className="alm-container">
-          <div className="alm-section-label">Proof</div>
-          <h2 className="alm-section-heading">Don't Take Our Word For It.</h2>
-
-          <div className="alm-proof-grid">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="alm-proof-card alm-proof-placeholder">
-                <div className="alm-proof-tag">Case Study {i}</div>
-                <div className="alm-proof-stage">
-                  <span className="alm-proof-stage-label">Starting Point</span>
-                  <p>Coming soon</p>
-                </div>
-                <div className="alm-proof-stage">
-                  <span className="alm-proof-stage-label">What the AI Lead Machine Did</span>
-                  <p>Coming soon</p>
-                </div>
-                <div className="alm-proof-stage">
-                  <span className="alm-proof-stage-label">Result</span>
-                  <p>Coming soon</p>
-                </div>
-                <div className="alm-proof-soon">Coming Soon</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── SECTION 7 — PRICING ──────────────────────────────── */}
       <section className="alm-section alm-pricing" id="pricing">
         <div className="alm-container">

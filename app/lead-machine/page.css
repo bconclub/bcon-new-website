@@ -858,17 +858,44 @@
   color: #fff;
   font-family: 'Anybody', sans-serif;
   font-size: 15px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   outline: none;
 }
 .alm-callback-input::placeholder { color: #6B6B6B; }
 .alm-callback-input:first-of-type { border-right: 1px solid #2D2D2D; }
 .alm-callback-btn {
+  position: relative;
+  overflow: hidden;
   flex-shrink: 0;
   padding: 13px 22px;
   border-radius: 8px;
   font-size: 14px;
   white-space: nowrap;
+  animation: almCtaPulse 2.6s ease-in-out infinite;
+}
+/* metallic shine sweeping across the button */
+.alm-callback-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-22deg);
+  animation: almCtaShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes almCtaShine {
+  0% { left: -75%; }
+  55%, 100% { left: 145%; }
+}
+@keyframes almCtaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(205, 252, 46, 0.35); transform: translateY(0); }
+  50% { box-shadow: 0 0 26px 3px rgba(205, 252, 46, 0.45); transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .alm-callback-btn, .alm-callback-btn::after { animation: none; }
 }
 .alm-callback-err {
   display: block;
@@ -1925,6 +1952,13 @@
 /* ── Section 1 mobile (stacked equal cards) ─────────────── */
 @media (max-width: 760px) {
   .alm-getting-sub { min-height: 0; }
-  /* card 3 phone gets narrower on mobile; keep its right column readable */
-  .alm-manage3 { grid-template-columns: 170px 1fr; }
+  /* stacked cards size to their content on mobile */
+  .alm-card { height: auto; }
+  /* card 3: phone on top (centered, real iPhone aspect), pipeline + visits below */
+  .alm-manage3 { grid-template-columns: 1fr; gap: 14px; }
+  .alm-iphone { width: 220px; max-width: 80%; margin: 0 auto; aspect-ratio: 9 / 19; }
+  .alm-pipe-row { flex: 0 0 auto; min-height: 26px; }
+  .alm-pipe-stage { font-size: 12px; }
+  .alm-pipe-count { font-size: 13px; }
+  .alm-pipe-title { font-size: 12px; }
 }
