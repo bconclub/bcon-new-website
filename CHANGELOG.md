@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): scrollable chat, centered How-It-Works with step cards
+
+- `app/lead-machine/page.css`:
+  - Made the "We Manage Every Lead" chat card scrollable (`overflow-y: auto` with a thin custom scrollbar) so the full conversation can be scrolled, instead of clipping the top
+  - "How It Works" section header now centered (eyebrow + "Three Steps. Live in Days.")
+  - Each of the 3 steps is now its own container card (equal size, bg + border + radius, centered content, number circle on top), with arrows centered between them; mobile stacks the cards
+- User-facing: the lead chat is interactive (scrollable) and How It Works reads as a clean centered 3-card row
+
 ## 2026-06-25 IST · fix(lead-machine): fix broken Google Ads icon in Ad Distribution
 
 - `app/lead-machine/page.tsx`: rebuilt the `BrandGoogleAds` SVG — the old version's rotation origins collapsed the bars into thin broken lines. Now two rounded bars rotated around the top form the recognizable Google Ads inverted-V (yellow + blue) with the green circle

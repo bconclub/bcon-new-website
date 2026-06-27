@@ -1251,11 +1251,15 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 9px;
   padding: 14px;
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
 }
+.alm-chat-body::-webkit-scrollbar { width: 5px; }
+.alm-chat-body::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+.alm-chat-body::-webkit-scrollbar-track { background: transparent; }
 
 .alm-chat .alm-msg { max-width: 84%; display: flex; flex-direction: column; }
 .alm-chat .alm-msg p { font-size: 12px; line-height: 1.35; padding: 8px 11px; border-radius: 12px; color: #fff; margin: 0; }
@@ -1431,19 +1435,33 @@
 }
 
 /* ── SECTION 2 — HOW IT WORKS ──────────────────────────────────── */
+.alm-how .alm-section-label,
+.alm-how .alm-section-heading { text-align: center; }
+
 .alm-steps {
   display: flex;
   align-items: stretch;
-  gap: 0;
+  justify-content: center;
+  gap: 16px;
 }
 
 .alm-step {
   flex: 1;
+  background: #0C0C0C;
+  border: 1px solid #1f1f1f;
+  border-radius: 14px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 8px 24px 8px 0;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.alm-step:hover {
+  border-color: #CDFC2E;
+  transform: translateY(-4px);
 }
 
 .alm-step-num {
@@ -1463,7 +1481,7 @@
 .alm-step-body h3 {
   font-size: 20px;
   font-weight: 800;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #fff;
 }
 
@@ -1475,18 +1493,17 @@
 
 .alm-step-arrow {
   flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 16px;
+  align-self: center;
   color: #CDFC2E;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
+  width: 32px;
 }
 
 .alm-step-arrow svg {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 /* ── SECTION 3 — PROBLEM (LIST) ────────────────────────────────── */
@@ -1659,13 +1676,11 @@
 
   .alm-steps {
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
   }
 
   .alm-step {
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0;
+    padding: 26px 22px;
   }
 
   .alm-step-arrow {
