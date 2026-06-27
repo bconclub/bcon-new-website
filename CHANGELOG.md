@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): modern light WhatsApp + property carousel in card 3
+
+- `app/lead-machine/page.tsx` + `page.css`:
+  - Switched the card-3 phone chat to a modern, lighter WhatsApp theme — beige chat background (#efeae2), light header (#f0f2f5), white incoming bubbles, light-green outgoing bubbles (#d9fdd3), green send button, soft bubble shadows
+  - Brought back the property carousel inside the chat — a horizontal-scroll row of 3 property cards (Prestige Lakeside / Brigade Cosmopolis / Sobha Dream Acres, 3 BHK, ₹ prices, Available · Whitefield) instead of the single image
+- User-facing: the lead-management demo now reads like a real, modern WhatsApp conversation with a swipeable property carousel
+
 ## 2026-06-25 IST · fix(lead-machine): card 3 phone keeps real iPhone proportions
 
 - `app/lead-machine/page.css`: the card-3 iPhone was being stretched to the full 490px card height, breaking its aspect ratio (too skinny). Reduced the three equal cards to 446px and widened the phone column to 194px so the phone now fills the height at a true ~0.46 iPhone aspect (no stretch, no empty gap), with a compact-but-readable Lead Pipeline beside it. Verified all three cards stay equal (446×359), the phone aspect is 0.462, and cards 1/2 (bento, campaign) still fit without clipping

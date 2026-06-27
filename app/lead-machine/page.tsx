@@ -620,13 +620,27 @@ export default function AILeadMachinePage() {
                   </div>
                   <div className="alm-wa-chat">
                     <div className="alm-wa-msg in"><p>Hi! Is the 3 BHK in Whitefield still available?</p><time>6:12</time></div>
-                    <div className="alm-wa-msg out"><p>Yes! Sharing the best match now:</p><time>6:12 ✓✓</time></div>
-                    <div className="alm-wa-msg out alm-wa-img">
-                      <img src="/unsplash/property-1-apt-61b07816.jpg" alt="" loading="lazy" />
-                      <span className="alm-wa-imgcap">Prestige Lakeside · 3 BHK · ₹1.45 Cr</span>
+                    <div className="alm-wa-msg out"><p>Yes! 3 options match. Take a look:</p><time>6:12 ✓✓</time></div>
+                    <div className="alm-wa-msg out alm-wa-props">
+                      <div className="alm-wa-carousel">
+                        {[
+                          { img: '/unsplash/property-1-apt-61b07816.jpg', name: 'Prestige Lakeside', meta: '3 BHK · ₹1.45 Cr' },
+                          { img: '/unsplash/property-2-tower-dd8c05e3.jpg', name: 'Brigade Cosmopolis', meta: '3 BHK · ₹1.30 Cr' },
+                          { img: '/unsplash/property-3-villa-78b9dba3.jpg', name: 'Sobha Dream Acres', meta: '3 BHK · ₹98 L' },
+                        ].map((p, i) => (
+                          <div key={i} className="alm-wa-prop">
+                            <img className="alm-wa-prop-img" src={p.img} alt="" loading="lazy" />
+                            <div className="alm-wa-prop-body">
+                              <span className="alm-wa-prop-name">{p.name}</span>
+                              <span className="alm-wa-prop-meta">{p.meta}</span>
+                              <span className="alm-wa-prop-loc">Available · Whitefield</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                       <time>6:12 ✓✓</time>
                     </div>
-                    <div className="alm-wa-msg in"><p>Love it. Can I visit this weekend?</p><time>6:14</time></div>
+                    <div className="alm-wa-msg in"><p>Love the first one. Can I visit this weekend?</p><time>6:14</time></div>
                     <div className="alm-wa-msg out"><p>Booked! Site visit Sat, 11 AM.</p><time>6:14 ✓✓</time></div>
                   </div>
                   <div className="alm-wa-input">
