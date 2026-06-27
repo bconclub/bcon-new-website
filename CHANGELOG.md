@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): correct Meta logo in campaign card
+
+- `app/lead-machine/page.tsx`: replaced the hand-drawn `BrandMeta` path (which rendered as an unrecognizable blob) with the real Meta infinity-loop logo path + its blue gradient. The top badge now shows the proper Meta mark next to the Google G
+- User-facing: the "We Run the Campaigns" platform badges are now both accurate brand logos
+
 ## 2026-06-25 IST · feat(lead-machine): scrollable chat, centered How-It-Works with step cards
 
 - `app/lead-machine/page.css`:
