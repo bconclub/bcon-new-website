@@ -1176,7 +1176,7 @@
 
 /* ── Shared equal card shell (all three columns) ───────── */
 .alm-card {
-  height: 490px;
+  height: 446px;
   background: #0C0C0C;
   border: 1px solid #1f1f1f;
   border-radius: 16px;
@@ -1335,17 +1335,17 @@
 /* ── Col 03: iPhone (WhatsApp) + pipeline + site visits ─── */
 .alm-manage3 {
   display: grid;
-  grid-template-columns: 156px 1fr;
+  grid-template-columns: 194px 1fr;
   gap: 12px;
   padding: 12px;
 }
 
-/* iPhone frame */
+/* iPhone frame — width chosen so it fills the card height at a real ~9:20 phone ratio */
 .alm-iphone {
   position: relative;
   background: #0b141a;
   border: 5px solid #1a1a1a;
-  border-radius: 26px;
+  border-radius: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1421,21 +1421,21 @@
 }
 
 /* right: pipeline + site visits */
-.alm-manage3-right { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.alm-manage3-right { align-self: stretch; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .alm-pipe {
   flex: 1;
   background: #141414; border: 1px solid #222; border-radius: 12px;
-  padding: 13px 13px 8px;
+  padding: 12px 11px 8px;
   display: flex; flex-direction: column;
 }
-.alm-pipe-title { font-size: 11px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-.alm-pipe-row { flex: 1; display: flex; align-items: center; gap: 9px; min-height: 22px; }
+.alm-pipe-title { font-size: 10px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+.alm-pipe-row { flex: 1; display: flex; align-items: center; gap: 7px; min-height: 20px; }
 .alm-pipe-icon {
-  width: 18px; height: 18px; border-radius: 50%;
+  width: 16px; height: 16px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.alm-pipe-stage { flex: 1; font-size: 11px; color: #cfcfcf; }
-.alm-pipe-count { font-size: 12px; font-weight: 800; color: #fff; }
+.alm-pipe-stage { flex: 1; font-size: 10px; color: #cfcfcf; white-space: nowrap; }
+.alm-pipe-count { font-size: 11px; font-weight: 800; color: #fff; }
 
 .alm-visits {
   background: #141414; border: 1px solid #222; border-radius: 12px;
@@ -1902,6 +1902,6 @@
 /* ── Section 1 mobile (stacked equal cards) ─────────────── */
 @media (max-width: 760px) {
   .alm-getting-sub { min-height: 0; }
-  /* cards stack full-width; keep them equal but a touch shorter */
-  .alm-card { height: 460px; }
+  /* card 3 phone gets narrower on mobile; keep its right column readable */
+  .alm-manage3 { grid-template-columns: 170px 1fr; }
 }

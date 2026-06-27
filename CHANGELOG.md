@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): card 3 phone keeps real iPhone proportions
+
+- `app/lead-machine/page.css`: the card-3 iPhone was being stretched to the full 490px card height, breaking its aspect ratio (too skinny). Reduced the three equal cards to 446px and widened the phone column to 194px so the phone now fills the height at a true ~0.46 iPhone aspect (no stretch, no empty gap), with a compact-but-readable Lead Pipeline beside it. Verified all three cards stay equal (446×359), the phone aspect is 0.462, and cards 1/2 (bento, campaign) still fit without clipping
+- User-facing: the phone mockup looks like a real phone instead of a stretched sliver
+
 ## 2026-06-25 IST · feat(lead-machine): hero CTA is now a "Get a Call Back" quick form
 
 - `app/lead-machine/page.tsx` + `page.css`: replaced the hero CTA button with a compact "Get a Call Back" quick form (Name + Phone) styled as a single search-bar row with the green CTA. On submit it sends the lead straight to PROXe (`/api/website`) tagged `service: ai-lead-machine` (brand falls back to the name), so the AI Lead Machine has the context and can start the WhatsApp conversation; also fires the GTM `web_lead` event + email notification. Shows a confirmation ("Our AI Lead Machine will reach out on WhatsApp shortly.")
