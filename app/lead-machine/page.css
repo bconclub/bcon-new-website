@@ -836,6 +836,77 @@
   color: #fff;
 }
 
+/* ── HERO "Get a Call Back" quick form ─────────────────────────── */
+.alm-callback {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 8px;
+}
+.alm-callback-row {
+  display: flex;
+  gap: 8px;
+  background: #0A0A0A;
+  border: 1px solid #2D2D2D;
+  border-radius: 12px;
+  padding: 7px;
+}
+.alm-callback-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  padding: 12px 14px;
+  outline: none;
+}
+.alm-callback-input::placeholder { color: #6B6B6B; }
+.alm-callback-input:first-of-type { border-right: 1px solid #2D2D2D; }
+.alm-callback-btn {
+  flex-shrink: 0;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.alm-callback-err {
+  display: block;
+  margin-top: 9px;
+  font-size: 13px;
+  color: #ff5a5a;
+  text-align: left;
+}
+.alm-callback-done {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(205, 252, 46, 0.08);
+  border: 1px solid rgba(205, 252, 46, 0.3);
+  border-radius: 12px;
+  padding: 18px 20px;
+  color: #E4E4E4;
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.alm-callback-done-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #CDFC2E; color: #000;
+  display: flex; align-items: center; justify-content: center;
+}
+.alm-callback-done-icon svg { width: 16px; height: 16px; }
+
+@media (max-width: 560px) {
+  .alm-callback-row { flex-direction: column; gap: 0; padding: 6px; }
+  .alm-callback-input:first-of-type { border-right: none; border-bottom: 1px solid #2D2D2D; }
+  .alm-callback-btn { margin-top: 6px; justify-content: center; }
+}
+
 /* ── HERO BULLETS ──────────────────────────────────────────────── */
 .alm-hero-bullets {
   display: flex;

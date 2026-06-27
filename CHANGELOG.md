@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): hero CTA is now a "Get a Call Back" quick form
+
+- `app/lead-machine/page.tsx` + `page.css`: replaced the hero CTA button with a compact "Get a Call Back" quick form (Name + Phone) styled as a single search-bar row with the green CTA. On submit it sends the lead straight to PROXe (`/api/website`) tagged `service: ai-lead-machine` (brand falls back to the name), so the AI Lead Machine has the context and can start the WhatsApp conversation; also fires the GTM `web_lead` event + email notification. Shows a confirmation ("Our AI Lead Machine will reach out on WhatsApp shortly.")
+- Client-side validation (name required, phone ≥ 7 digits); stacks on mobile
+- User-facing: visitors can request a callback in two fields from the hero instead of scrolling to the full form
+
 ## 2026-06-25 IST · feat(lead-machine): iPhone WhatsApp card 3, hero bullet reveal, drop "Three Jobs"
 
 - `app/lead-machine/page.tsx` + `page.css`:

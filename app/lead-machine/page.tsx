@@ -194,6 +194,11 @@ export default function AILeadMachinePage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  // Hero "Get a Call Back" quick form (name + phone -> AI Lead Machine / PROXe)
+  const [cbName, setCbName] = useState('');
+  const [cbPhone, setCbPhone] = useState('');
+  const [cbDone, setCbDone] = useState(false);
+  const [cbErr, setCbErr] = useState('');
   const [vslPlaying, setVslPlaying] = useState(false);
   const vslRef = useRef<HTMLVideoElement>(null);
 
@@ -343,6 +348,37 @@ export default function AILeadMachinePage() {
     document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Hero quick "Get a Call Back" — sends name + phone to PROXe as an
+  // AI Lead Machine lead so the AI can start the WhatsApp conversation.
+  const handleCallback = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cbName.trim()) { setCbErr('Please enter your name'); return; }
+    if (cbPhone.replace(/\D/g, '').length < 7) { setCbErr('Please enter a valid phone number'); return; }
+    setCbErr('');
+
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'web_lead',
+        formType: 'AI Lead Machine Callback',
+        service: 'ai-lead-machine',
+      });
+    }
+
+    // Reuse the PROXe submission (brand falls back to the lead's name).
+    submitToPROXe({ name: cbName.trim(), businessType: '', phone: cbPhone.trim(), email: '' });
+
+    fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'lead',
+        data: { name: cbName.trim(), phone: cbPhone.trim(), service: 'AI Lead Machine - Call Back' },
+      }),
+    }).catch((err) => console.error('Email notification failed:', err));
+
+    setCbDone(true);
+  };
+
   return (
     <div className="alm-page">
 
@@ -404,9 +440,37 @@ export default function AILeadMachinePage() {
           </div>
         </div>
 
-        <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
-          Get the AI Lead Machine <ArrowRight className="alm-cta-arrow" />
-        </button>
+        {cbDone ? (
+          <div className="alm-callback-done">
+            <span className="alm-callback-done-icon"><IconCheck /></span>
+            Got it{cbName ? `, ${cbName.split(' ')[0]}` : ''}! Our AI Lead Machine will reach out on WhatsApp shortly.
+          </div>
+        ) : (
+          <form className="alm-callback" onSubmit={handleCallback}>
+            <div className="alm-callback-row">
+              <input
+                type="text"
+                placeholder="Your name"
+                value={cbName}
+                onChange={(e) => { setCbName(e.target.value); if (cbErr) setCbErr(''); }}
+                className="alm-callback-input"
+                aria-label="Your name"
+              />
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={cbPhone}
+                onChange={(e) => { setCbPhone(e.target.value); if (cbErr) setCbErr(''); }}
+                className="alm-callback-input"
+                aria-label="Phone number"
+              />
+              <button type="submit" className="alm-cta-btn alm-callback-btn">
+                Get a Call Back <ArrowRight className="alm-cta-arrow" />
+              </button>
+            </div>
+            {cbErr && <span className="alm-callback-err">{cbErr}</span>}
+          </form>
+        )}
 
         <p className="alm-hero-note">First 100 businesses get 50% off. After that it's gone.</p>
       </section>
