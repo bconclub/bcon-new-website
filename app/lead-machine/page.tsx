@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { getMergedUTMParams } from '@/lib/tracking/utm';
 import './page.css';
 
@@ -197,6 +197,24 @@ export default function AILeadMachinePage() {
   const [vslPlaying, setVslPlaying] = useState(false);
   const vslRef = useRef<HTMLVideoElement>(null);
 
+  // Reveal hero bullets (and other [data-reveal] elements) as they enter view
+  useEffect(() => {
+    const els = document.querySelectorAll('[data-reveal]');
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('alm-in');
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   const playVsl = () => {
     setVslPlaying(true);
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -368,19 +386,19 @@ export default function AILeadMachinePage() {
         </p>
 
         <div className="alm-hero-bullets">
-          <div className="alm-hero-bullet">
+          <div className="alm-hero-bullet" data-reveal>
             <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get the ads made for you, so you don't touch a thing</span>
           </div>
-          <div className="alm-hero-bullet">
+          <div className="alm-hero-bullet" data-reveal>
             <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get them launched and managed for you, so you don't waste a rupee</span>
           </div>
-          <div className="alm-hero-bullet">
+          <div className="alm-hero-bullet" data-reveal>
             <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get every lead answered in seconds, 24/7, so none go cold</span>
           </div>
-          <div className="alm-hero-bullet">
+          <div className="alm-hero-bullet" data-reveal>
             <span className="alm-bullet-check"><IconCheck /></span>
             <span>You get only the ready-to-buy ones, so you stop wasting time on tyre-kickers</span>
           </div>
@@ -398,7 +416,7 @@ export default function AILeadMachinePage() {
         <div className="alm-container alm-getting-container">
           <div className="alm-section-label alm-center">What You're Actually Getting</div>
           <h2 className="alm-section-heading alm-center">
-            One System. Three Jobs.<br /><span className="alm-accent">All Done For You.</span>
+            One System.<br /><span className="alm-accent">All Done For You.</span>
           </h2>
           <p className="alm-getting-intro alm-center">
             Most people sell you a piece. A tool. A course. An ad guy. You end up stitching it together yourself.
@@ -528,37 +546,68 @@ export default function AILeadMachinePage() {
               <h3 className="alm-getting-col-title">We Manage Every Lead</h3>
               <p className="alm-getting-sub">Every lead answered, qualified, and followed up until they're ready.</p>
 
-              <div className="alm-card alm-chat">
-                <div className="alm-chat-head">
-                  <span className="alm-chat-avatar">AI</span>
-                  <span className="alm-chat-name">AI Lead Machine<i>Online now</i></span>
-                </div>
-                <div className="alm-chat-body">
-                  <div className="alm-msg in"><p>Hi, looking for a 3 BHK in Whitefield. Anything available?</p><time>6:12 PM</time></div>
-                  <div className="alm-msg out"><p>Yes! 3 options match your budget. Take a look:</p><time>6:12 PM</time></div>
-                  <div className="alm-msg out alm-msg-props">
-                    <div className="alm-props">
-                      {[
-                        { img: '/unsplash/property-1-apt-61b07816.jpg', name: 'Prestige Lakeside', meta: '3 BHK · ₹1.45 Cr' },
-                        { img: '/unsplash/property-2-tower-dd8c05e3.jpg', name: 'Brigade Cosmopolis', meta: '3 BHK · ₹1.30 Cr' },
-                        { img: '/unsplash/property-3-villa-78b9dba3.jpg', name: 'Sobha Dream Acres', meta: '3 BHK · ₹98 L' },
-                      ].map((p, i) => (
-                        <div key={i} className="alm-prop">
-                          <img className="alm-prop-img" src={p.img} alt="" loading="lazy" />
-                          <div className="alm-prop-body">
-                            <span className="alm-prop-name">{p.name}</span>
-                            <span className="alm-prop-meta">{p.meta}</span>
-                            <span className="alm-prop-loc"><span className="alm-pc-dot" />Available · Whitefield</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <time>6:13 PM</time>
+              <div className="alm-card alm-manage3">
+                {/* iPhone WhatsApp automation */}
+                <div className="alm-iphone">
+                  <div className="alm-iphone-island" />
+                  <div className="alm-wa-head">
+                    <span className="alm-wa-avatar">AI</span>
+                    <span className="alm-wa-name">AI Lead Machine<i>online</i></span>
                   </div>
-                  <div className="alm-msg in"><p>Love the first one. Can I visit this weekend?</p><time>6:14 PM</time></div>
-                  <div className="alm-msg out"><p>Done! Site visit booked for Saturday, 11 AM.</p><time>6:14 PM</time></div>
+                  <div className="alm-wa-chat">
+                    <div className="alm-wa-msg in"><p>Hi! Is the 3 BHK in Whitefield still available?</p><time>6:12</time></div>
+                    <div className="alm-wa-msg out"><p>Yes! Sharing the best match now:</p><time>6:12 ✓✓</time></div>
+                    <div className="alm-wa-msg out alm-wa-img">
+                      <img src="/unsplash/property-1-apt-61b07816.jpg" alt="" loading="lazy" />
+                      <span className="alm-wa-imgcap">Prestige Lakeside · 3 BHK · ₹1.45 Cr</span>
+                      <time>6:12 ✓✓</time>
+                    </div>
+                    <div className="alm-wa-msg in"><p>Love it. Can I visit this weekend?</p><time>6:14</time></div>
+                    <div className="alm-wa-msg out"><p>Booked! Site visit Sat, 11 AM.</p><time>6:14 ✓✓</time></div>
+                  </div>
+                  <div className="alm-wa-input">
+                    <span>Type a message</span>
+                    <span className="alm-wa-send"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span>
+                  </div>
+                  <div className="alm-iphone-home" />
                 </div>
-                <div className="alm-chat-input"><span>Type a message</span><span className="alm-chat-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z" /></svg></span></div>
+
+                {/* Pipeline + site visits */}
+                <div className="alm-manage3-right">
+                  <div className="alm-pipe">
+                    <div className="alm-pipe-title">Lead Pipeline</div>
+                    {[
+                      { stage: 'New Lead', count: 127, color: '#22C55E' },
+                      { stage: 'Contacted', count: 94, color: '#FFB020' },
+                      { stage: 'Qualified', count: 61, color: '#3B9EFF' },
+                      { stage: 'Booked', count: 23, color: '#A855F7' },
+                      { stage: 'Won', count: 11, color: '#CDFC2E' },
+                    ].map((r, i) => (
+                      <div key={i} className="alm-pipe-row">
+                        <span className="alm-pipe-icon" style={{ background: r.color }}>
+                          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                        </span>
+                        <span className="alm-pipe-stage">{r.stage}</span>
+                        <span className="alm-pipe-count">{r.count}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="alm-visits">
+                    <span className="alm-visits-label">Site Visits Booked</span>
+                    <span className="alm-visits-row"><b>23</b><i>+15%</i></span>
+                    <svg className="alm-visits-chart" viewBox="0 0 120 36" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="almVisitsG" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#CDFC2E" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#CDFC2E" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,30 L20,26 L40,28 L60,18 L80,20 L100,10 L120,6 L120,36 L0,36 Z" fill="url(#almVisitsG)" />
+                      <path d="M0,30 L20,26 L40,28 L60,18 L80,20 L100,10 L120,6" fill="none" stroke="#CDFC2E" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 

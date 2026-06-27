@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-06-25 IST · feat(lead-machine): iPhone WhatsApp card 3, hero bullet reveal, drop "Three Jobs"
+
+- `app/lead-machine/page.tsx` + `page.css`:
+  - Rebuilt Card 3 ("We Manage Every Lead") to match the approved reference: a proper iPhone mockup (dynamic island, home indicator) running a WhatsApp-style automation chat in the real-estate context (Whitefield 3 BHK inquiry → property image → "Site visit booked Sat 11 AM", with ✓✓ read receipts), beside a Lead Pipeline (New Lead 127 / Contacted 94 / Qualified 61 / Booked 23 / Won 11, colored status icons) and a "Site Visits Booked" stat (23, +15%, chart). Still the same equal card size (359×490)
+  - Hero benefit bullets now reveal on scroll (IntersectionObserver) — each row fades/slides up and its green tick-mark pops in, staggered; respects prefers-reduced-motion
+  - Removed "Three Jobs." from the Section 1 heading → "One System. / All Done For You."
+- User-facing: card 3 reads as a real WhatsApp lead-automation demo with live pipeline/site-visit stats; the hero bullets animate in as you read them
+
 ## 2026-06-25 IST · fix(lead-machine): correct Meta logo in campaign card
 
 - `app/lead-machine/page.tsx`: replaced the hand-drawn `BrandMeta` path (which rendered as an unrecognizable blob) with the real Meta infinity-loop logo path + its blue gradient. The top badge now shows the proper Meta mark next to the Google G
