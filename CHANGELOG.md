@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-25 IST · fix(lead-machine): fix broken Google Ads icon in Ad Distribution
+
+- `app/lead-machine/page.tsx`: rebuilt the `BrandGoogleAds` SVG — the old version's rotation origins collapsed the bars into thin broken lines. Now two rounded bars rotated around the top form the recognizable Google Ads inverted-V (yellow + blue) with the green circle
+- User-facing: the 4th Ad Distribution platform icon now renders the Google Ads logo correctly
+
 ## 2026-06-25 IST · fix(lead-machine): content card is a true no-crop bento
 
 - `app/lead-machine/page.tsx` + `page.css`: the "We Make the Content" card now shows each creative at its OWN aspect ratio — a 3-column masonry (`column-count`, `height:auto` images) so stories stay 9:16, the landscape (Comet) stays 4:3, squares stay square. Nothing is cropped (the previous fixed grid was cover-cropping stories/landscapes into squares, which the user called out)

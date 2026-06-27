@@ -145,9 +145,9 @@ const BrandMessenger = () => (
 );
 const BrandGoogleAds = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="8.4" y="2.5" width="4.4" height="14.5" rx="2.2" transform="rotate(-30 10.6 9.75)" fill="#FBBC04" />
-    <rect x="11.2" y="2.5" width="4.4" height="14.5" rx="2.2" transform="rotate(30 13.4 9.75)" fill="#4285F4" />
-    <circle cx="6.6" cy="18" r="3.1" fill="#34A853" />
+    <rect x="9.6" y="3" width="4.8" height="18" rx="2.4" transform="rotate(-24 12 4.5)" fill="#FBBC04" />
+    <rect x="9.6" y="3" width="4.8" height="18" rx="2.4" transform="rotate(24 12 4.5)" fill="#4285F4" />
+    <circle cx="6.3" cy="18.3" r="2.9" fill="#34A853" />
   </svg>
 );
 
