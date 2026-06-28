@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-06-28 IST · copy(lead-machine): Tesla autonomy analogy for PROXe
+
+- `app/lead-machine/page.tsx`: Why-section card 2 reworded to the user's Tesla analogy — "Like a Tesla needs no driver, PROXe needs no operator. Your lead engine just runs, day and night." (autonomy / done-for-you theme)
+
 ## 2026-06-28 IST · copy(lead-machine): drop "hot", reframe problem closer positively
 
 - `app/lead-machine/page.tsx`: "You Get Hot Leads" -> "You Get Ready Buyers" (drop the word "hot" per direction); Problem-section closer reframed from "fixes the whole chain. Not one piece of it." to "The AI Lead Machine is that system. It runs the whole chain for you." (says what it IS, leans into "you just need a system" + PROXe/the machine does everything)

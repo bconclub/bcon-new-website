@@ -783,7 +783,7 @@ export default function AILeadMachinePage() {
             </div>
             <div className="alm-why-card">
               <div className="alm-why-icon"><IconChip /></div>
-              <p>Powered by PROXe, our AI lead engine that never sleeps and never forgets.</p>
+              <p>Like a Tesla needs no driver, PROXe needs no operator. Your lead engine just runs, day and night.</p>
             </div>
             <div className="alm-why-card">
               <div className="alm-why-icon"><IconBolt /></div>
