@@ -723,7 +723,7 @@ export default function AILeadMachinePage() {
             <div className="alm-step">
               <div className="alm-step-num">3</div>
               <div className="alm-step-body">
-                <h3>You Get Hot Leads</h3>
+                <h3>You Get Ready Buyers</h3>
                 <p>Our AI Lead Machine answers, qualifies, and nurtures every lead. You only talk to people ready to buy.</p>
               </div>
             </div>
@@ -762,7 +762,7 @@ export default function AILeadMachinePage() {
           </div>
 
           <p className="alm-problem-closer">
-            The AI Lead Machine fixes the whole chain. <span className="alm-accent">Not one piece of it.</span>
+            The AI Lead Machine is that system. <span className="alm-accent">It runs the whole chain for you.</span>
           </p>
         </div>
       </section>

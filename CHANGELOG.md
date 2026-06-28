@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-28 IST · copy(lead-machine): drop "hot", reframe problem closer positively
+
+- `app/lead-machine/page.tsx`: "You Get Hot Leads" -> "You Get Ready Buyers" (drop the word "hot" per direction); Problem-section closer reframed from "fixes the whole chain. Not one piece of it." to "The AI Lead Machine is that system. It runs the whole chain for you." (says what it IS, leans into "you just need a system" + PROXe/the machine does everything)
+- User-facing: tighter, more positive conversion-focused copy
+
 ## 2026-06-25 IST · feat(lead-machine): CTA shine/pulse, remove Proof, fix card 3 mobile
 
 - `app/lead-machine/page.tsx` + `page.css`:
