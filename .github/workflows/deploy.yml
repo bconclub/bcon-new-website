@@ -78,42 +78,6 @@ jobs:
           echo "branch=$(git branch --show-current || echo 'production')" >> $GITHUB_OUTPUT
           echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
-      - name: Create deployment package
-        run: |
-          # Create package with source files (build will happen on VPS)
-          mkdir -p deploy
-          # Copy source directories and config files
-          cp -r app components sections lib public effects types scripts deploy/ || true
-          cp next.config.js tsconfig.json package.json package-lock.json ecosystem.config.js deploy/
-          
-          # Create .env.build file with git information for Next.js build
-          # Properly quote commit message to handle special characters
-          {
-            echo "NEXT_PUBLIC_GIT_COMMIT_HASH=${{ steps.git_info.outputs.commit_hash }}"
-            echo "NEXT_PUBLIC_GIT_COMMIT_MESSAGE=\"${{ steps.git_info.outputs.commit_message }}\""
-            echo "NEXT_PUBLIC_GIT_BRANCH=${{ steps.git_info.outputs.branch }}"
-            echo "NEXT_PUBLIC_VERSION=${{ steps.git_info.outputs.version }}"
-            echo "NEXT_PUBLIC_COMMIT_DATE=${{ steps.git_info.outputs.commit_date }}"
-            echo "NEXT_PUBLIC_RELEASE_DATE=${{ steps.git_info.outputs.commit_date }}"
-          } > deploy/.env.build
-          
-          # Create tarball
-          tar -czf deploy.tar.gz -C deploy .
-          ls -lh deploy.tar.gz
-
-      - name: Copy files to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_DEPLOY_KEY }}
-          source: "deploy.tar.gz"
-          target: "/tmp/"
-          port: 22
-          timeout: 600s
-          command_timeout: 900s
-          debug: true
-
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -129,15 +93,30 @@ jobs:
             
             cd /var/www/bconclub
 
+            DEPLOY_SRC="/tmp/bconclub-deploy-src"
+
+            echo "Cloning production branch on VPS..."
+            rm -rf "$DEPLOY_SRC"
+            git clone --depth 1 --branch production https://github.com/bconclub/bcon-2.git "$DEPLOY_SRC"
+
             # Remove only deployed source/build artifacts so deleted routes do
             # not survive between tarball deployments. Keep .env.local intact.
             echo "Cleaning old deployed files..."
             rm -rf app components sections lib public effects types scripts .next .env.build
-            
-            # Extract deployment package
-            echo "📦 Extracting deployment files..."
-            tar -xzf /tmp/deploy.tar.gz -C /var/www/bconclub/ || { echo "❌ Failed to extract files"; exit 1; }
-            rm /tmp/deploy.tar.gz
+
+            echo "Copying deployment files..."
+            cp -a "$DEPLOY_SRC"/app "$DEPLOY_SRC"/components "$DEPLOY_SRC"/sections "$DEPLOY_SRC"/lib "$DEPLOY_SRC"/public "$DEPLOY_SRC"/effects "$DEPLOY_SRC"/types "$DEPLOY_SRC"/scripts .
+            cp "$DEPLOY_SRC"/next.config.js "$DEPLOY_SRC"/tsconfig.json "$DEPLOY_SRC"/package.json "$DEPLOY_SRC"/package-lock.json "$DEPLOY_SRC"/ecosystem.config.js .
+
+            # Create .env.build file with git information for Next.js build.
+            cat > .env.build <<'EOF'
+            NEXT_PUBLIC_GIT_COMMIT_HASH=${{ steps.git_info.outputs.commit_hash }}
+            NEXT_PUBLIC_GIT_COMMIT_MESSAGE="${{ steps.git_info.outputs.commit_message }}"
+            NEXT_PUBLIC_GIT_BRANCH=${{ steps.git_info.outputs.branch }}
+            NEXT_PUBLIC_VERSION=${{ steps.git_info.outputs.version }}
+            NEXT_PUBLIC_COMMIT_DATE=${{ steps.git_info.outputs.commit_date }}
+            NEXT_PUBLIC_RELEASE_DATE=${{ steps.git_info.outputs.commit_date }}
+            EOF
             
             # Verify .env.local exists (should already be there)
             if [ ! -f .env.local ]; then
