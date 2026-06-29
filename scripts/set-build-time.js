@@ -8,6 +8,26 @@ const path = require('path');
  */
 
 function getGitInfo() {
+  const envVersion = process.env.NEXT_PUBLIC_VERSION;
+  const envCommitHash = process.env.NEXT_PUBLIC_GIT_COMMIT_HASH;
+  const envCommitMessage = process.env.NEXT_PUBLIC_GIT_COMMIT_MESSAGE;
+  const envBranch = process.env.NEXT_PUBLIC_GIT_BRANCH;
+  const envCommitDate = process.env.NEXT_PUBLIC_COMMIT_DATE;
+  const envReleaseDate = process.env.NEXT_PUBLIC_RELEASE_DATE;
+
+  if (envCommitHash || envVersion) {
+    return {
+      version: envVersion
+        ? envVersion.startsWith('v') ? envVersion : `v${envVersion}`
+        : 'v1.00',
+      commitHash: envCommitHash || 'unknown',
+      commitMessage: envCommitMessage || 'No commit message available',
+      commitDate: envCommitDate || new Date().toISOString(),
+      branch: envBranch || 'production',
+      releaseDate: envReleaseDate || envCommitDate || new Date().toISOString(),
+    };
+  }
+
   try {
     // Get last commit that isn't auto-increment or reset
     const commitMessage = execSync(
