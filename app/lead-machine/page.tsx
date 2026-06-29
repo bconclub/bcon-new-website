@@ -348,12 +348,18 @@ export default function AILeadMachinePage() {
     document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToPricing = () => {
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // Hero quick "Get a Call Back" — sends name + phone to PROXe as an
   // AI Lead Machine lead so the AI can start the WhatsApp conversation.
   const handleCallback = (e: React.FormEvent) => {
     e.preventDefault();
     if (!cbName.trim()) { setCbErr('Please enter your name'); return; }
-    if (cbPhone.replace(/\D/g, '').length < 7) { setCbErr('Please enter a valid phone number'); return; }
+    const cbPhoneDigits = cbPhone.replace(/\D/g, '').slice(-10);
+    if (cbPhoneDigits.length !== 10) { setCbErr('Please enter a valid 10 digit phone number'); return; }
+    const callbackPhone = `+91${cbPhoneDigits}`;
     setCbErr('');
 
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -365,14 +371,14 @@ export default function AILeadMachinePage() {
     }
 
     // Reuse the PROXe submission (brand falls back to the lead's name).
-    submitToPROXe({ name: cbName.trim(), businessType: '', phone: cbPhone.trim(), email: '' });
+    submitToPROXe({ name: cbName.trim(), businessType: '', phone: callbackPhone, email: '' });
 
     fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         type: 'lead',
-        data: { name: cbName.trim(), phone: cbPhone.trim(), service: 'AI Lead Machine - Call Back' },
+        data: { name: cbName.trim(), phone: callbackPhone, service: 'AI Lead Machine - Call Back' },
       }),
     }).catch((err) => console.error('Email notification failed:', err));
 
@@ -387,9 +393,8 @@ export default function AILeadMachinePage() {
         <div className="alm-hero-badge">LIMITED · First 100 Businesses Only</div>
 
         <h1 className="alm-hero-headline">
-          <span className="alm-h-1">We'll Build You an <span className="alm-accent">AI Lead Machine</span></span>
-          <span className="alm-h-2">That Gets You Customers.</span>
-          <span className="alm-h-3">You Don't Lift a Finger.</span>
+          <span className="alm-h-1">We will build you a <span className="alm-accent">lead machine</span></span>
+          <span className="alm-h-2">which gets your customers.</span>
         </h1>
 
         <div className="alm-hero-vsl">
@@ -456,14 +461,18 @@ export default function AILeadMachinePage() {
                 className="alm-callback-input"
                 aria-label="Your name"
               />
-              <input
-                type="tel"
-                placeholder="Phone number"
-                value={cbPhone}
-                onChange={(e) => { setCbPhone(e.target.value); if (cbErr) setCbErr(''); }}
-                className="alm-callback-input"
-                aria-label="Phone number"
-              />
+              <label className="alm-callback-phone" aria-label="Phone number">
+                <span className="alm-callback-code">+91</span>
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="Phone number"
+                  value={cbPhone}
+                  onChange={(e) => { setCbPhone(e.target.value.replace(/\D/g, '').slice(0, 10)); if (cbErr) setCbErr(''); }}
+                  className="alm-callback-input alm-callback-phone-input"
+                />
+              </label>
               <button type="submit" className="alm-cta-btn alm-callback-btn">
                 Get a Call Back <ArrowRight className="alm-cta-arrow" />
               </button>
@@ -694,6 +703,9 @@ export default function AILeadMachinePage() {
           <p className="alm-getting-closer alm-center">
             From the first ad they see to the lead in your hand. <span className="alm-accent">The whole chain. Done for you.</span>
           </p>
+          <button className="alm-cta-btn alm-getting-cta" onClick={scrollToPricing}>
+            Get 50% Off <ArrowRight className="alm-cta-arrow" />
+          </button>
         </div>
       </section>
 
@@ -871,7 +883,7 @@ export default function AILeadMachinePage() {
             </div>
 
             <button className="alm-cta-btn alm-cta-btn-large" onClick={scrollToForm}>
-              Claim Your Spot <ArrowRight className="alm-cta-arrow" />
+              Get 50% Off <ArrowRight className="alm-cta-arrow" />
             </button>
 
             <p className="alm-pricing-disclaimer">

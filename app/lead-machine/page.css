@@ -598,7 +598,7 @@
 
 .alm-input {
   background: #000;
-  border: 1px solid #2D2D2D;
+  border: 1px solid rgba(205, 252, 46, 0.22);
   color: #fff;
   font-family: 'Anybody', sans-serif;
   font-size: 15px;
@@ -613,7 +613,7 @@
 }
 
 .alm-input:focus {
-  border-color: #CDFC2E;
+  border-color: rgba(205, 252, 46, 0.55);
 }
 
 .alm-input-error {
@@ -846,7 +846,7 @@
   display: flex;
   gap: 8px;
   background: #0A0A0A;
-  border: 1px solid #2D2D2D;
+  border: 1px solid rgba(205, 252, 46, 0.32);
   border-radius: 12px;
   padding: 7px;
 }
@@ -862,7 +862,24 @@
   outline: none;
 }
 .alm-callback-input::placeholder { color: #6B6B6B; }
-.alm-callback-input:first-of-type { border-right: 1px solid #2D2D2D; }
+.alm-callback-input:first-of-type { border-right: 1px solid rgba(205, 252, 46, 0.24); }
+.alm-callback-phone {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.alm-callback-code {
+  flex-shrink: 0;
+  color: #C9C9C9;
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 0 10px 14px;
+}
+.alm-callback-phone-input {
+  padding-left: 8px;
+}
 .alm-callback-btn {
   position: relative;
   overflow: hidden;
@@ -930,7 +947,8 @@
 
 @media (max-width: 560px) {
   .alm-callback-row { flex-direction: column; gap: 0; padding: 6px; }
-  .alm-callback-input:first-of-type { border-right: none; border-bottom: 1px solid #2D2D2D; }
+  .alm-callback-input:first-of-type { border-right: none; border-bottom: 1px solid rgba(205, 252, 46, 0.24); }
+  .alm-callback-phone { border-bottom: none; }
   .alm-callback-btn { margin-top: 6px; justify-content: center; }
 }
 
@@ -1619,6 +1637,13 @@
   color: #fff;
   line-height: 1.4;
   max-width: 760px;
+  margin: 0 auto 22px;
+}
+
+.alm-getting-cta {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 /* ── SECTION 2 — HOW IT WORKS ──────────────────────────────────── */
