@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-28 IST · fix(lead-machine): fire Meta Pixel Lead on callback submit
+
+- `app/lead-machine/page.tsx`: the hero "Get a Call Back" form shows an inline success (no /thank-you redirect where the Meta Pixel Lead normally fires), so Meta was not recording those conversions. Added `fbq("track", "Lead")` in the callback handler (alongside the existing GTM web_lead + PROXe submit)
+- User-facing: call-back requests now register as Meta Lead conversions
+
 ## 2026-06-28 IST · fix(widget): match desktop WhatsApp button size to PROXe bubble
 
 - `components/ProxeWidget/ProxeWidget.css`: bumped the floating WhatsApp button from 60px to 64px on desktop (icon 32->34) so it matches the PROXe chat bubble (125px iframe, ~64px visible) sitting next to it. Mobile stays 54px (already matched). Reverted an ineffective JS size-match attempt (PROXe iframe is 125px, outside the beacon filter)

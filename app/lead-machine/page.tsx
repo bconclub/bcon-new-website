@@ -370,6 +370,14 @@ export default function AILeadMachinePage() {
       });
     }
 
+    // Meta Pixel Lead conversion — this form shows an inline success (no
+    // /thank-you redirect), so fire the Lead event here or Meta won't record it.
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Lead', {
+        content_name: 'AI Lead Machine Callback',
+      });
+    }
+
     // Reuse the PROXe submission (brand falls back to the lead's name).
     submitToPROXe({ name: cbName.trim(), businessType: '', phone: callbackPhone, email: '' });
 
