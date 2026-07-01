@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-28 IST · fix(widget): match desktop WhatsApp button size to PROXe bubble
+
+- `components/ProxeWidget/ProxeWidget.css`: bumped the floating WhatsApp button from 60px to 64px on desktop (icon 32->34) so it matches the PROXe chat bubble (125px iframe, ~64px visible) sitting next to it. Mobile stays 54px (already matched). Reverted an ineffective JS size-match attempt (PROXe iframe is 125px, outside the beacon filter)
+- User-facing: the two floating icons are the same size on desktop
+
 ## 2026-06-28 IST · copy(lead-machine): Tesla autonomy analogy for PROXe
 
 - `app/lead-machine/page.tsx`: Why-section card 2 reworded to the user's Tesla analogy — "Like a Tesla needs no driver, PROXe needs no operator. Your lead engine just runs, day and night." (autonomy / done-for-you theme)
