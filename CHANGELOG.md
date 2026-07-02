@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-28 IST · fix(widget): desktop WhatsApp too big — match mobile size
+
+- `components/ProxeWidget/ProxeWidget.css`: the previous 64px desktop WhatsApp bump was the wrong direction (too big vs the PROXe bubble). Set the desktop button to 54px / 29px icon — the same size as mobile, which already matches the PROXe chat widget
+- User-facing: the two floating icons are now the same size on desktop
+
 ## 2026-06-28 IST · fix(lead-machine): fire Meta Pixel Lead on callback submit
 
 - `app/lead-machine/page.tsx`: the hero "Get a Call Back" form shows an inline success (no /thank-you redirect where the Meta Pixel Lead normally fires), so Meta was not recording those conversions. Added `fbq("track", "Lead")` in the callback handler (alongside the existing GTM web_lead + PROXe submit)
