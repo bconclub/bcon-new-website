@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   keywords: 'AI marketing, marketing automation, PROXe, Human X AI, business growth',
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/BCON icon.png', type: 'image/png' }
+      { url: '/favicon.ico', sizes: '48x48' },
+      { url: '/bcon-icon.png', type: 'image/png', sizes: '1080x1080' }
     ],
     shortcut: '/favicon.ico',
-    apple: '/BCON icon.png'
+    apple: '/bcon-icon.png'
   },
   openGraph: {
     title: 'BCON | Human X AI Powered Business Solutions',
