@@ -542,6 +542,19 @@ function BusinessAppModal({ app, isOpen, onClose }: BusinessAppModalProps) {
                 </p>
               </div>
             )}
+            {/* Link to product site for PROXe */}
+            {app.product_name === 'PROXe' && (
+              <div className="business-apps-modal-product-link-section">
+                <a 
+                  href="https://goproxe.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="business-apps-modal-product-link"
+                >
+                  Learn more about PROXe →
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

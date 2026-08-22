@@ -445,6 +445,35 @@
   font-weight: 600;
 }
 
+/* Product Link Section */
+.business-apps-product-link-section {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.business-apps-product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Anybody', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #CDFC2E;
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 1.5px solid #CDFC2E;
+  border-radius: 8px;
+  background: rgba(205, 252, 46, 0.05);
+  transition: all 0.3s ease;
+}
+
+.business-apps-product-link:hover {
+  background: rgba(205, 252, 46, 0.15);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(205, 252, 46, 0.2);
+}
+
 /* CTAs */
 .business-apps-cta-section {
   display: flex;

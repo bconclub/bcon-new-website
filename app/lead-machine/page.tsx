@@ -803,7 +803,18 @@ export default function AILeadMachinePage() {
             </div>
             <div className="alm-why-card">
               <div className="alm-why-icon"><IconChip /></div>
-              <p>Like a Tesla needs no driver, PROXe needs no operator. Your lead engine just runs, day and night.</p>
+              <p>
+                Like a Tesla needs no driver,{' '}
+                <a 
+                  href="https://goproxe.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="alm-proxe-link"
+                >
+                  PROXe
+                </a>
+                {' '}needs no operator. Your lead engine just runs, day and night.
+              </p>
             </div>
             <div className="alm-why-card">
               <div className="alm-why-icon"><IconBolt /></div>

@@ -518,6 +518,20 @@ export default function DesktopBusinessApps() {
               </div>
             )}
 
+            {/* Link to product site for PROXe */}
+            {currentApp.product_name === 'PROXe' && (
+              <div className="business-apps-product-link-section">
+                <a 
+                  href="https://goproxe.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="business-apps-product-link"
+                >
+                  Learn more about PROXe →
+                </a>
+              </div>
+            )}
+
           </div>
         </div>
 
