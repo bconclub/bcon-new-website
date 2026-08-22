@@ -168,6 +168,35 @@
   box-shadow: 0 8px 24px rgba(107, 47, 232, 0.45);
 }
 
+.pcfs-product-link {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pcfs-product-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #CDFC2E;
+  text-decoration: none;
+  font-family: 'Anybody', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 10px 20px;
+  border: 1.5px solid #CDFC2E;
+  border-radius: 8px;
+  background: rgba(205, 252, 46, 0.05);
+  transition: all 0.25s ease;
+}
+
+.pcfs-product-link a:hover {
+  background: rgba(205, 252, 46, 0.15);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(205, 252, 46, 0.2);
+}
+
 .pcfs-back {
   margin-top: 28px;
   padding-top: 24px;

@@ -1811,6 +1811,19 @@
   line-height: 1.5;
 }
 
+/* PROXe Link Styling */
+.alm-proxe-link {
+  color: #CDFC2E;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.25s ease;
+}
+
+.alm-proxe-link:hover {
+  border-bottom-color: #CDFC2E;
+}
+
 /* ── SECTION 6 — PROOF ─────────────────────────────────────────── */
 .alm-proof-grid {
   display: grid;

@@ -121,6 +121,11 @@ export default function ProxeCfsPage() {
           <a href="mailto:info@bconclub.com" className="pcfs-cta">
             Contact us
           </a>
+          <div className="pcfs-product-link">
+            <a href="https://goproxe.com" target="_blank" rel="noopener noreferrer">
+              Visit PROXe →
+            </a>
+          </div>
           <div className="pcfs-back">
             <Link href="/" className="pcfs-back-link">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
